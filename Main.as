@@ -2,6 +2,11 @@
 	import flash.display.MovieClip;
 	import flash.events.*;
 	public class Main extends MovieClip {
+		public var DEBUG_MODE:Number = 1; // 0: off, 1: on
+		public var DEBUG_FRAME:String = "game";
+		
+		public var con:Controller;
+		public var p:MovieClip;
 		public var transFrame:String = "load";
 		public var waveHandler:WaveHandler;
 		
@@ -10,7 +15,11 @@
 		*/
 		public function Main() {
 			stop();
-			loaderInfo.addEventListener(ProgressEvent.PROGRESS, gameLoadHandler);
+			if(DEBUG_MODE == 0) {
+				loaderInfo.addEventListener(ProgressEvent.PROGRESS, gameLoadHandler);
+			} else {
+				gotoAndStop(DEBUG_FRAME);
+			}
 		}
 		public function loadFrame():void {
 			trace(currentLabel);
@@ -24,6 +33,10 @@
 				break;
 				case "game":
 					waveHandler.init();
+					con = new Controller(this, "inGame"); // gameMode var
+					p = new Hero();
+					p.loadHero(430, 320, this);
+					characters_mc.addChild(p);
 				break;
 				default:
 					trace("Unknown frame: " + currentLabel);
