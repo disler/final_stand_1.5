@@ -3,6 +3,8 @@
 	import flash.events.*;
 	public class Main extends MovieClip {
 		public var transFrame:String = "load";
+		public var waveHandler:WaveHandler;
+		
 		/*
 			Begins loading process.
 		*/
@@ -11,6 +13,7 @@
 			loaderInfo.addEventListener(ProgressEvent.PROGRESS, gameLoadHandler);
 		}
 		public function loadFrame():void {
+			trace(currentLabel);
 			switch(currentLabel) {
 				case "ads":
 				
@@ -18,6 +21,9 @@
 				case "title":
 					new_btn.addEventListener(MouseEvent.CLICK, newTitleB);
 					load_btn.addEventListener(MouseEvent.CLICK, loadTitleB);
+				break;
+				case "game":
+					waveHandler.init();
 				break;
 				default:
 					trace("Unknown frame: " + currentLabel);
@@ -37,6 +43,7 @@
 			Clicking new game.
 		*/
 		public function newTitleB(e:MouseEvent):void {
+			waveHandler = new WaveHandler(this, 1);
 			trans("game");
 			return;
 		}
@@ -45,6 +52,7 @@
 		*/
 		public function loadTitleB(e:MouseEvent):void {
 			// do: LOAD THE GAME 
+			waveHandler = new WaveHandler(this, 1);
 			trans("game");
 			return;
 		}
