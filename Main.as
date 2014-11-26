@@ -2,13 +2,22 @@
 	import flash.display.MovieClip;
 	import flash.events.*;
 	public class Main extends MovieClip {
+		public var DEBUG_MODE:Number = 1; // 0: off, 1: on
+		public var DEBUG_FRAME:String = "game";
+		
+		public var con:Controller;
+		public var p:MovieClip;
 		public var transFrame:String = "load";
 		/*
 			Begins loading process.
 		*/
 		public function Main() {
 			stop();
-			loaderInfo.addEventListener(ProgressEvent.PROGRESS, gameLoadHandler);
+			if(DEBUG_MODE == 0) {
+				loaderInfo.addEventListener(ProgressEvent.PROGRESS, gameLoadHandler);
+			} else {
+				gotoAndStop(DEBUG_FRAME);
+			}
 		}
 		public function loadFrame():void {
 			switch(currentLabel) {
@@ -18,6 +27,12 @@
 				case "title":
 					new_btn.addEventListener(MouseEvent.CLICK, newTitleB);
 					load_btn.addEventListener(MouseEvent.CLICK, loadTitleB);
+				break;
+				case "game":
+					con = new Controller(this, "inGame"); // gameMode var
+					p = new Hero();
+					p.loadHero(430, 320, this);
+					characters_mc.addChild(p);
 				break;
 				default:
 					trace("Unknown frame: " + currentLabel);
