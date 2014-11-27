@@ -37,7 +37,7 @@
 		public function projectileEFHandler(e:Event) { 
 		// Enemy HitTest Handling
 			for(var i:Number = 0; i < m.waveHandler.getEnemies().length; i++) {
-				if(m.waveHandler.getEnemies()[i] != null && (m.waveHandler.getEnemies()[i]).s.alive) {
+				if(m.waveHandler.getEnemies()[i] != null && (m.waveHandler.getEnemies()[i]).getStats().isAlive()) {
 					if(contactedEnemy == null) {
 						if((m.waveHandler.getEnemies()[i]).hitbox_mc.hitTestObject(this)) {
 							contactEnemy(m.waveHandler.getEnemies()[i]);

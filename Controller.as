@@ -43,7 +43,7 @@
 		*/
 		public function playerShootArrow():void { 
 			var arr:MovieClip = new Projectile();
-			arr.loadProjectile(m.player.x, m.player.y, m, m.player.rotation, 5, m.s.damage);
+			arr.loadProjectile(m.player.x, m.player.y, m, m.player.rotation, 5, m.player.getStats().getDamage());
 			m.arrows_mc.addChild(arr);
 			clearTimeout(shootDelayTimer);
 			return;

@@ -11,20 +11,21 @@
 		
 		public var enemyType:String;
 		public var id:Number;
-		public var s:StatisticEnemy, m:MovieClip;
+		public var stats:StatisticEnemy, m:MovieClip;
 		
 		public var deathAnimatoinDuration:Number = 40, DADT:Number = 0;
-		public function Enemy() {
-			
-		}
+
+		public function Enemy() {}
+		
+		
 		/*
-			Obtains array container index id
+			Handles recieving damage
 		*/
 		public function recieveDamage(_amt:Number):void
 		{
-			s.health -= _amt;
-			if(s.health <= 0 && s.alive) {
-				s.alive = false;
+			stats.health -= _amt;
+			if(stats.getHealth() <= 0 && stats.isAlive()) {
+				stats.alive = false;
 				this.gotoAndStop("die");
 				DADT = 0;
 			}
@@ -38,13 +39,13 @@
 		{
 		// Movement Handling
 			var ttt:Number = 150;
-			if(x < m.player.x - ttt) x += s.movementSpeed;
-			if(x > m.player.x + ttt) x -= s.movementSpeed;
-			if(y < m.player.y - ttt) y += s.movementSpeed;
-			if(y > m.player.y + ttt) y -= s.movementSpeed;
+			if(x < m.player.x - ttt) x += stats.movementSpeed;
+			if(x > m.player.x + ttt) x -= stats.movementSpeed;
+			if(y < m.player.y - ttt) y += stats.movementSpeed;
+			if(y > m.player.y + ttt) y -= stats.movementSpeed;
 			this.rotation = (Math.atan2(m.player.y - this.y, m.player.x - this.x) * (180 / Math.PI)) + 90;
 		// Death Handling
-			if(!s.alive) {
+			if(!stats.alive) {
 				if(++DADT > 25) {
 					this.alpha -= 0.02;
 					if(this.alpha < 0.01) {
@@ -59,14 +60,41 @@
 		*/
 		public function UNLOAD():void
 		{
+			m.player.getStats().gainExp(getStats().getExpGiven());
 			m.waveHandler.killEnemy(this);
 			removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
 			return;
 		}
+		
+		
+		/*
+			Loads information for this enemy class.
+		*/
+		public function LOAD(MAIN:MovieClip, STATS:StatisticEnemy):void
+		{
+			m = MAIN;
+			stats = STATS;
+			this.hitbox_mc.visible = m.HITBOXES_VISIBLE;
+			addEventListener(Event.ENTER_FRAME, enterFrameHandler);
+		}
+
+
+
+
+		/*____________________________________________GETTERS - SETTERS____________________________________________*/
+
+
+
+
+		public function getStats():StatisticEnemy
+		{
+			return stats;
+		}
+
 		/*
 			Obtains array container index id
 		*/
-		public function getId()
+		public function getId():Number
 		{
 			return id;
 		}
@@ -74,18 +102,11 @@
 		/*
 			Set enemy index
 		*/
-		public function setId(n:Number)
+		public function setId(n:Number):void
 		{
 			id = n;
 		}
-		/*
-			Loads information for this enemy class.
-		*/
-		public function LOAD():void
-		{
-			this.hitbox_mc.visible = m.HITBOXES_VISIBLE;
-			addEventListener(Event.ENTER_FRAME, enterFrameHandler);
-		}
+
 
 	}
 	

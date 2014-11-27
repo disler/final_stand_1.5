@@ -28,9 +28,8 @@
 		*/
 		public function startPlayer():void {
 			player = new Hero();
-			player.loadHero(430, 320, this);
+			player.loadHero(430, 320, this, new Statistic());
 			characters_mc.addChild(player);
-			s = new Statistic();
 			return;
 		}
 		public function loadFrame():void {

@@ -80,7 +80,7 @@
 		*/	
 		private function waveComplete():void
 		{
-			Messager.alertMessage("Wave complete!");
+			Messenger.alertMessage("Wave complete!");
 			
 			//add break here
 			waveId += 1;
@@ -121,7 +121,7 @@
 			
 			remainingWaveEnemies = unspawnedEnemies;
 			enemySpawnInterval = setInterval(generateEnemyInterval, enemySpawnTimer);
-			Messager.alertMessage("Begin Wave: " + waveId);
+			Messenger.alertMessage("Begin Wave: " + waveId);
 		}
 		
 		/*
@@ -132,12 +132,9 @@
 			
 			var enemyId:Number = enemyContainer.length;
 			
-			var enemy:Enemy = new Enemy();
+			var enemy:Enemy = enemyFactory(waveId);
 			enemy.x = 10 + Math.random() * 800;
 			enemy.y = 10 + Math.random() * 580;
-			enemy.m = main;
-			enemy.s = new StatisticEnemy();
-			enemy.LOAD();
 			
 			for(var i:Number = 0; i < enemyContainer.length; i++)
 			{
@@ -154,15 +151,50 @@
 			unspawnedEnemies--;
 			if(unspawnedEnemies == 0)
 			{
-				Messager.alertMessage("Final Enemy!");
+				Messenger.alertMessage("Final Enemy!");
 				clearInterval(enemySpawnInterval);
 			}
 		}
+
+		/*
+			Obtains a list of possible enemies given a wave
+		*/
+		private function enemyFactory(_waveId:Number):Enemy
+		{
+			var enemy:Enemy;
+			switch(_waveId)
+			{
+				default:
+					enemy = new Bandit();
+					enemy.LOAD(main, new StatisticEnemy(enemyStatisticfactory(Const.BANDIT)));
+			}
+			return enemy;
+		}
 		
-		
-		
+		/*
+			Obtains enemy statistics based on type
+		*/
+		private function enemyStatisticfactory(enemyType:Number):Object
+		{
+			var stats:Object;
+			switch(enemyType)
+			{
+				case Const.BANDIT:
+					stats = {
+						HEALTH : 3,
+						DAMAGE: 1,
+						ATTACK_SPEED : 30,
+						MOVEMENT_SPEED : 2, 
+						EXP_GIVEN : 20
+					}
+				break;
+			}
+			return stats;
+		}
 		
 		/*____________________________________________	EVENT METHODS____________________________________________*/
+
+
 		
 		
 		
