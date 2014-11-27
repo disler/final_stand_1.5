@@ -24,7 +24,7 @@
 		public function recieveDamage(_amt:Number):void
 		{
 			stats.health -= _amt;
-			healthBar.setHealth(s.health);
+			healthBar.setHealth(getStats().getHealth());
 			if(stats.getHealth() <= 0 && stats.isAlive()) {
 				stats.alive = false;
 				this.gotoAndStop("die");

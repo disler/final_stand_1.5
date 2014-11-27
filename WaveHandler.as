@@ -166,7 +166,7 @@
 			{
 				default:
 					enemy = new Bandit();
-					enemy.LOAD(main, new StatisticEnemy(enemyStatisticfactory(Const.BANDIT)));
+					enemy.LOAD(main, new StatisticEnemy(enemyStatisticFactory(Const.BANDIT)));
 			}
 			return enemy;
 		}
@@ -174,7 +174,7 @@
 		/*
 			Obtains enemy statistics based on type
 		*/
-		private function enemyStatisticfactory(enemyType:Number):Object
+		private function enemyStatisticFactory(enemyType:Number):Object
 		{
 			var stats:Object;
 			switch(enemyType)

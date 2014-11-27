@@ -1,5 +1,9 @@
 ﻿package  {
 	import flash.display.MovieClip;
+	
+	/*
+		Contains statistics for all enemies
+	*/
 	public class StatisticEnemy  {
 		public var health:Number, healthMax;
 		public var damage:Number;
@@ -8,7 +12,6 @@
 		public var expGiven:Number;
 		public var alive:Boolean = true;
 		public function StatisticEnemy(stats:Object) { 
-
 			health = healthMax = Number(stats.HEALTH);
 			damage = Number(stats.DAMAGE);
 			attackSpeed = Number(stats.ATTACK_SPEED);
