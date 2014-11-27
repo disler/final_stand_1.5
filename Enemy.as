@@ -11,7 +11,7 @@
 		
 		public var enemyType:String;
 		public var id:Number;
-		public var s:StatisticEnemy, m:MovieClip;
+		public var s:StatisticEnemy, m:MovieClip, healthBar:MovieClip;
 		
 		public var deathAnimatoinDuration:Number = 40, DADT:Number = 0;
 		public function Enemy() {
@@ -23,6 +23,7 @@
 		public function recieveDamage(_amt:Number):void
 		{
 			s.health -= _amt;
+			healthBar.setHealth(s.health);
 			if(s.health <= 0 && s.alive) {
 				s.alive = false;
 				this.gotoAndStop("die");
@@ -36,6 +37,9 @@
 		*/
 		public function enterFrameHandler(e:Event):void
 		{
+		// [My] Health bar Handling
+			healthBar.x = x;
+			healthBar.y = y - 35;
 		// Movement Handling
 			var ttt:Number = 150;
 			if(x < m.player.x - ttt) x += s.movementSpeed;
@@ -47,6 +51,7 @@
 			if(!s.alive) {
 				if(++DADT > 25) {
 					this.alpha -= 0.02;
+					healthBar.alpha -= 0.02;
 					if(this.alpha < 0.01) {
 						UNLOAD();
 					}
@@ -59,6 +64,7 @@
 		*/
 		public function UNLOAD():void
 		{
+			m.healths_mc.removeChild(healthBar);
 			m.waveHandler.killEnemy(this);
 			removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
 			return;
@@ -83,6 +89,9 @@
 		*/
 		public function LOAD():void
 		{
+			healthBar = new HealthBar(); 
+			healthBar.loadBar(s.health, s.health); // SET CLASS TYPE VARIABLES HERE
+			m.healths_mc.addChild(healthBar);
 			this.hitbox_mc.visible = m.HITBOXES_VISIBLE;
 			addEventListener(Event.ENTER_FRAME, enterFrameHandler);
 		}

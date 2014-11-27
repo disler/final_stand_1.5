@@ -80,7 +80,7 @@
 		*/	
 		private function waveComplete():void
 		{
-			Messager.alertMessage("Wave complete!");
+			Messenger.alertMessage("Wave complete!");
 			
 			//add break here
 			waveId += 1;
@@ -121,7 +121,7 @@
 			
 			remainingWaveEnemies = unspawnedEnemies;
 			enemySpawnInterval = setInterval(generateEnemyInterval, enemySpawnTimer);
-			Messager.alertMessage("Begin Wave: " + waveId);
+			Messenger.alertMessage("Begin Wave: " + waveId);
 		}
 		
 		/*
@@ -136,7 +136,7 @@
 			enemy.x = 10 + Math.random() * 800;
 			enemy.y = 10 + Math.random() * 580;
 			enemy.m = main;
-			enemy.s = new StatisticEnemy();
+			enemy.s = new StatisticEnemy(Main.random(29) + 1);
 			enemy.LOAD();
 			
 			for(var i:Number = 0; i < enemyContainer.length; i++)
@@ -154,7 +154,7 @@
 			unspawnedEnemies--;
 			if(unspawnedEnemies == 0)
 			{
-				Messager.alertMessage("Final Enemy!");
+				Messenger.alertMessage("Final Enemy!");
 				clearInterval(enemySpawnInterval);
 			}
 		}
