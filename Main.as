@@ -2,7 +2,7 @@
 	import flash.display.MovieClip;
 	import flash.events.*;
 	public class Main extends MovieClip {
-		public var DEBUG_MODE:Number = 1; // 0: off, 1: on
+		public var DEBUG_MODE:Number = 0; // 0: off, 1: on
 		public var DEBUG_FRAME:String = "game";
 		
 		public var con:Controller;
