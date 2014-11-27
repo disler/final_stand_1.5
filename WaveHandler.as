@@ -79,16 +79,19 @@
 		*/
 		public function generateEnemy():void
 		{
-			trace("spawning enemy");
+			//trace("spawning enemy");
 			
 			var enemyId:Number = enemyContainer.length;
 			
 			var enemy:Enemy = new Enemy();
 			enemy.y = 0 + Math.random() * 860;
 			enemy.x = 0 + Math.random() * 640;
+			enemy.m = main;
+			enemy.s = new StatisticEnemy();
+			enemy.LOAD();
 			
 			//temp click to kill
-			enemy.addEventListener(MouseEvent.CLICK, killEnemy);
+			//enemy.addEventListener(MouseEvent.CLICK, killEnemy);
 			
 			for(var i:Number = 0; i < enemyContainer.length; i++)
 			{
@@ -96,6 +99,7 @@
 				{
 					enemyContainer[i] = enemy;
 					enemy.setId(i);
+					break;
 				}
 			}
 			
@@ -113,11 +117,11 @@
 		/*
 			TEST FUNCTION TO KILL
 		*/	
-		private function killEnemy(e:MouseEvent):void
+		public function killEnemy(mc:Enemy):void
 		{
-			var mc = (e.target as DisplayObject);
-			main.removeChild(mc);
 			enemyContainer[mc.getId()] = null;
+			main.removeChild(mc);
+			return;
 		}
 		
 		

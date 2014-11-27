@@ -4,9 +4,10 @@
 	public class Main extends MovieClip {
 		public var DEBUG_MODE:Number = 0; // 0: off, 1: on
 		public var DEBUG_FRAME:String = "game";
+		public var HITBOXES_VISIBLE:Boolean = false;
 		
 		public var con:Controller;
-		public var p:MovieClip;
+		public var player:MovieClip, s:Statistic;
 		public var transFrame:String = "load";
 		public var waveHandler:WaveHandler;
 		
@@ -21,6 +22,17 @@
 				gotoAndStop(DEBUG_FRAME);
 			}
 		}
+		/*
+			Initiates (player) statistics and sets him on the stage properly with 
+			NEW stats.
+		*/
+		public function startPlayer():void {
+			player = new Hero();
+			player.loadHero(430, 320, this);
+			characters_mc.addChild(player);
+			s = new Statistic();
+			return;
+		}
 		public function loadFrame():void {
 			trace(currentLabel);
 			switch(currentLabel) {
@@ -34,9 +46,7 @@
 				case "game":
 					waveHandler.init();
 					con = new Controller(this, "inGame"); // gameMode var
-					p = new Hero();
-					p.loadHero(430, 320, this);
-					characters_mc.addChild(p);
+					startPlayer();
 				break;
 				default:
 					trace("Unknown frame: " + currentLabel);
@@ -78,6 +88,12 @@
 				play();
 			}
 			return;
+		}
+		/*
+			Returns number from 0 to num_max (not including num_max).
+		*/
+		public static function random(num_max:Number):Number {
+			return Math.floor(Math.random() * num_max);
 		}
 	}
 	

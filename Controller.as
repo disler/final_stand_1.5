@@ -34,7 +34,7 @@
 			Mouse is pressed anywhere
 		*/
 		public function stageClickHandler(e:MouseEvent):void {
-			m.p.gotoAndStop("shoot");
+			m.player.gotoAndStop("shoot");
 			shootDelayTimer = setTimeout(playerShootArrow, Const.SHOOT_DELAY);
 			return;
 		}
@@ -43,8 +43,9 @@
 		*/
 		public function playerShootArrow():void { 
 			var arr:MovieClip = new Projectile();
-			arr.loadProjectile(m.p.x, m.p.y, m, m.p.rotation, 5);
+			arr.loadProjectile(m.player.x, m.player.y, m, m.player.rotation, 5, m.s.damage);
 			m.arrows_mc.addChild(arr);
+			clearTimeout(shootDelayTimer);
 			return;
 		}
 		/*
@@ -64,7 +65,7 @@
 		*/
 		public function playerHandler():void {
 			// Handling Rotation - SOH CAH TOA
-			m.p.rotation = (Math.atan2(m.mouseY - m.p.y, m.mouseX - m.p.x) * (180 / Math.PI)) + 90;
+			m.player.rotation = (Math.atan2(m.mouseY - m.player.y, m.mouseX - m.player.x) * (180 / Math.PI)) + 90;
 			return;
 		}
 		/*
