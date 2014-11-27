@@ -64,7 +64,7 @@
 			Controls the player on every frame.
 		*/
 		public function playerHandler():void {
-			// Handling Rotation - SOH CAH TOA
+		// Handling Rotation - SOH CAH TOA
 			m.player.rotation = (Math.atan2(m.mouseY - m.player.y, m.mouseX - m.player.x) * (180 / Math.PI)) + 90;
 			return;
 		}

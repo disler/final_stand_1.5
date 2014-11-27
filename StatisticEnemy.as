@@ -34,6 +34,10 @@
 			return health;
 		}
 
+		public function getHealthMax():Number
+		{
+			return healthMax;
+		}
 
 		public function getDamage():Number
 		{

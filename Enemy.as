@@ -11,7 +11,7 @@
 		
 		public var enemyType:String;
 		public var id:Number;
-		public var stats:StatisticEnemy, m:MovieClip;
+		public var stats:StatisticEnemy, m:MovieClip, healthBar:MovieClip;
 		
 		public var deathAnimatoinDuration:Number = 40, DADT:Number = 0;
 
@@ -24,6 +24,7 @@
 		public function recieveDamage(_amt:Number):void
 		{
 			stats.health -= _amt;
+			healthBar.setHealth(s.health);
 			if(stats.getHealth() <= 0 && stats.isAlive()) {
 				stats.alive = false;
 				this.gotoAndStop("die");
@@ -37,6 +38,9 @@
 		*/
 		public function enterFrameHandler(e:Event):void
 		{
+		// [My] Health bar Handling
+			healthBar.x = x;
+			healthBar.y = y - 35;
 		// Movement Handling
 			var ttt:Number = 150;
 			if(x < m.player.x - ttt) x += stats.movementSpeed;
@@ -48,6 +52,7 @@
 			if(!stats.alive) {
 				if(++DADT > 25) {
 					this.alpha -= 0.02;
+					healthBar.alpha -= 0.02;
 					if(this.alpha < 0.01) {
 						UNLOAD();
 					}
@@ -61,23 +66,14 @@
 		public function UNLOAD():void
 		{
 			m.player.getStats().gainExp(getStats().getExpGiven());
+			m.healths_mc.removeChild(healthBar);
 			m.waveHandler.killEnemy(this);
 			removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
 			return;
 		}
 		
 		
-		/*
-			Loads information for this enemy class.
-		*/
-		public function LOAD(MAIN:MovieClip, STATS:StatisticEnemy):void
-		{
-			m = MAIN;
-			stats = STATS;
-			this.hitbox_mc.visible = m.HITBOXES_VISIBLE;
-			addEventListener(Event.ENTER_FRAME, enterFrameHandler);
-		}
-
+	
 
 
 
@@ -105,6 +101,23 @@
 		public function setId(n:Number):void
 		{
 			id = n;
+		}
+
+
+		/*
+			Loads information for this enemy class.
+		*/
+		public function LOAD(MAIN:MovieClip, STATS:StatisticEnemy):void
+		{
+			m = MAIN;
+			stats = STATS;
+
+			healthBar = new HealthBar(); 
+			healthBar.loadBar(stats.getHealthMax(), stats.getHealth()); // SET CLASS TYPE VARIABLES HERE
+			m.healths_mc.addChild(healthBar);
+
+			this.hitbox_mc.visible = m.HITBOXES_VISIBLE;
+			addEventListener(Event.ENTER_FRAME, enterFrameHandler);
 		}
 
 
