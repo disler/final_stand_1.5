@@ -39,9 +39,9 @@
 			set wave
 		*/
 		public function WaveHandler(m:MovieClip, setWave:Number) {
+			
 			waveId = setWave;
 			main = m;
-			
 			
 			for(var i:Number = 0; i < 100; i++)
 			{
@@ -57,7 +57,20 @@
 			generateWave(waveId);
 		}
 		
-		
+		/*
+			When an enemy is killed
+		*/
+		public function killEnemy(enemy:Enemy):void
+		{
+			remainingWaveEnemies--;
+			main.removeChild(enemy);
+			enemyContainer[enemy.getId()] = null;
+			
+			if(noRemainingEnemies())
+			{
+				waveComplete();
+			}
+		}
 		
 		
 		
@@ -65,30 +78,67 @@
 		/*____________________________________________PRIVATE FUNCTIONS____________________________________________*/
 		
 		/*
+			Iterate to the next break/wave
+		*/	
+		private function waveComplete():void
+		{
+			Messager.alertMessage("Wave complete!");
+			
+			//add break here
+			waveId += 1;
+			
+			generateWave(waveId);
+			
+			
+		}
+		
+		/*
+			Checks 'enemyContainer' to see if there are any remaining enemies
+		*/
+		private function noRemainingEnemies():Boolean
+		{
+			if(remainingWaveEnemies == 0)
+			{
+				for(var i:Number = 0; i < enemyContainer.length; i++)
+				{
+					if(enemyContainer[i] != null)
+					{
+						return false;
+					}
+				}
+				return true;
+			}
+			return false;
+		}
+		
+		/*
 			Determines how many enemies to create and when, based on the wave
 		*/
 		private function generateWave(whichWave:Number):void
 		{
-			unspawnedEnemies = (whichWave * 5) + 5;
-			enemySpawnTimer = 500 + (Math.random() * (100 * 20 - whichWave));
-			enemySpawnInterval = setInterval(generateEnemy, enemySpawnTimer);
+			//generators
+			unspawnedEnemies = Math.round(Math.pow(whichWave, 1.5)) + 5;
+			enemySpawnTimer = 2000 - Math.round((Math.random() * 500)) - ((20 * whichWave));
+			
+			
+			remainingWaveEnemies = unspawnedEnemies;
+			enemySpawnInterval = setInterval(generateEnemyInterval, enemySpawnTimer);
+			Messager.alertMessage("Begin Wave: " + waveId);
 		}
 		
 		/*
 			Creates an enemy after 'enemySpawnTimer' delay
 		*/
-		public function generateEnemy():void
+		private function generateEnemyInterval():void
 		{
-			trace("spawning enemy");
-			
 			var enemyId:Number = enemyContainer.length;
 			
 			var enemy:Enemy = new Enemy();
-			enemy.y = 0 + Math.random() * 860;
-			enemy.x = 0 + Math.random() * 640;
+			enemy.x = 10 + Math.random() * 800;
+			enemy.y = 10 + Math.random() * 580;
 			
 			//temp click to kill
-			enemy.addEventListener(MouseEvent.CLICK, killEnemy);
+			enemy.addEventListener(MouseEvent.CLICK, killEnemyEvent);
 			
 			for(var i:Number = 0; i < enemyContainer.length; i++)
 			{
@@ -96,6 +146,7 @@
 				{
 					enemyContainer[i] = enemy;
 					enemy.setId(i);
+					break;
 				}
 			}
 			
@@ -104,22 +155,32 @@
 			unspawnedEnemies--;
 			if(unspawnedEnemies == 0)
 			{
-				trace("done");
+				Messager.alertMessage("Final Enemy!");
 				clearInterval(enemySpawnInterval);
 			}
 		}
 		
-		
 		/*
-			TEST FUNCTION TO KILL
-		*/	
-		private function killEnemy(e:MouseEvent):void
+			Returns a list of possible enemies based on the wave
+		*/
+		private function enemyFactory(wave:Number):Array
 		{
-			var mc = (e.target as DisplayObject);
-			main.removeChild(mc);
-			enemyContainer[mc.getId()] = null;
+			return [];
 		}
 		
+		
+		
+		
+		/*____________________________________________	EVENT METHODS____________________________________________*/
+		/*
+			When a mouse click kills an enemy
+			testing method
+		*/
+		private function killEnemyEvent(e:MouseEvent):void
+		{
+			var mc = (e.target as Enemy);
+			killEnemy(mc);
+		}
 		
 		
 		/*____________________________________________GETTERS - SETTERS____________________________________________*/
