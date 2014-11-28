@@ -4,7 +4,7 @@
 		Passed as a dynamic variable.
 	*/
 	public class Statistic  {
-		public var health:Number;
+		public var castleHealth:Number;
 		public var damage:Number;
 		public var attackSpeed:Number;
 		public var exp:Number = 0;
@@ -16,8 +16,8 @@
 		/*
 			Statistic initializer for new hero
 		*/
-		public function Statistic(HEALTH:Number = 60, DAMAGE:Number = 1, ATTACK_SPEED:Number = 30, EXP:Number = 0, MAXEXP:Number = 100, LEVEL:Number = 1) { 
-			health = HEALTH;
+		public function Statistic(CASTLEHEALTH:Number = 60, DAMAGE:Number = 1, ATTACK_SPEED:Number = 30, EXP:Number = 0, MAXEXP:Number = 100, LEVEL:Number = 1) { 
+			castleHealth = CASTLEHEALTH;
 			damage = DAMAGE;
 			attackSpeed = ATTACK_SPEED;
 			exp = EXP;
@@ -48,12 +48,32 @@
 			}
 		}
 		
+		/*
+			Generates the next required amount of exp
+		*/
 		public function getNextMaxExp(oldMaxExp:Number):Number
 		{
 			return Math.round(oldMaxExp * 1.2); 
 		}
 
+		/*
+			Hero tower has taken damage
+		*/
+		public function takeDamage(amount:Number):void
+		{
+			castleHealth -= amount;
+			if (castleHealth <= 0) {
+				gameOver();
+			}
+		}	
 
+		/*
+			WHen hp reaches 0
+		*/
+		public function gameOver()
+		{
+
+		}
 
 		/*____________________________________________GETTERS - SETTERS____________________________________________*/
 		
@@ -61,6 +81,8 @@
 		{
 			return damage;
 		}
+
+
 	}
 	
 }

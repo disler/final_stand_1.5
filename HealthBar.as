@@ -1,27 +1,36 @@
 ﻿package  {
 	
 	import flash.display.MovieClip;
+	
+	/*
+		Represents and handles health bar
+	*/
 	public class HealthBar extends MovieClip {
+		
 		public var health:Number, healthMax:Number;
-		public function HealthBar() {
-			
-		}
+		public function HealthBar() {}
+		
+		/*
+			Initialize hp bar
+		*/
 		public function loadBar(_healthMax:Number = 3, _health:Number = 3):void {
 			this.bar0_mc.visible = this.bar1_mc.visible = this.bar2_mc.visible = this.bar3_mc.visible = this.bar4_mc.visible = this.bar5_mc.visible = false;
 			setHealthMax(healthMax = _healthMax);
 			setHealth(health = _health);
 			return;
 		}
+		
 		/*
 			SETS HEALTH, AND DISPLAYS health's current value and the right bar type.
 		*/
 		public function setHealth(HEALTH:Number):void {
 			health = HEALTH;
+			hp_txt.text = String(health);
 			this.bar0_mc.visible = this.bar1_mc.visible = this.bar2_mc.visible = this.bar3_mc.visible = this.bar4_mc.visible = this.bar5_mc.visible = false;
 			if(HEALTH > 0) {
 				this.bar0_mc.visible = true;
 				if(healthMax > 0 && healthMax < 6 || health < 6)
-				this.bar0_mc.scaleX = (health / 5);
+				this.bar0_mc.scaleX = (health / healthMax);
 				else
 				this.bar0_mc.scaleX = 1;
 				if(HEALTH > 5) {
@@ -59,6 +68,7 @@
 			}
 			return;
 		}
+		
 		/*
 			DISPLAY health max. Sets the top frame bar divisors
 		*/
@@ -68,10 +78,7 @@
 			} else if(MAX > 5) this.topFrame_mc.gotoAndStop(5);
 			return;
 		}
-		public function setHealthMax2(MAX:Number):void {
-			this.topFrame_mc.gotoAndStop(MAX);
-			return;
-		}
+		
 	}
 	
 }

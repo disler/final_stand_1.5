@@ -4,6 +4,7 @@
 	import flash.utils.clearTimeout;
 	import flash.utils.setTimeout;
 	import flash.utils.setInterval;
+
 	/*
 		Base class for all enemies
 	*/
@@ -13,10 +14,17 @@
 		public var id:Number;
 		public var stats:StatisticEnemy, m:MovieClip, healthBar:MovieClip;
 		
-		public var deathAnimatoinDuration:Number = 40, DADT:Number = 0;
+		public var deathAnimatoinDuration:Number = 40
+		public var deathAnimationDurationTimer:Number = 0;
+		
+		public var currentAction:Number;
+		var endMovementX:Boolean = false;
+		var endMovementY:Boolean = false;
+
+		protected var combatInterval:uint;
+		protected var damageDelay:uint;
 
 		public function Enemy() {}
-		
 		
 		/*
 			Handles recieving damage
@@ -27,37 +35,11 @@
 			healthBar.setHealth(getStats().getHealth());
 			if(stats.getHealth() <= 0 && stats.isAlive()) {
 				stats.alive = false;
+				getStats().setMovementSpeed(0);
 				this.gotoAndStop("die");
-				DADT = 0;
+				deathAnimationDurationTimer = 0;
 			}
 			this.blood_mc.gotoAndPlay("blood" + Main.random(4));
-			return;
-		}
-		/*
-			Handles fading as the enemy death animation is playing and has stopped.
-		*/
-		public function enterFrameHandler(e:Event):void
-		{
-		// [My] Health bar Handling
-			healthBar.x = x;
-			healthBar.y = y - 35;
-		// Movement Handling
-			var ttt:Number = 150;
-			if(x < m.player.x - ttt) x += stats.movementSpeed;
-			if(x > m.player.x + ttt) x -= stats.movementSpeed;
-			if(y < m.player.y - ttt) y += stats.movementSpeed;
-			if(y > m.player.y + ttt) y -= stats.movementSpeed;
-			this.rotation = (Math.atan2(m.player.y - this.y, m.player.x - this.x) * (180 / Math.PI)) + 90;
-		// Death Handling
-			if(!stats.alive) {
-				if(++DADT > 25) {
-					this.alpha -= 0.02;
-					healthBar.alpha -= 0.02;
-					if(this.alpha < 0.01) {
-						UNLOAD();
-					}
-				}
-			}
 			return;
 		}
 		/*
@@ -68,12 +50,91 @@
 			m.player.getStats().gainExp(getStats().getExpGiven());
 			m.healths_mc.removeChild(healthBar);
 			m.waveHandler.killEnemy(this);
-			removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
+			clearEvents();
 			return;
+		}
+
+
+		/*
+			When the 'LOAD' function is called by children, this is shared behavior
+		*/
+		protected function defaultLoad(MAIN:MovieClip, STATS:StatisticEnemy)
+		{
+			m = MAIN;
+			stats = STATS;
+			healthBar = new HealthBar(); 
+			healthBar.loadBar(stats.getHealthMax(), stats.getHealth()); // SET CLASS TYPE VARIABLES HERE
+			m.healths_mc.addChild(healthBar);
+			this.hitbox_mc.visible = m.HITBOXES_VISIBLE;
+		}
+
+
+		/*____________________________________________ EVENTS ____________________________________________*/
+
+
+
+		
+		/*____________________________________________ TO OVERRIDE ____________________________________________*/
+		
+		/*
+			Called after 'attackSpeed', deal damage to hero
+		*/
+		protected function combat():void
+		{
+			trace("Attack");
+
+			/*
+				this.gotoAndPlay("attack");
+				damageDelay = setTimeout(function()
+				{
+					main.player.getStats().takeDamage(getStats().getDamage());
+				}, FRAME_DELAY)
+
+			*/
+		}
+
+		/*
+			Set hp bar position
+		*/
+		protected function setHpBarPositioning():void
+		{
+			healthBar.x = x;
+			healthBar.y = y - 35;
 		}
 		
 		
-	
+		/*
+			Handles player movement every frame
+		*/
+		public function handleMovement() {}
+
+		/*
+			Handles enemy rotation
+		*/
+		protected function handleRotation() {
+			this.rotation = (Math.atan2(m.player.y - this.y, m.player.x - this.x) * (180 / Math.PI)) + 90;
+		}
+		
+		/*
+			Handle death
+		*/
+		protected function handleDeath() {
+			if(!stats.alive) {
+				if(++deathAnimationDurationTimer > 25) {
+					this.alpha -= 0.02;
+					healthBar.alpha -= 0.02;
+					if(this.alpha < 0.01) {
+						UNLOAD();
+					}
+				}
+			}
+		}
+
+		/*
+			Loads information for this enemy class.
+		*/
+		public function LOAD(MAIN:MovieClip, STATS:StatisticEnemy):void{}
+
 
 
 
@@ -104,20 +165,23 @@
 		}
 
 
-		/*
-			Loads information for this enemy class.
-		*/
-		public function LOAD(MAIN:MovieClip, STATS:StatisticEnemy):void
+		
+		/* EVENT HANDLER HANDLER */
+		private var arrListeners:Array = [];
+		override public function addEventListener(type:String, listener:Function, useCapture:Boolean=false, priority:int=0, useWeakReference:Boolean=false):void
 		{
-			m = MAIN;
-			stats = STATS;
+			super.addEventListener(type, listener, useCapture, priority, useWeakReference);
+			arrListeners.push({type:type, listener:listener});
+		}
 
-			healthBar = new HealthBar(); 
-			healthBar.loadBar(stats.getHealthMax(), stats.getHealth()); // SET CLASS TYPE VARIABLES HERE
-			m.healths_mc.addChild(healthBar);
-
-			this.hitbox_mc.visible = m.HITBOXES_VISIBLE;
-			addEventListener(Event.ENTER_FRAME, enterFrameHandler);
+		private function clearEvents():void
+		{
+		   for(var i:Number = 0; i<arrListeners.length; i++){
+		      if(this.hasEventListener(arrListeners[i].type)){
+		         this.removeEventListener(arrListeners[i].type, arrListeners[i].listener);
+		      }
+		   }
+		   arrListeners = null
 		}
 
 

@@ -9,13 +9,17 @@
 		public var damage:Number;
 		public var attackSpeed:Number;
 		public var movementSpeed:Number;
+		//oncase his speed was set to 0
+		public var baseMovementSpeed:Number;
 		public var expGiven:Number;
 		public var alive:Boolean = true;
+		
 		public function StatisticEnemy(stats:Object) { 
 			health = healthMax = Number(stats.HEALTH);
 			damage = Number(stats.DAMAGE);
 			attackSpeed = Number(stats.ATTACK_SPEED);
 			movementSpeed = Number(stats.MOVEMENT_SPEED);
+			baseMovementSpeed = Number(stats.MOVEMENT_SPEED);
 			expGiven = Number(stats.EXP_GIVEN);
 		}
 

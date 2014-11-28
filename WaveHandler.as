@@ -133,8 +133,9 @@
 			var enemyId:Number = enemyContainer.length;
 			
 			var enemy:Enemy = enemyFactory(waveId);
-			enemy.x = 10 + Math.random() * 800;
-			enemy.y = 10 + Math.random() * 580;
+			var coords = getValidXYSpawn();
+			enemy.x = coords.x;
+			enemy.y = coords.y;
 			
 			for(var i:Number = 0; i < enemyContainer.length; i++)
 			{
@@ -183,13 +184,41 @@
 					stats = {
 						HEALTH : 3,
 						DAMAGE: 1,
-						ATTACK_SPEED : 30,
-						MOVEMENT_SPEED : 2, 
+						ATTACK_SPEED : 2000,
+						MOVEMENT_SPEED : 1, 
 						EXP_GIVEN : 20
 					}
 				break;
 			}
 			return stats;
+		}
+		
+		/*
+			Returns a valid enemy spawning x coord
+		*/
+		private function getValidXYSpawn():Object
+		{
+			var coords:Object = {x : 0 , y : 0};
+			switch(Main.random(4))
+			{
+				case 0://spawn from top
+					coords.x = Main.random(Const.STAGE_WIDTH);
+					coords.y = -Const.OFF_SCREEN_OFF_SET;
+				break;
+				case 1://spawn from right
+					coords.x = Const.STAGE_WIDTH + Const.OFF_SCREEN_OFF_SET;
+					coords.y = Main.random(Const.STAGE_HEIGHT);
+				break;
+				case 2://spawn from bottom
+					coords.x = Main.random(Const.STAGE_WIDTH);
+					coords.y = Const.STAGE_HEIGHT + Const.OFF_SCREEN_OFF_SET;
+				break;
+				case 3://spawn from left
+					coords.x = -Const.OFF_SCREEN_OFF_SET;
+					coords.y = Main.random(Const.STAGE_HEIGHT);
+				break;
+			}
+			return coords;
 		}
 		
 		/*____________________________________________	EVENT METHODS____________________________________________*/

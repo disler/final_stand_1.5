@@ -35,7 +35,9 @@
 			Handles hittesting and movement.
 		*/
 		public function projectileEFHandler(e:Event) { 
-		// Enemy HitTest Handling
+
+
+			// Enemy HitTest Handling
 			for(var i:Number = 0; i < m.waveHandler.getEnemies().length; i++) {
 				if(m.waveHandler.getEnemies()[i] != null && (m.waveHandler.getEnemies()[i]).getStats().isAlive()) {
 					if(contactedEnemy == null) {
@@ -45,11 +47,12 @@
 					}
 				}
 			}
-		// Rotation Handling
+
+			//TODO: Add radius to arrows and add drop
+
+
+			// Rotation Handling
 			var ychange:Number, xchange:Number;
-			// precondition: array of enemies exists to shuffle through
-			// do: look for enemies to hittest.
-			//y--;
 			ychange = ( Math.cos ( (Math.PI/180) * rotation ) ) * speed; // learn: This is cool!
 			xchange = ( Math.sin ( (Math.PI/180) * rotation ) ) * speed; // learn: This is cool!
 			y = y - ychange;
