@@ -2,9 +2,11 @@
 	import flash.display.MovieClip;
 	import flash.events.*;
 	public class Main extends MovieClip {
-		public var DEBUG_MODE:Number = 0; // 0: off, 1: on
+		public var DEBUG_MODE:Number = 1; // 0: off, 1: on
 		public var DEBUG_FRAME:String = "game";
 		public var HITBOXES_VISIBLE:Boolean = false;
+		public var TITLE_AUTOPLAY:Boolean = false;
+		public var SKIP_ADS:Boolean = false;
 		
 		public var con:Controller;
 		public var player:MovieClip, s:Statistic;
@@ -15,12 +17,14 @@
 			Begins loading process.
 		*/
 		public function Main() {
-			stop();
+			stop(); 
 			if(DEBUG_MODE == 0) {
 				loaderInfo.addEventListener(ProgressEvent.PROGRESS, gameLoadHandler);
 			} else {
-				gotoAndStop(DEBUG_FRAME);
+				play();
+				SKIP_ADS = true;
 			}
+			Messenger.m = this;
 		}
 		/*
 			Initiates (player) statistics and sets him on the stage properly with 
@@ -33,7 +37,6 @@
 			return;
 		}
 		public function loadFrame():void {
-			trace(currentLabel);
 			switch(currentLabel) {
 				case "ads":
 				
@@ -84,7 +87,12 @@
 		public function gameLoadHandler(e:ProgressEvent):void {
 			load_mc.bar_mc.scaleX = e.bytesLoaded / e.bytesTotal;
 			if(load_mc.bar_mc.scaleX == 1.00) {
-				play();
+				if(TITLE_AUTOPLAY) {
+					play();
+					load_mc.gotoAndStop(3);
+				}
+				else
+				load_mc.gotoAndStop(2);
 			}
 			return;
 		}
