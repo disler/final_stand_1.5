@@ -9,9 +9,10 @@
 		public var SKIP_ADS:Boolean = false;
 		
 		public var con:Controller;
-		public var player:MovieClip, s:Statistic;
+		public var player:MovieClip;
 		public var transFrame:String = "load";
 		public var waveHandler:WaveHandler;
+		public var utility:Utility;
 		
 		/*
 			Begins loading process.
@@ -46,6 +47,7 @@
 					load_btn.addEventListener(MouseEvent.CLICK, loadTitleB);
 				break;
 				case "game":
+					utility = new Utility(this);
 					waveHandler.init();
 					con = new Controller(this, "inGame"); // gameMode var
 					startPlayer();

@@ -20,7 +20,7 @@
 		public static function alertMessage(s:String):void {
 			var _ms:MovieClip = new Messenger();
 			_ms.x = 20;
-			_ms.y = 500;
+			_ms.y = 500 + (20 * m.utility.countChildren(m.messages_mc));
 			_ms.text_mc.text_txt.text = _ms.text_mc.text2_txt.text = s;
 			_ms.main = m;
 			m.messages_mc.addChild(_ms);
