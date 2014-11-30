@@ -1,10 +1,11 @@
 ﻿package  {
 	import flash.display.MovieClip;
 	/*
-		Passed as a dynamic variable.
+		handles player statistics
 	*/
 	public class Statistic  {
 		public var castleHealth:Number;
+		public var maxCastleHealth:Number;
 		public var damage:Number;
 		public var attackSpeed:Number;
 		public var exp:Number = 0;
@@ -12,17 +13,20 @@
 		public var level:Number = 0;
 		public var hasLeveledUp:Number = 0;
 		public var alive:Boolean = true;
+		public var equippedArrows:Array;
 		
 		/*
 			Statistic initializer for new hero
 		*/
 		public function Statistic(CASTLEHEALTH:Number = 60, DAMAGE:Number = 1, ATTACK_SPEED:Number = 30, EXP:Number = 0, MAXEXP:Number = 100, LEVEL:Number = 1) { 
 			castleHealth = CASTLEHEALTH;
+			maxCastleHealth = CASTLEHEALTH;
 			damage = DAMAGE;
 			attackSpeed = ATTACK_SPEED;
 			exp = EXP;
 			maxExp = MAXEXP;
 			level = LEVEL;
+			equippedArrows = [new ArrowType("wooden_arrow"), new ArrowType("steel_arrow"), new ArrowType("empty")];
 		}
 		
 		/*
@@ -61,6 +65,7 @@
 		*/
 		public function takeDamage(amount:Number):void
 		{
+			trace("hp/max" + castleHealth + "/" + maxCastleHealth);
 			castleHealth -= amount;
 			if (castleHealth <= 0) {
 				gameOver();
@@ -68,7 +73,7 @@
 		}	
 
 		/*
-			WHen hp reaches 0
+			When hp reaches 0
 		*/
 		public function gameOver()
 		{
@@ -80,6 +85,11 @@
 		public function getDamage():Number
 		{
 			return damage;
+		}
+		
+		public function getEquippedArrows():Array
+		{
+			return equippedArrows;
 		}
 
 

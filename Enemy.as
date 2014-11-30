@@ -31,7 +31,7 @@
 		*/
 		public function recieveDamage(_amt:Number):void
 		{
-			stats.health -= _amt;
+			stats.reduceHealth(_amt);
 			healthBar.setHealth(getStats().getHealth());
 			if(stats.getHealth() <= 0 && stats.isAlive()) {
 				stats.alive = false;
@@ -81,16 +81,11 @@
 		*/
 		protected function combat():void
 		{
-			trace("Attack");
-
-			/*
-				this.gotoAndPlay("attack");
-				damageDelay = setTimeout(function()
-				{
-					main.player.getStats().takeDamage(getStats().getDamage());
-				}, FRAME_DELAY)
-
-			*/
+			this.gotoAndStop("attack");
+			damageDelay = setTimeout(function()
+			{
+				m.player.getStats().takeDamage(getStats().getDamage());
+			}, Const.BANDIT_ATTACK_TIME_DELAY);
 		}
 
 		/*

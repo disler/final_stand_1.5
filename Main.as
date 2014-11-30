@@ -13,6 +13,8 @@
 		public var transFrame:String = "load";
 		public var waveHandler:WaveHandler;
 		public var utility:Utility;
+		public var _interface:Interface;
+		public var gameState:String;
 		
 		/*
 			Begins loading process.
@@ -47,10 +49,13 @@
 					load_btn.addEventListener(MouseEvent.CLICK, loadTitleB);
 				break;
 				case "game":
+					gameState = "inGame";
 					utility = new Utility(this);
+					con = new Controller(this, gameState); // gameMode var
 					waveHandler.init();
-					con = new Controller(this, "inGame"); // gameMode var
 					startPlayer();
+					_interface = interface_mc;
+					_interface.LOAD(this, gameState);
 				break;
 				default:
 					trace("Unknown frame: " + currentLabel);
@@ -98,6 +103,8 @@
 			}
 			return;
 		}
+		
+		
 		/*
 			Returns number from 0 to num_max (not including num_max).
 		*/

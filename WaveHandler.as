@@ -63,7 +63,7 @@
 		public function killEnemy(enemy:Enemy):void
 		{
 			remainingWaveEnemies--;
-			main.removeChild(enemy);
+			main.enemies_mc.removeChild(enemy);
 			enemyContainer[enemy.getId()] = null;
 			
 			if(noRemainingEnemies())
@@ -147,7 +147,7 @@
 				}
 			}
 			
-			main.addChild(enemy);
+			main.enemies_mc.addChild(enemy);
 			
 			unspawnedEnemies--;
 			if(unspawnedEnemies == 0)
@@ -184,7 +184,7 @@
 					stats = {
 						HEALTH : 3,
 						DAMAGE: 1,
-						ATTACK_SPEED : 2000,
+						ATTACK_SPEED : 4000,
 						MOVEMENT_SPEED : 1, 
 						EXP_GIVEN : 20
 					}

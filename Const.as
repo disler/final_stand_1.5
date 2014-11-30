@@ -16,6 +16,10 @@
 		
 		public static const ACTION_MOVEMENT:Number = 0;
 		public static const ACTION_ATTACk:Number = 1;
+		public static const BANDIT_ATTACK_TIME_DELAY:Number = 500;
+
+
+		public static const WARNING_MESSAGE_SPAM_TIMER:Number = 5000;
 		
 		public function Const() {}
 	}

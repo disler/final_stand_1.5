@@ -23,8 +23,17 @@
 			expGiven = Number(stats.EXP_GIVEN);
 		}
 
-
-
+		/*
+			Reduce health by x amount
+		*/
+		public function reduceHealth(_amt:Number):void
+		{
+			health -= _amt;
+			if(health < 0)
+			{
+				health = 0;
+			}
+		}
 
 
 
