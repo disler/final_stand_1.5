@@ -81,7 +81,6 @@
 		*/
 		protected function combat():void
 		{
-			this.gotoAndStop("attack");
 			damageDelay = setTimeout(function()
 			{
 				m.player.getStats().takeDamage(getStats().getDamage());

@@ -4,6 +4,7 @@
 		handles player statistics
 	*/
 	public class Statistic  {
+
 		public var castleHealth:Number;
 		public var maxCastleHealth:Number;
 		public var damage:Number;
@@ -14,11 +15,13 @@
 		public var hasLeveledUp:Number = 0;
 		public var alive:Boolean = true;
 		public var equippedArrows:Array;
+		public var healthBar:HealthBar;
+		public var main:MovieClip;
 		
 		/*
 			Statistic initializer for new hero
 		*/
-		public function Statistic(CASTLEHEALTH:Number = 60, DAMAGE:Number = 1, ATTACK_SPEED:Number = 30, EXP:Number = 0, MAXEXP:Number = 100, LEVEL:Number = 1) { 
+		public function Statistic(HEALTHBAR:HealthBar, MAIN:MovieClip, CASTLEHEALTH:Number = 10, DAMAGE:Number = 1, ATTACK_SPEED:Number = 30, EXP:Number = 0, MAXEXP:Number = 100, LEVEL:Number = 1) { 
 			castleHealth = CASTLEHEALTH;
 			maxCastleHealth = CASTLEHEALTH;
 			damage = DAMAGE;
@@ -27,6 +30,8 @@
 			maxExp = MAXEXP;
 			level = LEVEL;
 			equippedArrows = [new ArrowType("wooden_arrow"), new ArrowType("steel_arrow"), new ArrowType("empty")];
+			healthBar = HEALTHBAR;
+			main = MAIN;
 		}
 		
 		/*
@@ -38,7 +43,6 @@
 			
 			if(exp > maxExp)
 			{
-				
 				//increase level
 				level += 1;
 				//overlap exp
@@ -65,8 +69,9 @@
 		*/
 		public function takeDamage(amount:Number):void
 		{
-			trace("hp/max" + castleHealth + "/" + maxCastleHealth);
 			castleHealth -= amount;
+			healthBar.setHealth(castleHealth);
+			main._interface.fadeInInterface();
 			if (castleHealth <= 0) {
 				gameOver();
 			}
@@ -90,6 +95,16 @@
 		public function getEquippedArrows():Array
 		{
 			return equippedArrows;
+		}
+		
+		public function getHealth():Number
+		{
+			return castleHealth;
+		}
+		
+		public function getMaxHealth():Number
+		{
+			return maxCastleHealth;
 		}
 
 

@@ -34,9 +34,17 @@
 			NEW stats.
 		*/
 		public function startPlayer():void {
+			//health bar
+			var heroHealthBar:HealthBar = interface_mc.inGameInterface_mc.health_mc;
+
+			//player
 			player = new Hero();
-			player.loadHero(430, 320, this, new Statistic());
+			player.loadHero(430, 320, this, new Statistic(heroHealthBar, this));
 			characters_mc.addChild(player);
+
+			//interface
+			_interface = interface_mc;
+			_interface.LOAD(this, gameState, heroHealthBar);
 			return;
 		}
 		public function loadFrame():void {
@@ -54,8 +62,6 @@
 					con = new Controller(this, gameState); // gameMode var
 					waveHandler.init();
 					startPlayer();
-					_interface = interface_mc;
-					_interface.LOAD(this, gameState);
 				break;
 				default:
 					trace("Unknown frame: " + currentLabel);

@@ -12,15 +12,18 @@
 		private var inGameInterfaceUnfocused:Number = .25;
 		private var inGameInterfaceTimeout:uint;
 		private var selectedArrow:Number = 0;
+		private var inGameHealth:HealthBar;
 		
 		public function Interface() { inGameInterface_mc.visible = false; }
 		
 		/*
 			Sets up player interface, when given the correct data
 		*/
-		public function LOAD(MAIN:MovieClip, GAMESTATE:String):void
+		public function LOAD(MAIN:MovieClip, GAMESTATE:String, HEALTHBAR:HealthBar):void
 		{
 			main = MAIN;
+			inGameHealth = HEALTHBAR;
+			inGameHealth.loadBar(main.player.getStats().getMaxHealth(), main.player.getStats().getHealth());
 			interfaceStatusFactory(GAMESTATE);
 		}
 		
@@ -32,7 +35,6 @@
 			if(gameState == "inGame")
 			{
 				inGameInterface_mc.visible = true;
-				
 				inGameInterface_mc.alpha = inGameInterfaceUnfocused;
 				loadArrows(main.player.getStats().getEquippedArrows());
 			}
@@ -75,17 +77,25 @@
 				inGameInterface_mc.selector_mc.y = inGameInterface_mc["arrow" + Number(slot+1) + "_mc"].y;
 				
 				//set a timer to fade out after attention has left this area
-				inGameInterface_mc.alpha = inGameInterfaceFocused;
-				clearTimeout(inGameInterfaceTimeout);
-				inGameInterfaceTimeout = setTimeout(function()
-										  {
-											  inGameInterface_mc.alpha = inGameInterfaceUnfocused;
-											  clearTimeout(inGameInterfaceTimeout);
-										  }, 3000);
+				fadeInInterface();
 				return true;
 			}
 
 			return false;
+		}
+
+		/*
+			Makes interface fade in
+		*/
+		public function fadeInInterface()
+		{
+			inGameInterface_mc.alpha = inGameInterfaceFocused;
+			clearTimeout(inGameInterfaceTimeout);
+			inGameInterfaceTimeout = setTimeout(function()
+									  {
+										  inGameInterface_mc.alpha = inGameInterfaceUnfocused;
+										  clearTimeout(inGameInterfaceTimeout);
+									  }, 3000);
 		}
 
 		/*
