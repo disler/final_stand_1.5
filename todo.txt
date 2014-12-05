@@ -1,0 +1,8 @@
+dan
+make interface work, make sure changes stats work, add enemies droping stuff
+
+ryan
+shops, adding sheild guy
+
+goal:
+get something playable
