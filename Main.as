@@ -29,6 +29,15 @@
 			}
 			Messenger.m = this;
 		}
+
+
+		public function changeGameState(state:String):void
+		{
+			con.inGameControllerFactory(state);
+			_interface.interfaceStatusFactory(state);
+		}
+
+
 		/*
 			Initiates (player) statistics and sets him on the stage properly with 
 			NEW stats.
@@ -47,6 +56,9 @@
 			_interface.LOAD(this, gameState, heroHealthBar);
 			return;
 		}
+		/*
+			Loads game frames			
+		*/
 		public function loadFrame():void {
 			switch(currentLabel) {
 				case "ads":

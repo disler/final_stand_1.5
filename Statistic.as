@@ -48,6 +48,26 @@
 		}
 
 		/*____________________________________________'ARTIFACTS'_________________________________________*/
+		public function getArtifactByIndex(ind:Number):Artifact
+		{
+			return artifactHandler.getEquippedArtifacts()[ind];
+		}
+
+		public function autoFillArtifacts():void
+		{
+			resetArtifactBonus(artifactHandler);
+			artifactHandler.autoFillArtifacts();
+			loadArtifactBonus(artifactHandler);
+		}
+		public function getEquippedArtifacts():Array
+		{
+			return artifactHandler.getEquippedArtifacts();
+		}
+
+		public function getUnequippedArtifacts():Array
+		{
+			return artifactHandler.getUnequippedArtifacts();
+		}
 
 		/*
 			Add an artifact
@@ -60,10 +80,20 @@
 		/*
 			Equip an artifact: reset stats, add artifact, load new stats
 		*/
-		public function equipArtifact(slot:Number, artifact:Artifact):void
+		public function equipArtifact(slot:Number, artifactIndex:Number):void
 		{
 			resetArtifactBonus(artifactHandler);
-			artifactHandler.changeArtifact(slot, artifact);
+			artifactHandler.changeArtifact(slot, artifactIndex);
+			loadArtifactBonus(artifactHandler);
+		}
+
+		/*
+			Removes all artifacts
+		*/
+		public function removeAllArtifacts():void
+		{
+			resetArtifactBonus(artifactHandler);
+			artifactHandler.removeAllArtifacts();
 			loadArtifactBonus(artifactHandler);
 		}
 
@@ -104,7 +134,13 @@
 
 
 
-
+		/*
+			Reset health to max health
+		*/
+		public function resetHealth():void
+		{
+			castleHealth = maxCastleHealth;
+		}
 
 
 
@@ -118,17 +154,33 @@
 			
 			if(exp > maxExp)
 			{
-				//increase level
-				level += 1;
-				//overlap exp
-				exp = exp - maxExp;
-				//stack any current 'level ups'
-				hasLeveledUp += 1;
-				//obtain next 'maxExp' amount
-				maxExp = getNextMaxExp(maxExp);
-
-				Messenger.alertMessage("You have leved up! Level: " + level);
+				levelUp();
 			}
+		}
+
+		/*	
+			Leveling up
+		*/
+		public function levelUp():void
+		{
+			//increase level
+			level += 1;
+			//overlap exp
+			exp = exp - maxExp;
+			//stack any current 'level ups'
+			hasLeveledUp += 1;
+			//obtain next 'maxExp' amount
+			maxExp = getNextMaxExp(maxExp);
+			//reset health to be max
+			resetHealth();
+
+
+
+			//unlock artifact slots based on level
+
+
+			
+			Messenger.alertMessage("You have leved up! Level: " + level);
 		}
 		
 		/*

@@ -84,10 +84,18 @@
 			
 			//add break here
 			waveId += 1;
-			
+
+			main.player.getStats().resetHealth();
+
+			main.changeGameState("intermission");
+		}
+
+		/*
+			Starts the next wave
+		*/
+		public function startWave():void
+		{
 			generateWave(waveId);
-			
-			
 		}
 		
 		/*
@@ -182,7 +190,7 @@
 			{
 				case Const.BANDIT:
 					stats = {
-						HEALTH : 3,
+						HEALTH : 2,
 						DAMAGE: 1,
 						ATTACK_SPEED : 4000,
 						MOVEMENT_SPEED : 1, 
