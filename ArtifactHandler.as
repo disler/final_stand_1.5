@@ -18,6 +18,15 @@
 
 		public function ArtifactHandler() {}
 
+
+		/*
+			Unlocks artifact slot given an index
+		*/
+		public function unlockArtifact(ind:Number):void
+		{
+			artifactContainer[ind] = new Artifact("empty");
+		}
+
 		/*
 			Auto fill artifacts
 		*/
