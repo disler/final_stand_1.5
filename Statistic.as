@@ -2,7 +2,7 @@
 	import flash.display.MovieClip;
 
 
-	/*
+	/*max health, damage, attackSpeed, accuracy, armor piece, projectile piece
 		handles player statistics
 	*/
 	public class Statistic  {
@@ -24,6 +24,7 @@
 		public var main:MovieClip;
 		public var artifactHandler:ArtifactHandler;
 		public var gold:Number;
+		public var bow:Bow;
 		
 		/*
 			Statistic initializer for new hero
@@ -38,13 +39,62 @@
 			exp = EXP;
 			maxExp = MAXEXP;
 			level = LEVEL;
-			equippedArrows = [new ArrowType("wooden_arrow"), new ArrowType("steel_arrow"), new ArrowType("empty")];
 			healthBar = HEALTHBAR;
 			main = MAIN;
+
+			//arrows
+			equippedArrows = [new ArrowType("wooden_arrow"), new ArrowType("steel_arrow"), new ArrowType("empty")];
+
+			//bow
+			bow = new Bow("oak bow");
+			loadBowBonus(bow);
 
 			//ARTIFACT
 			artifactHandler = new ArtifactHandler();
 			loadArtifactBonus(artifactHandler);
+		}
+
+
+		/*____________________________________________'BOW'_________________________________________*/
+
+		/*
+			Equip a new bow based on string, reduce old stats increase by new stats
+		*/
+		public function equipBow(bowName:String):void
+		{
+			resetBowBonus();
+			bow = new Bow(bowname);
+			loadBowBonus();
+		}
+
+		/*
+			Loads bow statistic bonuses 
+		*/
+		public function loadBowBonus(bow:Bow):void
+		{
+			var stats:Object = bow.getStats();
+
+			maxCastleHealth +=  stats.maxCastleHealth;
+			castleHealthRegeneration += stats.castleHealthRegeneration;
+			damage += stats.damage;
+			attackSpeed += stats.attackSpeed;
+			accuracy += stats.accuracy;
+			bowSpeed += stats.bowSpeed;
+		}
+
+		/*
+			resets bow statistic bonuses
+		*/
+		public function resetBowBonus(bow:Bow):void
+		{
+			var stats:Object = bow.getStats();
+
+			maxCastleHealth -=  stats.maxCastleHealth;
+			castleHealthRegeneration -= stats.castleHealthRegeneration;
+			damage -= stats.damage;
+			attackSpeed -= stats.attackSpeed;
+			accuracy -= stats.accuracy;
+			bowSpeed -= stats.bowSpeed;
 		}
 
 		/*____________________________________________'ARTIFACTS'_________________________________________*/

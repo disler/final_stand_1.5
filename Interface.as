@@ -68,8 +68,8 @@
 			if(bool && artifactIndex > -1)
 			{
 				artifact_mc.hover_mc.visible = true;
-				artifact_mc.hover_mc.x = 110;
-				artifact_mc.hover_mc.y = 70;
+				artifact_mc.hover_mc.x = main.stage.mouseX + 20;
+				artifact_mc.hover_mc.y = main.stage.mouseY + 20;
 
 				var artifact:Artifact = main.player.getStats().getArtifactByIndex(artifactIndex);
 				artifact_mc.hover_mc.header_txt.text = 	main.utility.upperCaseFirst(artifact.getArtifact());
