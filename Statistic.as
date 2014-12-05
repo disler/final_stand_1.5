@@ -152,7 +152,7 @@
 		{
 			exp += amount;
 			
-			if(exp > maxExp)
+			if(exp > maxExp && level < Const.MAX_LEVEL)
 			{
 				levelUp();
 			}
@@ -177,10 +177,29 @@
 
 
 			//unlock artifact slots based on level
-
+			unlockArtifactSlot();
 
 			
 			Messenger.alertMessage("You have leved up! Level: " + level);
+		}
+
+		/*
+			Handles unlocking artifact slots
+		*/
+		public function unlockArtifactSlot():void
+		{
+			if(Const.ARTIFACT_SLOT_LEVELS.indexOf(level) != -1)
+			{
+				for(var i:Number = 0; i < getEquippedArtifacts().length; i++)
+				{
+					if(getEquippedArtifacts()[i].getArtifact() == "locked")
+					{
+						artifactHandler.unlockArtifact(i);
+
+						break;
+					}
+				}
+			}
 		}
 		
 		/*
