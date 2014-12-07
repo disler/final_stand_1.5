@@ -1,8 +1,14 @@
 dan
-make interface work, make sure changes stats work, add enemies droping stuff
-
+	Add sheild guy working, 
+	Add enemies droping items and gold
+	Add bow select menu
+	fix spacing on primary interface
+	stop proceed to next wave spam click
 ryan
-shops, adding sheild guy
+	Create Ice, Fire, Earth arrow (shoots enemy backward)
+	Create Health bow, regen bow, damage bow, haste bow, accuracy bow, arr spd
+	Create custom mouse
+
 
 goal:
 get something playable
