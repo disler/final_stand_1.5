@@ -9,6 +9,16 @@
 		Controls all interface, players, and clicking
 	*/
 	public class Controller{
+		public var shopItems:Array = new Array(["glyph of haste", 1], ["glyph of power", 1], ["glyph of health", 1], ["glyph of accuracy", 3], ["glyph of bow speed", 3],
+										  ["glyph of regeneration", 4], ["glyph of power", 5], ["glyph of health", 5], ["glyph of accuracy", 5], ["glyph of bow speed", 4], 
+										  ["glyph of regeneration", 4], ["glyph of power", 5], ["glyph of health", 5], ["glyph of accuracy", 5], ["glyph of bow speed", 4], 
+										  ["glyph of regeneration", 4], ["glyph of power", 5], ["glyph of health", 5], ["glyph of accuracy", 5], ["glyph of bow speed", 4], 
+										  ["glyph of regeneration", 4], ["glyph of power", 5], ["glyph of health", 5], ["glyph of accuracy", 5], ["glyph of bow speed", 4]
+										  );
+		public var shopToolTip:MovieClip = null;
+		public var shopSelectID:Number = -1;
+		public var shopSelectID2:Number = -1;
+		
 		public var shootDelayTimer:uint;
 		public var gameState:String = "gameStart";
 		public var m:MovieClip;
@@ -29,6 +39,7 @@
 		public function inGameControllerFactory(_gameState:String):void {
 			//remove all events to refresh for new gameState
 			m.removeEventListener(Event.ENTER_FRAME, controllerEnterFrameHandler);
+			m.removeEventListener(Event.ENTER_FRAME, intermissionEnterFrameHandler);
 			m.stage.removeEventListener(KeyboardEvent.KEY_DOWN, keyDownHandlerInGame);
 			m.stage.removeEventListener(MouseEvent.CLICK, stageClickHandler);
 
@@ -43,6 +54,7 @@
 
 			//between wave events
 			else if(_gameState == "intermission") {
+				m.addEventListener(Event.ENTER_FRAME, intermissionEnterFrameHandler);
 				m._interface.proceed_mc.addEventListener(MouseEvent.CLICK, clickProceedToBattleEvent);
 				displayPrimaryInterface();
 			}
@@ -240,7 +252,121 @@
 		*/
 		public function displayShop():void
 		{
-			trace("open shop code");
+			if(m._interface.shop_mc.currentFrame == 1) {
+				m._interface.shop_mc.gotoAndPlay(2);
+				m._interface.shop_mc.shopIn_mc.purchase_btn.addEventListener(MouseEvent.CLICK, shopPurchase);
+				m._interface.shop_mc.shopIn_mc.exit_btn.addEventListener(MouseEvent.CLICK, shopExit);
+				
+				for(var i:Number = 0; i < 25; i++) {
+					var SI:MovieClip = m._interface.shop_mc.shopIn_mc["s" + i]; 
+					SI.locked_mc.visible = new Boolean(m.waveHandler.getWave() < shopItems[i][1]);
+					if(!SI.locked_mc.visible) SI.item_mc.gotoAndStop(shopItems[i][0]); else SI.item_mc.gotoAndStop("locked");
+					SI.addEventListener(MouseEvent.MOUSE_OVER, shopItemOver);
+					SI.addEventListener(MouseEvent.MOUSE_OUT, shopItemOut);
+					SI.addEventListener(MouseEvent.MOUSE_DOWN, shopItemDown);
+					SI.addEventListener(MouseEvent.MOUSE_UP, shopItemUp);
+					SI.id = i;
+					SI.mouseChildren = false;
+				}
+			}
+			return;
+		}
+		
+		/*
+			Hoverng over any shop item.
+		*/
+		public function shopItemOver(e:MouseEvent):void
+		{
+			if(!e.currentTarget.locked_mc.visible) {
+				e.currentTarget.bg_mc.gotoAndStop(2);
+				shopToolTip = m._interface.shop_mc.shopIn_mc.toolTip_mc;
+				shopToolTip.x = m._interface.shop_mc.shopIn_mc.mouseX + 20;
+				shopToolTip.y = m._interface.shop_mc.shopIn_mc.mouseY + 20;
+				setShopTip(shopItems[e.currentTarget.id][0]);
+			}
+			return;
+		}
+		/*
+		(["glyph of haste", 1], ["glyph of power", 1], ["glyph of health", 1], ["glyph of accuracy", 3], ["glyph of bow speed", 3],
+										  ["glyph of regeneration", 4],
+		*/
+		public function setShopTip(_shopItem:String):void {
+			var STT:MovieClip = m._interface.shop_mc.shopIn_mc.toolTip_mc;
+			var IO:Object = Item.getObj(_shopItem);
+			STT.title_txt.text = IO.name;
+			STT.description_txt.text = IO.description;
+			STT.cost_txt.text = "Cost: " + IO.cost;
+			return;
+		}
+		/*
+			Purchases item
+		*/
+		public function shopItemOut(e:MouseEvent):void
+		{
+			if(!e.currentTarget.locked_mc.visible) {
+				e.currentTarget.bg_mc.gotoAndStop(1);
+				shopToolTip.y = -550; 
+				shopToolTip = null;
+			}
+			return;
+		}
+		/*
+			Purchases item
+		*/
+		public function shopItemDown(e:MouseEvent):void
+		{
+			if(!e.currentTarget.locked_mc.visible) {
+				e.currentTarget.bg_mc.gotoAndStop(3);
+			}
+			return;
+		}
+		/*
+			Release click on shop items
+		*/
+		public function shopItemUp(e:MouseEvent):void
+		{
+			// set target item
+			if(!e.currentTarget.locked_mc.visible) {
+				var IO:Object = Item.getObj(shopItems[e.currentTarget.id][0]);
+				shopSelectID = e.currentTarget.id;
+				if(shopSelectID2 == -1) {
+					shopSelectID2 = e.currentTarget.id;
+				} else {
+					m._interface.shop_mc.shopIn_mc["s" + shopSelectID2].frame_mc.gotoAndStop(1);
+					shopSelectID2 = e.currentTarget.id;
+				}
+				m._interface.shop_mc.shopIn_mc.title_txt.text = "Item: " + IO.name + ", Buy: " + IO.cost;
+				e.currentTarget.frame_mc.gotoAndStop(2);
+				e.currentTarget.bg_mc.gotoAndStop(2);
+			}
+			return;
+		}
+		/*
+			Purchases item
+		*/
+		public function shopPurchase(e:MouseEvent):void
+		{
+			if(shopSelectID != -1) {
+				var IO:Object = Item.getObj(shopItems[shopSelectID][0]);
+				if(m.player.getStats().getGold() >= IO.cost) {
+					m.player.getStats().spendGold(IO.cost);
+					m.player.getStats().addArtifact(new Artifact(IO.nam));
+					m._interface.primaryInterface_mc.primaryInterfaceIn_mc.gold_txt.text = m.player.getStats().getGold();
+					m._interface.shop_mc.shopIn_mc.title_txt.text = "You have purchased " + IO.name + "."; // alternative send message?
+				} else { 
+					m._interface.shop_mc.shopIn_mc.title_txt.text = "Not enough gold, friend.";
+				}
+			} else { }
+			return;
+		}
+		
+		/*
+			Purchases item
+		*/
+		public function shopExit(e:MouseEvent):void
+		{
+			m._interface.shop_mc.gotoAndPlay("out");
+			return;
 		}
 
 
@@ -250,7 +376,7 @@
 			Event for opening hsop
 		*/
 		public function displayShopEvent(e:Event):void
-		{
+		{ 
 			displayShop();
 		}
 
@@ -397,7 +523,13 @@
 			playerHandler();
 			return;
 		}
-		
+		public function intermissionEnterFrameHandler(e:Event):void {
+			if(shopToolTip != null) {
+				shopToolTip.x = m._interface.shop_mc.shopIn_mc.mouseX + 15;
+				shopToolTip.y = m._interface.shop_mc.shopIn_mc.mouseY + 15;
+			}
+			return;
+		}
 		
 	}
 	

@@ -16,7 +16,7 @@
 		//current wave
 		private var waveId:Number = 0;
 		private var unspawnedEnemies:Number; 
-		private var enemySpawnTimer:Number;
+		public var enemySpawnTimer:Number;
 		private var enemySpawnInterval:uint;
 		
 		//contains all currently spawned enemies
@@ -78,7 +78,7 @@
 		/*
 			Iterate to the next break/wave
 		*/	
-		private function waveComplete():void
+		public function waveComplete():void
 		{
 			Messenger.alertMessage("Wave complete!");
 			

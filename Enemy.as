@@ -36,7 +36,7 @@
 			if(stats.getHealth() <= 0 && stats.isAlive()) {
 				stats.alive = false;
 				getStats().setMovementSpeed(0);
-				this.gotoAndStop("die");
+				this.I.gotoAndStop("die");
 				deathAnimationDurationTimer = 0;
 			}
 			this.blood_mc.gotoAndPlay("blood" + Main.random(4));
@@ -81,6 +81,7 @@
 		*/
 		protected function combat():void
 		{
+			this.I.gotoAndStop("attack");
 			damageDelay = setTimeout(function()
 			{
 				m.player.getStats().takeDamage(getStats().getDamage());

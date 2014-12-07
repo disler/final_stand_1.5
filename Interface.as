@@ -13,7 +13,6 @@
 		private var inGameInterfaceUnfocused:Number = .25;
 		private var inGameInterfaceTimeout:uint;
 		private var selectedArrow:Number = 0;
-		private var inGameHealth:HealthBar;
 		private var primaryInterface_ref:MovieClip;
 		
 		public function Interface() { 
@@ -29,8 +28,6 @@
 		public function LOAD(MAIN:MovieClip, GAMESTATE:String, HEALTHBAR:HealthBar):void
 		{
 			main = MAIN;
-			inGameHealth = HEALTHBAR;
-			inGameHealth.loadBar(main.player.getStats().getMaxHealth(), main.player.getStats().getHealth());
 			interfaceStatusFactory(GAMESTATE);
 		}
 		

@@ -36,7 +36,7 @@
 				default:
 					trace("OAK BOW");
 					description = "Sturdy bow made from oak";
-					stats.accuracy = 50;
+					stats.accuracy = 5;
 
 
 			}

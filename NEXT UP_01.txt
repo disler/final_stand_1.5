@@ -1,0 +1,41 @@
+Fianl Stand 1.5
+
+"Modified functionality of healthBar (can't be duplicate); "
+
+:: interface (Ryan: Focus on graphics in interface):
+	- Base Interface: 
+		- (Tutorial / Help)
+		- Levels, Enemies Killed/remaining, WAVE, 
+	- shop
+
+:: experience:
+	- What do we spend it on?
+	- we know we will need to restore tower health with some kind of spendable thing.
+
+:: Level Design:
+	- Dan will focus on level design: pathing, level graphics
+
+	Goal: Ability to get through like 10 waves.
+
+:: Title Page:
+
+
+:: MUSIC [ Generally, just write 3 things per person ]:
+
+1. Title Music -> Dan
+2. TUNES IN GAME
+	1 -> Ryan
+	2 -> Dan
+	3 -> Ryan
+	4 -> Dan [ Boss Music ]
+	5 -> Ryan [ Boss Music ]
+(3. Credit Music)
+
+
+_______________ IDEA FORGE ___________________
+
+	- Drag'n'Drop items into interface to 'pickup up/equip item'. Items which disappear over time: ADDS RISK & REWARD TO GAMEPLAY.
+		>> Rare Drops have low timers.
+		>> CASE 1: OR Multiple clicks (click rare item 15 times to pick up instead of drag and drop)
+	- Interface: 3 Item circles on bottom; Health
+	- Slide out Interface Menu.
