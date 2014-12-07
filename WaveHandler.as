@@ -166,20 +166,55 @@
 		}
 
 		/*
-			Obtains a list of possible enemies given a wave
+			Obtains enemy that can be spawned htis wave
 		*/
 		private function enemyFactory(_waveId:Number):Enemy
 		{
 			var enemy:Enemy;
-			switch(_waveId)
+			var waveDiff:Number;
+
+			if(_waveId < 3)
 			{
-				default:
-					enemy = new Bandit();
-					enemy.LOAD(main, new StatisticEnemy(enemyStatisticFactory(Const.BANDIT)));
+				waveDiff = 1;
 			}
-			return enemy;
+			else if(_waveId >= 3 && _waveId < 8)
+			{
+				waveDiff = 2;
+			}
+
+			return enemyClassFactory(waveDiff);
 		}
-		
+
+		/*
+			Enemy class factory, determines type of enemy to be spawned based on random number given
+			the larger the number the larger type of enemies that could be spawn (all have equal chance)
+		*/
+		private function enemyClassFactory(typeNumber:Number):Enemy
+		{
+			var roll:Number = Math.round(Math.random() * typeNumber);
+
+			roll = roll == 0 ? 1 : roll;
+			var enemy:Enemy;
+			var enemyNumber:Number;
+			switch(typeNumber)
+			{
+				//spawn a bandit
+				case 1:
+					enemy = new Bandit();
+					enemy.gotoAndStop("bandit");
+					enemyNumber = Const.BANDIT;
+				break;
+				//spawn a guard
+				case 2:
+					enemy = new Guard();
+					enemy.gotoAndStop("guard");
+					enemyNumber = Const.GUARD;
+				break;
+			}
+
+			enemy.LOAD(main, new StatisticEnemy(enemyStatisticFactory(enemyNumber)));
+			return enemy;
+		}		
 		/*
 			Obtains enemy statistics based on type
 		*/
@@ -196,6 +231,14 @@
 						MOVEMENT_SPEED : 1, 
 						EXP_GIVEN : 20
 					}
+				break;
+
+				case Const.GUARD:
+					HEALTH : 5,
+					DAMAGE: 1,
+					ATTACK_SPEED : 6000,
+					MOVEMENT_SPEED : .5, 
+					EXP_GIVEN : 30
 				break;
 			}
 			return stats;

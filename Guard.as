@@ -1,15 +1,16 @@
 ﻿package  {
+
 	import flash.display.MovieClip;
 	import flash.events.*;
 	import flash.utils.setInterval;
-	
-	/*
-		Bandit class
-	*/
-	public class Bandit extends Enemy {
 
-		public function Bandit() {}
-		
+	/*
+		Guard class
+	*/
+	public class Guard {
+
+		public function Guard extends Enemy() {}
+
 		/*
 			Loads information for this enemy class.
 		*/
@@ -74,8 +75,33 @@
 
 		}
 
-		
+		/*
+			handles recieving damage, blocks 
+		*/
+		override public function recieveDamage(__amt:Number):void
+		{
+			var _amt:Number = __amt;
 
+			//block the attack and take reduced damage 50%
+			var block:Number = Math.random() * 100;
+			if(block < 20)
+			{
+				this.I.gotoAndPlay("block");
+				_amt = Math.ceil(amt * .5);
+			}
+
+			stats.reduceHealth(_amt);
+			healthBar.setHealth(getStats().getHealth());
+			if(stats.getHealth() <= 0 && stats.isAlive()) {
+				stats.alive = false;
+				getStats().setMovementSpeed(0);
+				this.gotoAndStop("die");
+				deathAnimationDurationTimer = 0;
+			}
+
+			this.blood_mc.gotoAndPlay("blood" + Main.random(4));
+			return;
+		}
 
 	}
 	

@@ -31,6 +31,7 @@
 		*/
 		public function recieveDamage(_amt:Number):void
 		{
+			
 			stats.reduceHealth(_amt);
 			healthBar.setHealth(getStats().getHealth());
 			if(stats.getHealth() <= 0 && stats.isAlive()) {
