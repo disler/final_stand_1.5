@@ -31,6 +31,7 @@
 		*/
 		public function recieveDamage(_amt:Number):void
 		{
+			
 			stats.reduceHealth(_amt);
 			healthBar.setHealth(getStats().getHealth());
 			if(stats.getHealth() <= 0 && stats.isAlive()) {
@@ -77,14 +78,19 @@
 		/*____________________________________________ TO OVERRIDE ____________________________________________*/
 		
 		/*
-			Called after 'attackSpeed', deal damage to hero
+			Called after 'attackSpeed', deal damage to hero after displaying attack animation
 		*/
 		protected function combat():void
 		{
 			this.I.gotoAndStop("attack");
 			damageDelay = setTimeout(function()
 			{
-				m.player.getStats().takeDamage(getStats().getDamage());
+				var animationDelay:uint = setTimeout(function()
+				{
+					gotoAndStop("attack");
+					m.player.getStats().takeDamage(getStats().getDamage());
+					clearTimeout(animationDelay);
+				}, 1000);
 			}, Const.BANDIT_ATTACK_TIME_DELAY);
 		}
 
