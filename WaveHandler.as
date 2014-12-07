@@ -201,13 +201,13 @@
 				//spawn a bandit
 				case 1:
 					enemy = new Bandit();
-					enemy.gotoAndStop("bandit");
+					//enemy.gotoAndStop("bandit");
 					enemyNumber = Const.BANDIT;
 				break;
 				//spawn a guard
 				case 2:
 					enemy = new Guard();
-					enemy.gotoAndStop("guard");
+					//enemy.gotoAndStop("guard");
 					enemyNumber = Const.GUARD;
 				break;
 			}
@@ -230,15 +230,17 @@
 						ATTACK_SPEED : 4000,
 						MOVEMENT_SPEED : 1, 
 						EXP_GIVEN : 20
-					}
+					};
 				break;
 
 				case Const.GUARD:
-					HEALTH : 5,
-					DAMAGE: 1,
-					ATTACK_SPEED : 6000,
-					MOVEMENT_SPEED : .5, 
-					EXP_GIVEN : 30
+					stats = { 
+						HEALTH : 5,
+						DAMAGE: 1,
+						ATTACK_SPEED : 6000,
+						MOVEMENT_SPEED : .5, 
+						EXP_GIVEN : 30
+					};
 				break;
 			}
 			return stats;

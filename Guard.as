@@ -7,9 +7,9 @@
 	/*
 		Guard class
 	*/
-	public class Guard {
+	public class Guard extends Enemy {
 
-		public function Guard extends Enemy() {}
+		public function Guard () {}
 
 		/*
 			Loads information for this enemy class.
@@ -87,7 +87,7 @@
 			if(block < 20)
 			{
 				this.I.gotoAndPlay("block");
-				_amt = Math.ceil(amt * .5);
+				_amt = Math.ceil(_amt * .5);
 			}
 
 			stats.reduceHealth(_amt);

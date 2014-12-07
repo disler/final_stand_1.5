@@ -78,13 +78,18 @@
 		/*____________________________________________ TO OVERRIDE ____________________________________________*/
 		
 		/*
-			Called after 'attackSpeed', deal damage to hero
+			Called after 'attackSpeed', deal damage to hero after displaying attack animation
 		*/
 		protected function combat():void
 		{
 			damageDelay = setTimeout(function()
 			{
-				m.player.getStats().takeDamage(getStats().getDamage());
+				var animationDelay:uint = setTimeout(function()
+				{
+					gotoAndStop("attack");
+					m.player.getStats().takeDamage(getStats().getDamage());
+					clearTimeout(animationDelay);
+				}, 1000);
 			}, Const.BANDIT_ATTACK_TIME_DELAY);
 		}
 
