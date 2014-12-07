@@ -24,12 +24,11 @@
 		private var remainingWaveEnemies:Number;
 		private var killedWaveEnemies:Number;
 		private var totalEnemiesKilled:Number;
-		
+
+		private var kills:Number = 0;
 		
 		//contains all objects that can be hittable
 	 	private var hittables:Array;
-		
-		
 		
 		
 		
@@ -62,6 +61,7 @@
 		*/
 		public function killEnemy(enemy:Enemy):void
 		{
+			kills++;
 			remainingWaveEnemies--;
 			main.enemies_mc.removeChild(enemy);
 			enemyContainer[enemy.getId()] = null;
@@ -242,6 +242,18 @@
 			return enemyContainer;
 		}
 
+		public function getWave():Number
+		{
+			return waveId;
+		}
+
+
+		public function getKills():Number
+		{
+			return kills;
+		}
+
+		
 	}
 	
 }

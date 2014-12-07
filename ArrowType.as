@@ -57,6 +57,22 @@
 			}
 			return randAccuracy;
 		}
+
+		public static function getAdjustedAccuracy(acc:Number):Number
+		{
+			if(acc == 0) return 0;
+			var randAccuracy = acc;
+			
+			if(Math.random() > .5)
+			{
+				randAccuracy = Math.round(Math.random() * acc);
+			}
+			else
+			{
+				randAccuracy = -Math.round(Math.random() * acc);
+			}
+			return randAccuracy;
+		}
 		
 		/*GETTERS SETTERS*/
 		public function getType():String

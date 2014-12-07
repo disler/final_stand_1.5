@@ -17,11 +17,14 @@
 		/*
 			Loads in, and sets enter frame.
 		*/
-		public function loadProjectile(X:Number, Y:Number, M:MovieClip, R:Number, _damage:Number, _arrowSelected:ArrowType) { 
+		public function loadProjectile(X:Number, Y:Number, M:MovieClip, R:Number, _heroStats:Object, _arrowSelected:ArrowType) { 
 			x = X; y = Y; m = M; 
-			rotation = R + _arrowSelected.getAdjustedAccuracy(); 
-			speed = _arrowSelected.getSpeed(); 
-			damage = _damage + _arrowSelected.getDamage();
+
+
+
+			rotation = R + _arrowSelected.getAdjustedAccuracy() + ArrowType.getAdjustedAccuracy(_heroStats.accuracy); 
+			speed = _arrowSelected.getSpeed() + _heroStats.bowSpeed; 
+			damage = _heroStats.damage + _arrowSelected.getDamage();
 			gotoAndStop(_arrowSelected.getType());
 			addEventListener(Event.ENTER_FRAME, projectileEFHandler);
 			this.hitbox_mc.visible = M.HITBOXES_VISIBLE;

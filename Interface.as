@@ -2,6 +2,7 @@
 	import flash.display.MovieClip;
 	import flash.utils.setTimeout;
 	import flash.utils.clearTimeout;
+	import flash.utils.*;
 	/*
 		Handles display ONLY for user (place no events here, refer to controller.as for all user control)
 	*/	
@@ -13,11 +14,13 @@
 		private var inGameInterfaceTimeout:uint;
 		private var selectedArrow:Number = 0;
 		private var inGameHealth:HealthBar;
+		private var primaryInterface_ref:MovieClip;
 		
 		public function Interface() { 
 			inGameInterface_mc.visible = false; 
 			artifact_mc.visible = false; 
-			proceed_mc.visible = false; 
+			proceed_mc.visible = false;
+			primaryInterface_ref = primaryInterface_mc.primaryInterfaceIn_mc;
 		}
 		
 		/*
@@ -36,11 +39,11 @@
 		*/
 		public function interfaceStatusFactory(gameState:String):void
 		{
-			trace("gamestate: " + gameState);
 			inGameInterface_mc.visible = false;
 			artifact_mc.visible = false;
 			proceed_mc.visible = false;
 			artifact_mc.hover_mc.visible = false;
+			primaryInterface_ref.visible = false;
 
 			if(gameState == "inGame")
 			{
@@ -50,14 +53,100 @@
 			}
 			else if(gameState == "intermission")
 			{
-				trace("DISPLAY ALL INTERMISSION INTERFACE");
 				//visibility
-				artifact_mc.visible = true;
 				proceed_mc.visible = true;
-				artifact_mc.unequippedList_list.visible = false;
+				displayPrimaryInterface();
 
-				loadArtifact();
 			}
+		}
+
+		/*
+			Animation for displaying primary interface
+		*/
+		public function displayPrimaryInterface():void
+		{
+			primaryInterface_ref.visible = true;
+			primaryInterface_mc.alpha = 0;
+			primaryInterface_mc.gotoAndPlay(2);
+			loadPrimaryInterfaceText();
+			//fade in interval
+			var fadeInInterval:uint = setInterval(function()
+			{
+				if(primaryInterface_mc.alpha > .9)
+				{
+					clearInterval(fadeInInterval);
+				}
+				else
+				{
+					primaryInterface_mc.alpha += .1;
+				}
+			}, 100);
+
+		}
+
+
+		/*
+			Animation for closing primary interface
+		*/
+		public function closePrimaryInterface():void
+		{
+			primaryInterface_ref = primaryInterface_mc.primaryInterfaceIn_mc;
+
+			primaryInterface_mc.gotoAndPlay("fadeOut");
+
+			//fade in interval
+			var fadeInInterval:uint = setInterval(function()
+			{
+				if(primaryInterface_mc.alpha < 0)
+				{
+					clearInterval(fadeInInterval);
+				}
+				else
+				{
+					primaryInterface_mc.alpha -= .1;
+				}
+			}, 100);
+		} 
+
+
+
+
+
+
+		/*
+			Dynamically loads text for prime interface
+		*/
+		public function loadPrimaryInterfaceText():void
+		{
+			//game stats
+			primaryInterface_ref = primaryInterface_mc.primaryInterfaceIn_mc;
+
+			primaryInterface_ref.wave_txt.text = main.waveHandler.getWave();
+			primaryInterface_ref.gold_txt.text = main.player.getStats().getGold();
+			primaryInterface_ref.kills_txt.text = main.waveHandler.getKills();
+
+			//hero stats
+			primaryInterface_ref.castleHealth_txt.text 				= main.player.getStats().getHealth();
+			primaryInterface_ref.castleHealthRegeneration_txt.text 	= main.player.getStats().getHealthRegeneration();
+			primaryInterface_ref.damage_txt.text 					= main.player.getStats().getDamage();
+			primaryInterface_ref.attackSpeed_txt.text 				= main.player.getStats().getAttackSpeed();
+			primaryInterface_ref.accuracy_txt.text 					= main.player.getStats().getAccuracy();
+			primaryInterface_ref.arrowSpeed_txt.text 				= main.player.getStats().getBowSpeed();
+
+			//bow
+			primaryInterface_ref.bow_txt.text = main.utility.upperCaseFirst(main.player.getStats().getBowName());
+
+		}
+
+
+		/*
+			display artifac tinterface
+		*/
+		public function displayArtifactInterface():void
+		{
+			artifact_mc.visible = true;
+			artifact_mc.unequippedList_list.visible = false;
+			loadArtifact();
 		}
 
 		/*
@@ -106,7 +195,7 @@
 		/*
 			loads the display settings for in game arrow interface
 		*/
-		private function  loadArrows(arr:Array):void
+		private function loadArrows(arr:Array):void
 		{
 			inGameInterface_mc.arrow1_mc.gotoAndStop(arr[0].getType());
 			inGameInterface_mc.arrow2_mc.gotoAndStop(arr[1].getType());

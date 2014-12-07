@@ -7,7 +7,7 @@
 	*/
 	public class Statistic  {
 
-		public var castleHealth:Number;
+		public var castleHealth:Number = 0;
 		public var maxCastleHealth:Number;
 		public var castleHealthRegeneration:Number;
 		public var damage:Number;
@@ -23,19 +23,20 @@
 		public var healthBar:HealthBar;
 		public var main:MovieClip;
 		public var artifactHandler:ArtifactHandler;
-		public var gold:Number;
+		public var gold:Number = 0;
 		public var bow:Bow;
 		
 		/*
 			Statistic initializer for new hero
 		*/
-		public function Statistic(HEALTHBAR:HealthBar, MAIN:MovieClip, CASTLEHEALTH:Number = 10, CASTLEHEALTHREGENERATION:Number = 0, BOWSPEED:Number = 0, DAMAGE:Number = 1, ATTACK_SPEED:Number = 30, EXP:Number = 0, MAXEXP:Number = 100, LEVEL:Number = 1) { 
+		public function Statistic(HEALTHBAR:HealthBar, MAIN:MovieClip, CASTLEHEALTH:Number = 10, CASTLEHEALTHREGENERATION:Number = 0, ACCURACY:Number = 0, BOWSPEED:Number = 0, DAMAGE:Number = 1, ATTACK_SPEED:Number = 30, EXP:Number = 0, MAXEXP:Number = 100, LEVEL:Number = 1) { 
 			castleHealth = CASTLEHEALTH;
 			maxCastleHealth = CASTLEHEALTH;
 			castleHealthRegeneration = CASTLEHEALTHREGENERATION;
 			damage = DAMAGE;
 			attackSpeed = ATTACK_SPEED;
 			bowSpeed = BOWSPEED;
+			accuracy = ACCURACY;
 			exp = EXP;
 			maxExp = MAXEXP;
 			level = LEVEL;
@@ -62,9 +63,9 @@
 		*/
 		public function equipBow(bowName:String):void
 		{
-			resetBowBonus();
-			bow = new Bow(bowname);
-			loadBowBonus();
+			resetBowBonus(bow);
+			bow = new Bow(bowName);
+			loadBowBonus(bow);
 		}
 
 		/*
@@ -73,6 +74,8 @@
 		public function loadBowBonus(bow:Bow):void
 		{
 			var stats:Object = bow.getStats();
+			trace("stats: " + stats.accuracy);
+
 
 			maxCastleHealth +=  stats.maxCastleHealth;
 			castleHealthRegeneration += stats.castleHealthRegeneration;
@@ -154,7 +157,7 @@
 		{
 			var stats:Object = artifactHandler.getAllStats();
 
-			maxCastleHealth +=  stats.maxCastleHealth;
+			maxCastleHealth +=  stats.castleHealth;
 			castleHealthRegeneration += stats.castleHealthRegeneration;
 			damage += stats.damage;
 			attackSpeed += stats.attackSpeed;
@@ -298,12 +301,25 @@
 			gold -= amt;
 		}
 
+
+		/*
+			Returns all battle stats for projectile
+		*/
+		public function getBattleStats():Object
+		{
+			return {
+				castleHealth : maxCastleHealth,
+				castleHealthRegeneration : castleHealthRegeneration,
+				damage : damage,
+				attackSpeed : attackSpeed,
+				accuracy : accuracy,
+				bowSpeed : bowSpeed,
+				effect : "none"
+			};
+		}
+
 		/*____________________________________________GETTERS - SETTERS____________________________________________*/
 		
-		public function getDamage():Number
-		{
-			return damage;
-		}
 		
 		public function getEquippedArrows():Array
 		{
@@ -325,6 +341,36 @@
 			return castleHealthRegeneration;
 		}
 
+
+		public function getDamage():Number
+		{
+			return damage;
+		}
+
+
+		public function getAttackSpeed():Number
+		{
+			return attackSpeed;
+		}
+
+
+		public function getAccuracy():Number
+		{
+			return accuracy;
+		}
+
+
+		public function getBowSpeed():Number
+		{
+			return bowSpeed;
+		}
+
+		public function getBowName():String
+		{
+			return bow.getName();
+		}
+
+
 		public function getGold():Number
 		{
 			return gold;
@@ -334,6 +380,7 @@
 		{
 			this.gold = gold;
 		}
+
 
 
 	}

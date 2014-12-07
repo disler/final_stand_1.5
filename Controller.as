@@ -44,11 +44,19 @@
 			//between wave events
 			else if(_gameState == "intermission") {
 				m._interface.proceed_mc.addEventListener(MouseEvent.CLICK, clickProceedToBattleEvent);
-				
-				//for testing
-				displayArtifactInterface();
+				displayPrimaryInterface();
 			}
 			return;
+		}
+
+		/*
+			display primary interface
+		*/
+		public function displayPrimaryInterface():void
+		{
+			//add events
+			m._interface.primaryInterface_mc.primaryInterfaceIn_mc.artifact_mc.addEventListener(MouseEvent.CLICK, displayArtifactInterfaceEvent);
+			m._interface.primaryInterface_mc.primaryInterfaceIn_mc.shop_mc.addEventListener(MouseEvent.CLICK, displayShopEvent);
 		}
 
 		/*
@@ -57,6 +65,8 @@
 		public function closeAllIntermissionMenus():void
 		{
 			closeUnequippedArtifacts();
+			m._interface.closePrimaryInterface();
+
 		}
 
 		/*
@@ -89,7 +99,7 @@
 		*/
 		public function playerShootArrow():void { 
 			var arr:Projectile = new Projectile();
-			arr.loadProjectile(m.player.x, m.player.y, m, m.player.rotation, m.player.getStats().getDamage(), m._interface.getSelectedArrow());
+			arr.loadProjectile(m.player.x, m.player.y, m, m.player.rotation, m.player.getStats().getBattleStats(), m._interface.getSelectedArrow());
 			m.arrows_mc.addChild(arr);
 			clearTimeout(shootDelayTimer);
 			return;
@@ -110,7 +120,13 @@
 		private function clickProceedToBattle():void
 		{
 			closeAllIntermissionMenus();
-			m.changeGameState("inGame");	
+
+			//some delay
+			var quickTimeout:uint = setTimeout(function()
+			{
+				clearTimeout(quickTimeout);
+				m.changeGameState("inGame");	
+			}, 1000);
 			m.waveHandler.startWave();
 		}
 
@@ -217,7 +233,44 @@
 			m._interface.closeArtifactInterface();
 		}
 		
+
+
+		/*
+			Sets controls for displaying shop
+		*/
+		public function displayShop():void
+		{
+			trace("open shop code");
+		}
+
+
 		/*________________________________________EVENTS_________________________________________*/
+
+		/*
+			Event for opening hsop
+		*/
+		public function displayShopEvent(e:Event):void
+		{
+			displayShop();
+		}
+
+		/*
+			Event for opening artifact interface
+		*/
+		public function displayArtifactInterfaceEvent(e:Event):void
+		{
+			displayArtifactInterface();
+			m._interface.displayArtifactInterface();
+		}
+
+
+
+
+
+
+
+
+
 
 		/*
 			event for exiting artifact interface

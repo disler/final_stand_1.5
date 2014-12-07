@@ -8,7 +8,7 @@
 		private var name:String;
 		private var description:String;
 		private var stats:Object = {
-			castleHealth : 0,
+			maxCastleHealth : 0,
 			castleHealthRegeneration : 0,
 			damage : 0,
 			attackSpeed : 0,
@@ -32,9 +32,12 @@
 			switch(_name)
 			{
 				case "oak bow":
+
 				default:
+					trace("OAK BOW");
 					description = "Sturdy bow made from oak";
-					stats.accuracy = 5;
+					stats.accuracy = 50;
+
 
 			}
 		}
@@ -49,12 +52,12 @@
 
 		public function getDescription()
 		{
-			return name;
+			return description;
 		}
 
 		public function getStats()
 		{
-			return name;
+			return stats;
 		}
 		
 	}
