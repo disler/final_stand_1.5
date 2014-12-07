@@ -23,7 +23,7 @@
 		public var healthBar:HealthBar;
 		public var main:MovieClip;
 		public var artifactHandler:ArtifactHandler;
-		public var gold:Number = 0;
+		public var gold:Number = 1000;
 		public var bow:Bow;
 		
 		/*
@@ -53,6 +53,7 @@
 			//ARTIFACT
 			artifactHandler = new ArtifactHandler();
 			loadArtifactBonus(artifactHandler);
+			main.interface_mc.inGameInterface_mc.health_mc.health_txt.text = castleHealth;
 		}
 
 
@@ -269,7 +270,9 @@
 		public function takeDamage(amount:Number):void
 		{
 			castleHealth -= amount;
-			healthBar.setHealth(castleHealth);
+			//healthBar.setHealth(castleHealth); 
+			main._interface.inGameInterface_mc.health_mc.bar_mc.scaleX = (castleHealth / maxCastleHealth);
+			main._interface.inGameInterface_mc.health_mc.health_txt.text = castleHealth.toString();
 			main._interface.fadeInInterface();
 			if (castleHealth <= 0) {
 				gameOver();

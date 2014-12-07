@@ -2,7 +2,7 @@
 	import flash.display.MovieClip;
 	import flash.events.*;
 	public class Main extends MovieClip {
-		public var DEBUG_MODE:Number = 1; // 0: off, 1: on
+		public var DEBUG_MODE:Number = 1; // 0: off, 1: on, 2: end wave
 		public var DEBUG_FRAME:String = "game";
 		public var HITBOXES_VISIBLE:Boolean = false;
 		public var TITLE_AUTOPLAY:Boolean = false;
@@ -44,16 +44,16 @@
 		*/
 		public function startPlayer():void {
 			//health bar
-			var heroHealthBar:HealthBar = interface_mc.inGameInterface_mc.health_mc;
+			//var heroHealthBar:HealthBar = interface_mc.inGameInterface_mc.health_mc;
 
 			//player
 			player = new Hero();
-			player.loadHero(430, 320, this, new Statistic(heroHealthBar, this));
+			player.loadHero(430, 320, this, new Statistic(null, this));
 			characters_mc.addChild(player);
 
 			//interface
 			_interface = interface_mc;
-			_interface.LOAD(this, gameState, heroHealthBar);
+			_interface.LOAD(this, gameState, null);
 			return;
 		}
 		/*
@@ -74,6 +74,7 @@
 					con = new Controller(this, gameState); // gameMode var
 					waveHandler.init();
 					startPlayer();
+					if(DEBUG_MODE == 2) { waveHandler.enemySpawnTimer = 902900; waveHandler.waveComplete(); con.inGameControllerFactory("intermission"); }
 				break;
 				default:
 					trace("Unknown frame: " + currentLabel);
