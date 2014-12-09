@@ -39,6 +39,7 @@
 			inGameInterface_mc.visible = false;
 			artifact_mc.visible = false;
 			proceed_mc.visible = false;
+			proceed_mc.gotoAndStop(0);
 			artifact_mc.hover_mc.visible = false;
 			primaryInterface_ref.visible = false;
 
@@ -52,6 +53,7 @@
 			{
 				//visibility
 				proceed_mc.visible = true;
+				proceed_mc.gotoAndPlay(2);
 				displayPrimaryInterface();
 
 			}

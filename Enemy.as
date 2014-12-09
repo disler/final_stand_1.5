@@ -1,16 +1,13 @@
 ﻿package  {
 	import flash.display.MovieClip;
 	import flash.events.*;
-	import flash.utils.clearTimeout;
-	import flash.utils.setTimeout;
-	import flash.utils.setInterval;
+	import flash.utils.*;
 
 	/*
 		Base class for all enemies
 	*/
 	public class Enemy extends MovieClip {
 		
-		public var enemyType:String;
 		public var id:Number;
 		public var stats:StatisticEnemy, m:MovieClip, healthBar:MovieClip;
 		
@@ -23,6 +20,9 @@
 
 		protected var combatInterval:uint;
 		protected var damageDelay:uint;
+		protected var animationDelay:uint
+
+		public var previousFrame:String;
 
 		public function Enemy() {}
 		
@@ -58,6 +58,7 @@
 
 		/*
 			When the 'LOAD' function is called by children, this is shared behavior
+			set enemy class visual, make them start walking
 		*/
 		protected function defaultLoad(MAIN:MovieClip, STATS:StatisticEnemy)
 		{
@@ -67,6 +68,8 @@
 			healthBar.loadBar(stats.getHealthMax(), stats.getHealth()); // SET CLASS TYPE VARIABLES HERE
 			m.healths_mc.addChild(healthBar);
 			this.hitbox_mc.visible = m.HITBOXES_VISIBLE;
+			this.gotoAndStop(stats.getType());
+			this.I.gotoAndStop("walk");
 		}
 
 
@@ -82,15 +85,10 @@
 		*/
 		protected function combat():void
 		{
-			this.I.gotoAndStop("attack");
+			I.gotoAndStop("attack");
 			damageDelay = setTimeout(function()
 			{
-				var animationDelay:uint = setTimeout(function()
-				{
-					gotoAndStop("attack");
-					m.player.getStats().takeDamage(getStats().getDamage());
-					clearTimeout(animationDelay);
-				}, 1000);
+				m.player.getStats().takeDamage(getStats().getDamage());
 			}, Const.BANDIT_ATTACK_TIME_DELAY);
 		}
 
@@ -121,6 +119,8 @@
 		*/
 		protected function handleDeath() {
 			if(!stats.alive) {
+				clearTimeout(damageDelay);
+				clearInterval(combatInterval);
 				if(++deathAnimationDurationTimer > 25) {
 					this.alpha -= 0.02;
 					healthBar.alpha -= 0.02;
@@ -139,9 +139,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 		/*____________________________________________GETTERS - SETTERS____________________________________________*/
 
 
+
+
+
+
+
+
+
+
+		protected function getPreviousFrame():String
+		{
+			return previousFrame;
+		}
+
+		public function setPreviousFrame(frame:String):void
+		{
+			previousFrame = frame;
+		}
 
 
 		public function getStats():StatisticEnemy
@@ -167,7 +197,7 @@
 
 
 		
-		/* EVENT HANDLER HANDLER */
+		/*____________________________________________ EVENT HANDLER HANDLER ____________________________________________ */
 		private var arrListeners:Array = [];
 		override public function addEventListener(type:String, listener:Function, useCapture:Boolean=false, priority:int=0, useWeakReference:Boolean=false):void
 		{

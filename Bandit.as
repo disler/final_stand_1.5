@@ -68,6 +68,7 @@
 			}
 
 			if(endMovementX && endMovementY) {
+				this.I.gotoAndStop("stand");
 				removeEventListener(Event.ENTER_FRAME, handleMovementEvent);
 				combatInterval = setInterval(combat, getStats().getAttackSpeed());
 			}

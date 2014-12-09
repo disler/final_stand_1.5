@@ -5,6 +5,7 @@
 		Contains statistics for all enemies
 	*/
 	public class StatisticEnemy  {
+		public var enemyType:String;
 		public var health:Number, healthMax;
 		public var damage:Number;
 		public var attackSpeed:Number;
@@ -15,6 +16,7 @@
 		public var alive:Boolean = true;
 		
 		public function StatisticEnemy(stats:Object) { 
+			enemyType = stats.type;
 			health = healthMax = Number(stats.HEALTH);
 			damage = Number(stats.DAMAGE);
 			attackSpeed = Number(stats.ATTACK_SPEED);
@@ -40,6 +42,11 @@
 
 		/*____________________________________________GETTERS - SETTERS____________________________________________*/
 		
+		public function getType():String
+		{
+			return enemyType;
+		}
+
 		public function getExpGiven():Number
 		{
 			return expGiven;

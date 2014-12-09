@@ -76,6 +76,7 @@
 		*/
 		public function closeAllIntermissionMenus():void
 		{
+			m._interface.proceed_mc.gotoAndPlay("out");
 			closeUnequippedArtifacts();
 			m._interface.closePrimaryInterface();
 

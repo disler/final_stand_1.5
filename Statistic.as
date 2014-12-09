@@ -75,8 +75,6 @@
 		public function loadBowBonus(bow:Bow):void
 		{
 			var stats:Object = bow.getStats();
-			trace("stats: " + stats.accuracy);
-
 
 			maxCastleHealth +=  stats.maxCastleHealth;
 			castleHealthRegeneration += stats.castleHealthRegeneration;

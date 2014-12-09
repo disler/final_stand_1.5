@@ -2,12 +2,14 @@
 
 	import flash.display.MovieClip;
 	import flash.events.*;
-	import flash.utils.setInterval;
+	import flash.utils.*;
 
 	/*
 		Guard class
 	*/
 	public class Guard extends Enemy {
+
+		public var defaultFrameTimeout:uint;
 
 		public function Guard () {}
 
@@ -69,6 +71,7 @@
 			}
 
 			if(endMovementX && endMovementY) {
+				this.I.gotoAndStop("stand");
 				removeEventListener(Event.ENTER_FRAME, handleMovementEvent);
 				combatInterval = setInterval(combat, getStats().getAttackSpeed());
 			}
@@ -76,7 +79,7 @@
 		}
 
 		/*
-			handles recieving damage, blocks 
+			handles recieving damage, blocks and reduces damage sometimes
 		*/
 		override public function recieveDamage(__amt:Number):void
 		{
@@ -84,18 +87,31 @@
 
 			//block the attack and take reduced damage 50%
 			var block:Number = Math.random() * 100;
-			if(block < 20)
+			if(block < Const.GUARD_BLOCK_CHANCE)
 			{
-				this.I.gotoAndPlay("block");
+
+				//animation
+				setPreviousFrame(this.I.currentLabel);
+				this.I.gotoAndStop("block");
+				defaultFrameTimeout = setTimeout(function()
+				{
+					if(stats.isAlive())
+					{
+						I.gotoAndStop(getPreviousFrame());
+					}
+					clearTimeout(defaultFrameTimeout);
+				}, Const.GUARD_BLOCK_TIME);
+
+				//damage reduce
 				_amt = Math.ceil(_amt * .5);
 			}
 
 			stats.reduceHealth(_amt);
 			healthBar.setHealth(getStats().getHealth());
 			if(stats.getHealth() <= 0 && stats.isAlive()) {
-				stats.alive = false;
+				stats.setAlive(false);
 				getStats().setMovementSpeed(0);
-				this.gotoAndStop("die");
+				this.I.gotoAndStop("die");
 				deathAnimationDurationTimer = 0;
 			}
 

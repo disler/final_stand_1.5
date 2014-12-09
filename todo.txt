@@ -1,5 +1,5 @@
 dan
-	Add sheild guy working, 
+	fix updating statistics when they change
 	Add enemies droping items and gold
 	Add bow select menu
 	fix spacing on primary interface

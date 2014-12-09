@@ -185,6 +185,9 @@
 			return enemyClassFactory(waveDiff);
 		}
 
+
+
+
 		/*
 			Enemy class factory, determines type of enemy to be spawned based on random number given
 			the larger the number the larger type of enemies that could be spawn (all have equal chance)
@@ -192,29 +195,27 @@
 		private function enemyClassFactory(typeNumber:Number):Enemy
 		{
 			var roll:Number = Math.round(Math.random() * typeNumber);
-
 			roll = roll == 0 ? 1 : roll;
 			var enemy:Enemy;
 			var enemyNumber:Number;
-			switch(typeNumber)
+			switch(roll)
 			{
 				//spawn a bandit
 				case 1:
 					enemy = new Bandit();
-					//enemy.gotoAndStop("bandit");
 					enemyNumber = Const.BANDIT;
 				break;
 				//spawn a guard
 				case 2:
 					enemy = new Guard();
-					//enemy.gotoAndStop("guard");
 					enemyNumber = Const.GUARD;
 				break;
 			}
 
 			enemy.LOAD(main, new StatisticEnemy(enemyStatisticFactory(enemyNumber)));
 			return enemy;
-		}		
+		}	
+
 		/*
 			Obtains enemy statistics based on type
 		*/
@@ -225,6 +226,7 @@
 			{
 				case Const.BANDIT:
 					stats = {
+						type : "bandit",
 						HEALTH : 2,
 						DAMAGE: 1,
 						ATTACK_SPEED : 4000,
@@ -235,6 +237,7 @@
 
 				case Const.GUARD:
 					stats = { 
+						type : "guard",
 						HEALTH : 5,
 						DAMAGE: 1,
 						ATTACK_SPEED : 6000,
@@ -296,6 +299,36 @@
 		public function getKills():Number
 		{
 			return kills;
+		}
+
+
+		/*____________________________________________    TESTING     ____________________________________________*/
+		
+
+
+		/*
+			Spawns a specific enemy FOR TESTING ONLY
+		*/
+		private function enemyClassFactoryTesting(enemyConst:Number):Enemy
+		{
+			var enemy:Enemy;
+			var enemyNumber:Number;
+			switch(enemyConst)
+			{
+				//spawn a bandit
+				case 1:
+					enemy = new Bandit();
+					enemyNumber = Const.BANDIT;
+				break;
+				//spawn a guard
+				case 2:
+					enemy = new Guard();
+					enemyNumber = Const.GUARD;
+				break;
+			}
+
+			enemy.LOAD(main, new StatisticEnemy(enemyStatisticFactory(enemyNumber)));
+			return enemy;
 		}
 
 		
