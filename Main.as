@@ -43,8 +43,6 @@
 			NEW stats.
 		*/
 		public function startPlayer():void {
-			//health bar
-			//var heroHealthBar:HealthBar = interface_mc.inGameInterface_mc.health_mc;
 
 			//player
 			player = new Hero();

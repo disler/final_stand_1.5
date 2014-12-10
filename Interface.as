@@ -48,6 +48,7 @@
 				inGameInterface_mc.visible = true;
 				inGameInterface_mc.alpha = inGameInterfaceUnfocused;
 				loadArrows(main.player.getStats().getEquippedArrows());
+				loadHpBar(main.player.getStats().getHealth(), main.player.getStats().getMaxHealth());
 			}
 			else if(gameState == "intermission")
 			{
@@ -107,7 +108,25 @@
 			}, 100);
 		} 
 
+		/*
+			Loads display for hp
+		*/
+		public function loadHpBar(hp:Number, maxHp:Number):void
+		{
 
+			inGameInterface_mc.health_mc.bar_mc.scaleX = (hp / maxHp);
+			inGameInterface_mc.health_mc.health_txt.text = hp.toString();
+			
+		}
+
+		/*
+			Display hp with new ammounts
+		*/
+		public function loadHpFlash(hp:Number, maxHp:Number):void
+		{
+			loadHpBar(hp, maxHp);
+			fadeInInterface();
+		}
 
 
 
@@ -125,7 +144,7 @@
 			primaryInterface_ref.kills_txt.text = main.waveHandler.getKills();
 
 			//hero stats
-			primaryInterface_ref.castleHealth_txt.text 				= main.player.getStats().getHealth();
+			primaryInterface_ref.castleHealth_txt.text 				= main.player.getStats().getMaxHealth();
 			primaryInterface_ref.castleHealthRegeneration_txt.text 	= main.player.getStats().getHealthRegeneration();
 			primaryInterface_ref.damage_txt.text 					= main.player.getStats().getDamage();
 			primaryInterface_ref.attackSpeed_txt.text 				= main.player.getStats().getAttackSpeed();

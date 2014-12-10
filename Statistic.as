@@ -67,6 +67,7 @@
 			resetBowBonus(bow);
 			bow = new Bow(bowName);
 			loadBowBonus(bow);
+			main.interface_mc.loadPrimaryInterfaceText();
 		}
 
 		/*
@@ -105,17 +106,28 @@
 			return artifactHandler.getEquippedArtifacts()[ind];
 		}
 
+		/*
+			Auto fills artifacts
+		*/
 		public function autoFillArtifacts():void
 		{
 			resetArtifactBonus(artifactHandler);
 			artifactHandler.autoFillArtifacts();
 			loadArtifactBonus(artifactHandler);
+			main.interface_mc.loadPrimaryInterfaceText();
 		}
+
+		/*
+			Gets array of currently equiped artifacts
+		*/	
 		public function getEquippedArtifacts():Array
 		{
 			return artifactHandler.getEquippedArtifacts();
 		}
 
+		/*
+			Gets array of unequipped artifacts
+		*/
 		public function getUnequippedArtifacts():Array
 		{
 			return artifactHandler.getUnequippedArtifacts();
@@ -137,6 +149,7 @@
 			resetArtifactBonus(artifactHandler);
 			artifactHandler.changeArtifact(slot, artifactIndex);
 			loadArtifactBonus(artifactHandler);
+			main.interface_mc.loadPrimaryInterfaceText();
 		}
 
 		/*
@@ -147,6 +160,7 @@
 			resetArtifactBonus(artifactHandler);
 			artifactHandler.removeAllArtifacts();
 			loadArtifactBonus(artifactHandler);
+			main.interface_mc.loadPrimaryInterfaceText();
 		}
 
 		/*
@@ -171,7 +185,7 @@
 		{
 			var stats:Object = artifactHandler.getAllStats();
 
-			maxCastleHealth -=  stats.maxCastleHealth;
+			maxCastleHealth -=  stats.castleHealth;
 			castleHealthRegeneration -= stats.castleHealthRegeneration;
 			damage -= stats.damage;
 			attackSpeed -= stats.attackSpeed;
@@ -268,10 +282,7 @@
 		public function takeDamage(amount:Number):void
 		{
 			castleHealth -= amount;
-			//healthBar.setHealth(castleHealth); 
-			main._interface.inGameInterface_mc.health_mc.bar_mc.scaleX = (castleHealth / maxCastleHealth);
-			main._interface.inGameInterface_mc.health_mc.health_txt.text = castleHealth.toString();
-			main._interface.fadeInInterface();
+			main._interface.loadHpFlash(getHealth(), getMaxHealth());
 			if (castleHealth <= 0) {
 				gameOver();
 			}
