@@ -62,6 +62,15 @@
 		}
 
 		/*
+			Sets up functionality for new loot
+		*/
+		public function handleNewLoot(loot:Loot):void
+		{
+			trace("new loot");
+			loot.timeout(m);
+		}
+
+		/*
 			display primary interface
 		*/
 		public function displayPrimaryInterface():void

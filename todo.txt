@@ -1,8 +1,8 @@
 dan
-	fix updating statistics when they change
 	Add enemies droping items and gold
+	Make health regen work
+	Make bow speed applicable - add global timer
 	Add bow select menu
-	fix spacing on primary interface
 	stop proceed to next wave spam click
 ryan
 	Create Ice, Fire, Earth arrow (shoots enemy backward)

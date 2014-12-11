@@ -23,7 +23,7 @@
 			{
 				case "wooden_arrow":
 					description = "A light-weight, wooden arrow";
-					damage = 0;//is not base speed (added to hero damage)
+					damage = 0;//is not base damage (added to hero damage)
 					speed = 7;//is base speed
 					accuracy = 5;//0 is perfect accuracy, the higher the worse
 				break;

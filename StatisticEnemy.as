@@ -10,6 +10,7 @@
 		public var damage:Number;
 		public var attackSpeed:Number;
 		public var movementSpeed:Number;
+		public var lootTier:Number;
 		//oncase his speed was set to 0
 		public var baseMovementSpeed:Number;
 		public var expGiven:Number;
@@ -23,6 +24,7 @@
 			movementSpeed = Number(stats.MOVEMENT_SPEED);
 			baseMovementSpeed = Number(stats.MOVEMENT_SPEED);
 			expGiven = Number(stats.EXP_GIVEN);
+			lootTier = stats.LOOT_TIER;
 		}
 
 		/*
@@ -41,7 +43,10 @@
 
 
 		/*____________________________________________GETTERS - SETTERS____________________________________________*/
-		
+		public function getLootTier():Number
+		{
+			return lootTier;
+		}
 		public function getType():String
 		{
 			return enemyType;

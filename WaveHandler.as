@@ -23,6 +23,8 @@
 		private var enemyContainer:Array = [];
 		private var remainingWaveEnemies:Number;
 		private var killedWaveEnemies:Number;
+
+		private var lootCount:Number = 0;
 		private var totalEnemiesKilled:Number;
 
 		private var kills:Number = 0;
@@ -63,6 +65,7 @@
 		{
 			kills++;
 			remainingWaveEnemies--;
+			spawnLoot(enemy);
 			main.enemies_mc.removeChild(enemy);
 			enemyContainer[enemy.getId()] = null;
 			
@@ -74,7 +77,46 @@
 		
 		
 		/*____________________________________________PRIVATE FUNCTIONS____________________________________________*/
-		
+			
+		/*
+			Handles spawning loot given an enemies death
+		*/
+		private function spawnLoot(enemy:Enemy):void
+		{
+			var loot:Loot;
+			var lootRoll:Object = LootHandler.lootRoll(enemy.getStats().getLootTier());
+			var bool = lootRoll.bool;
+
+			//if we rolled for loot
+			if(bool)
+			{
+				loot = LootHandler.getLoot(lootRoll.tier);
+			}
+			//if we receive no loot we roll for gold
+			else
+			{
+				bool = LootHandler.goldRoll();
+				//if we roll for gold
+				if(bool)
+				{
+					loot = LootHandler.getGold(waveId);
+				}
+			}
+
+			//if we got any loot
+			if(bool)
+			{
+				loot.x = enemy.x;
+				loot.y = enemy.y;
+				loot.name = "lo" + lootCount;
+				lootCount++;
+				
+				main.con.handleNewLoot(loot);
+				main.loot_mc.addChild(loot);
+			}
+
+		}
+
 		/*
 			Iterate to the next break/wave
 		*/	
@@ -231,7 +273,8 @@
 						DAMAGE: 1,
 						ATTACK_SPEED : 4000,
 						MOVEMENT_SPEED : 1, 
-						EXP_GIVEN : 20
+						EXP_GIVEN : 20,
+						LOOT_TIER : 0
 					};
 				break;
 
@@ -242,7 +285,8 @@
 						DAMAGE: 1,
 						ATTACK_SPEED : 6000,
 						MOVEMENT_SPEED : .5, 
-						EXP_GIVEN : 30
+						EXP_GIVEN : 30,
+						LOOT_TIER : 0
 					};
 				break;
 			}

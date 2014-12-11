@@ -28,6 +28,14 @@
 
 		public static const MAX_LEVEL:Number = 30;
 
+		public static const TIER_0_ROLL:Number = 10;
+		public static const TIER_1_ROLL:Number = 8;
+		public static const TIER_2_ROLL:Number = 7;
+		public static const TIER_3_ROLL:Number = 5;
+
+
+		public static const GOLD_ROLL:Number = 15;
+
 		public static const ARTIFACT_SLOT_LEVELS:Array = [	2, 	4, 	6, 	8,
 															10, 12, 14, 15,
 															17, 18, 20, 22,
