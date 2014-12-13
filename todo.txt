@@ -1,5 +1,4 @@
 dan
-	Add enemies droping items and gold
 	Make health regen work
 	Make bow speed applicable - add global timer
 	Add bow select menu
