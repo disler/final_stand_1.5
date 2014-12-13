@@ -32,9 +32,7 @@
 			switch(_name)
 			{
 				case "oak bow":
-
 				default:
-					trace("OAK BOW");
 					description = "Sturdy bow made from oak";
 					stats.accuracy = 5;
 

@@ -33,6 +33,17 @@
 		public static const TIER_2_ROLL:Number = 7;
 		public static const TIER_3_ROLL:Number = 5;
 
+		public static const LOOT_ARTIFACT:Number = 0;
+		public static const LOOT_BOW:Number = 1;
+		public static const LOOT_ARROW:Number = 2;
+		public static const LOOT_GOLD:Number = 3;
+
+
+		public static const LOOT_MESSAGE_DEFAULT:Number = 0;
+		public static const LOOT_MESSAGE_ARROW:Number = 1;
+		public static const LOOT_MESSAGE_BOW:Number = 2;
+		public static const LOOT_MESSAGE_ARTIFACT:Number = 3;
+
 
 		public static const GOLD_ROLL:Number = 15;
 

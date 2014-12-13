@@ -21,13 +21,13 @@
 		{
 			switch(type)
 			{
-				case "wooden_arrow":
+				case "wooden arrow":
 					description = "A light-weight, wooden arrow";
 					damage = 0;//is not base damage (added to hero damage)
 					speed = 7;//is base speed
 					accuracy = 5;//0 is perfect accuracy, the higher the worse
 				break;
-				case "steel_arrow":
+				case "steel arrow":
 					description = "A powerful yet heavier arrow";
 					damage = 1;
 					speed = 5;

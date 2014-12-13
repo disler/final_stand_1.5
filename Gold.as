@@ -8,7 +8,7 @@
 		private var amount:Number = 0;
 
 		public function Gold(amount:Number) {
-			super("gold");
+			super("gold", Const.LOOT_GOLD);
 			this.amount = amount;
 		}
 

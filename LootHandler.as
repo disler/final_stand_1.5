@@ -6,9 +6,9 @@
 	public class LootHandler {
 
 		private static var lootTier:Array = 	[
-													["glyph of haste", "glyph of health", "glyph of bow speed",
-													"steel_arrow", "wooden_arrow"],
-													["glyph of power", "glyph of health regeneration", "glyph of accuracy"],
+													[new Loot("glyph of haste", Const.LOOT_ARTIFACT), new Loot("glyph of health", Const.LOOT_ARTIFACT), new Loot("glyph of bow speed", Const.LOOT_ARTIFACT),
+													new Loot("steel arrow", Const.LOOT_ARROW), new Loot("wooden arrow", Const.LOOT_ARROW)], 
+													[new Loot("glyph of power", Const.LOOT_ARTIFACT), new Loot("glyph of health regeneration", Const.LOOT_ARTIFACT), new Loot("glyph of accuracy", Const.LOOT_ARTIFACT)],
 													[],
 													[]
 												];
@@ -20,9 +20,12 @@
 		*/
 		public static function getLoot(tier:Number):Loot
 		{
-			var lootName:String = lootTier[tier][Math.floor(Math.random() * lootTier[tier].length)];
-			return new Loot(lootName);
+			var loot:Loot = lootTier[tier][Math.floor(Math.random() * lootTier[tier].length)];
+			return loot;
 		}
+
+		//glyph - contains 'glyph'
+		//
 
 		/*
 			Determines of a kill will grant loot
@@ -36,19 +39,19 @@
 
 			switch(tier)
 			{
-				case 0:
+				case 0://tier 1 loot roll
 					retObject.bool = Math.floor(Math.random() * 100) <= Const.TIER_0_ROLL ? true : false;
 					retObject.tier = 0;
 				break;
-				case 1:
+				case 1://tier 2 loot roll
 					retObject.bool = Math.floor(Math.random() * 100) <= Const.TIER_1_ROLL ? true : false;
 					retObject.tier = 1;
 				break;
-				case 2:
+				case 2://tier 3 loot roll
 					retObject.bool = Math.floor(Math.random() * 100) <= Const.TIER_2_ROLL ? true : false;
 					retObject.tier = 2;
 				break;
-				case 3:
+				case 3://tier 4 loot roll
 					retObject.bool = Math.floor(Math.random() * 100) <= Const.TIER_3_ROLL ? true : false;
 					retObject.tier = 3;
 				break;

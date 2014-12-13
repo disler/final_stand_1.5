@@ -26,6 +26,7 @@
 		public var toggleArrowLock:Boolean = false;
 		public var artifactList_ref:List;
 		private var equippedArtifactSlot:Number;
+		private var arrowLock:Boolean = false;
 		/*
 			Attaches listener events
 		*/
@@ -66,8 +67,9 @@
 		*/
 		public function handleNewLoot(loot:Loot):void
 		{
-			trace("new loot");
 			loot.timeout(m);
+			loot.addEventListener(MouseEvent.MOUSE_DOWN, dragLootEvent);
+			loot.addEventListener(MouseEvent.MOUSE_UP, unDragLootEvent);
 		}
 
 		/*
@@ -86,7 +88,7 @@
 		public function closeAllIntermissionMenus():void
 		{
 			m._interface.proceed_mc.gotoAndPlay("out");
-			closeUnequippedArtifacts();
+			exitArtifactInterface();
 			m._interface.closePrimaryInterface();
 
 		}
@@ -132,8 +134,11 @@
 		*/
 		private function stageClick():void
 		{
-			m.player.gotoAndStop("shoot");
-			shootDelayTimer = setTimeout(playerShootArrow, Const.SHOOT_DELAY);
+			if(!arrowLock)
+			{
+				m.player.gotoAndStop("shoot");
+				shootDelayTimer = setTimeout(playerShootArrow, Const.SHOOT_DELAY);
+			}
 		}
 
 		/*
@@ -380,7 +385,160 @@
 		}
 
 
+		/*
+			Displays arrow looting interface (arrows only)
+		*/
+		public function displayArrowLooting(toggleOn:Boolean):void
+		{
+			if(toggleOn)
+			{
+				m._interface.arrowSelect_mc.gotoAndStop("show");
+			}
+			else
+			{
+				m._interface.arrowSelect_mc.gotoAndStop("hide");
+			}
+		}
+
+		/*
+			Displays general looting interface (gold, bows, artifacts)
+		*/
+		public function displayGeneralLooting(toggleOn:Boolean):void
+		{
+			if(toggleOn)
+			{
+				m._interface.treasure_mc.gotoAndStop("show");
+			}
+			else
+			{
+				m._interface.treasure_mc.gotoAndStop("hide");
+			}
+		}
+
+
 		/*________________________________________EVENTS_________________________________________*/
+
+
+		/*
+			Event for undragging and dropping loot
+		*/
+		public function unDragLootEvent(e:MouseEvent):void
+		{
+			trace("unclick");
+			var dropped:Boolean = true;
+			//unlock arrows, with slight delay
+			var lockTimer:uint = setTimeout(function()
+			{
+				arrowLock = false;
+			}, 250);
+
+			//start drag
+			e.currentTarget.stopDrag();
+
+			//obtain loot object
+			var loot:Loot = e.currentTarget as Loot;
+
+			//if these things are at the correct loot location given it's type (arrow ELSE general)
+			if(loot.getType() == Const.LOOT_ARROW)
+			{
+				if(loot.hitTestObject(m._interface.inGameInterface_mc.arrow1_mc))
+				{
+					//equip to arrow slot 1
+					m.player.getStats().equipArrow(loot.getTitle(), 0);
+					Messenger.lootMessage("Looted " + m.utility.upperCaseFirst(loot.getTitle()), Const.LOOT_MESSAGE_ARROW);
+					loot.remove(m);
+					dropped = false;
+				}
+				else if(loot.hitTestObject(m._interface.inGameInterface_mc.arrow2_mc))
+				{
+					//2
+					m.player.getStats().equipArrow(loot.getTitle(), 1);
+					Messenger.lootMessage("Looted " + m.utility.upperCaseFirst(loot.getTitle()), Const.LOOT_MESSAGE_ARROW);
+					loot.remove(m);
+					dropped = false;
+				}
+				else if(loot.hitTestObject(m._interface.inGameInterface_mc.arrow3_mc))
+				{
+					//3
+					m.player.getStats().equipArrow(loot.getTitle(), 2);
+					Messenger.lootMessage("Looted " + m.utility.upperCaseFirst(loot.getTitle()), Const.LOOT_MESSAGE_ARROW);
+					loot.remove(m);
+					dropped = false;
+				}
+
+				//close arrow looting interface
+				displayArrowLooting(false);
+			}
+			else
+			{
+				if(loot.hitTestObject(m._interface.treasure_mc))
+				{
+					//loot the correct item based on it's type
+					switch(loot.getType())
+					{
+						case Const.LOOT_ARTIFACT:
+							m.player.getStats().addArtifact(new Artifact(loot.getTitle()));
+							Messenger.lootMessage("Looted " + m.utility.upperCaseFirst(loot.getTitle()), Const.LOOT_MESSAGE_DEFAULT);
+							dropped = false;
+						break;
+						case Const.LOOT_GOLD:
+							var gold:Gold = loot as Gold;
+							m.player.getStats().addGold(gold.getAmount());
+							Messenger.lootMessage("Looted " + gold.getAmount() + " " + m.utility.upperCaseFirst(loot.getTitle()), Const.LOOT_MESSAGE_DEFAULT);
+							dropped = false;
+						break;
+						case Const.LOOT_BOW:
+							m.player.getStats().addBow(new Bow(loot.getTitle()));
+							Messenger.lootMessage("Looted " + m.utility.upperCaseFirst(loot.getTitle()), Const.LOOT_MESSAGE_BOW);
+							dropped = false;
+						break;
+					}
+					
+					//visually remove loot
+					loot.remove(m);
+				}
+
+				//close general looting interface
+				displayGeneralLooting(false);
+			}
+
+			//if loot was picked up and dropped, reset the timer
+			/*
+			if(dropped)
+			{
+				loot.timeout(m);
+			}
+			*/
+
+		}
+
+		/*
+			Event for dragging loot, displays loot drop
+		*/
+		public function dragLootEvent(e:MouseEvent):void
+		{
+			//lock shotting arrows
+			arrowLock = true;
+
+			//start drag
+			e.currentTarget.startDrag();
+
+			//obtain loot object
+			var loot:Loot = e.currentTarget as Loot;
+
+			if(loot.getType() == Const.LOOT_ARROW)
+			{
+				displayArrowLooting(true);
+			}
+			else
+			{
+				displayGeneralLooting(true);
+			}
+
+		}
+
+
+
 
 		/*
 			Event for opening hsop

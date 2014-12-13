@@ -16,7 +16,6 @@
 		private var primaryInterface_ref:MovieClip;
 		
 		public function Interface() { 
-			inGameInterface_mc.visible = false; 
 			artifact_mc.visible = false; 
 			proceed_mc.visible = false;
 			primaryInterface_ref = primaryInterface_mc.primaryInterfaceIn_mc;
@@ -36,7 +35,6 @@
 		*/
 		public function interfaceStatusFactory(gameState:String):void
 		{
-			inGameInterface_mc.visible = false;
 			artifact_mc.visible = false;
 			proceed_mc.visible = false;
 			proceed_mc.gotoAndStop(0);
@@ -45,7 +43,6 @@
 
 			if(gameState == "inGame")
 			{
-				inGameInterface_mc.visible = true;
 				inGameInterface_mc.alpha = inGameInterfaceUnfocused;
 				loadArrows(main.player.getStats().getEquippedArrows());
 				loadHpBar(main.player.getStats().getHealth(), main.player.getStats().getMaxHealth());
@@ -213,7 +210,7 @@
 		/*
 			loads the display settings for in game arrow interface
 		*/
-		private function loadArrows(arr:Array):void
+		public function loadArrows(arr:Array):void
 		{
 			inGameInterface_mc.arrow1_mc.gotoAndStop(arr[0].getType());
 			inGameInterface_mc.arrow2_mc.gotoAndStop(arr[1].getType());

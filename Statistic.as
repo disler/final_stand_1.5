@@ -23,8 +23,10 @@
 		public var healthBar:HealthBar;
 		public var main:MovieClip;
 		public var artifactHandler:ArtifactHandler;
+		public var bowContainer:Array = [];
 		public var gold:Number = 1000;
 		public var bow:Bow;
+
 		
 		/*
 			Statistic initializer for new hero
@@ -44,10 +46,11 @@
 			main = MAIN;
 
 			//arrows
-			equippedArrows = [new ArrowType("wooden_arrow"), new ArrowType("steel_arrow"), new ArrowType("empty")];
+			equippedArrows = [new ArrowType("wooden arrow"), new ArrowType("empty"), new ArrowType("empty")];
 
 			//bow
 			bow = new Bow("oak bow");
+			bowContainer.push(bow);
 			loadBowBonus(bow);
 
 			//ARTIFACT
@@ -58,6 +61,11 @@
 
 
 		/*____________________________________________'BOW'_________________________________________*/
+
+		public function addBow(bow:Bow):void
+		{
+			bowContainer.push(bow);
+		}
 
 		/*
 			Equip a new bow based on string, reduce old stats increase by new stats
@@ -195,6 +203,33 @@
 		
 
 
+		/*________________________________ARROWS________________________________*/
+
+		/*
+			Equip and arrow to a slot
+		*/
+		public function equipArrow(arrowName:String, slot:Number)
+		{
+			var newArrow:ArrowType = new ArrowType(arrowName);
+			var oldArrow:ArrowType = equippedArrows[slot];
+			var oldArrowAsLoot:Loot;
+
+			equippedArrows[slot] = newArrow;
+			main._interface.loadArrows(equippedArrows);
+
+			//if the old arrow was an arrow not an empty slot
+			if(oldArrow.getType() != "empty")
+			{
+				oldArrowAsLoot = new Loot(oldArrow.getType(), Const.LOOT_ARROW);
+				oldArrowAsLoot.x = 100 + (slot * 97);
+				oldArrowAsLoot.y = 220;
+				main.loot_mc.addChild(oldArrowAsLoot);
+				main.con.handleNewLoot(oldArrowAsLoot);
+			};
+		}
+
+
+
 
 
 
@@ -296,7 +331,6 @@
 			trace("you have died");
 		}
 
-
 		/*	
 			Add x amount to current gold
 		*/
@@ -312,7 +346,6 @@
 		{
 			gold -= amt;
 		}
-
 
 		/*
 			Returns all battle stats for projectile
