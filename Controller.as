@@ -424,7 +424,6 @@
 		*/
 		public function unDragLootEvent(e:MouseEvent):void
 		{
-			trace("unclick");
 			var dropped:Boolean = true;
 			//unlock arrows, with slight delay
 			var lockTimer:uint = setTimeout(function()
@@ -503,12 +502,12 @@
 			}
 
 			//if loot was picked up and dropped, reset the timer
-			/*
+			/**/
 			if(dropped)
 			{
 				loot.timeout(m);
 			}
-			*/
+			
 
 		}
 
@@ -534,6 +533,8 @@
 			{
 				displayGeneralLooting(true);
 			}
+
+			loot.clearTimeoutTimer();
 
 		}
 

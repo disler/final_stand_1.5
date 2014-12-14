@@ -21,6 +21,7 @@
 		public static function getLoot(tier:Number):Loot
 		{
 			var loot:Loot = lootTier[tier][Math.floor(Math.random() * lootTier[tier].length)];
+			loot.setTier(tier);
 			return loot;
 		}
 
@@ -64,7 +65,9 @@
 		*/
 		public static function getGold(waveId:Number):Gold
 		{
-			return new Gold( Math.floor(Math.random() * (waveId * 25)) + 25);
+			var gold:Gold = new Gold( Math.floor(Math.random() * (waveId * 25)) + 25); 
+			gold.setTier(0);
+			return gold;
 		}
 
 		/*
@@ -73,6 +76,7 @@
 		public static function goldRoll():Boolean
 		{
 			var bool:Boolean = Math.floor(Math.random() * 100) <= Const.GOLD_ROLL ? true : false;
+
 			return bool;
 		}
 	}
