@@ -125,6 +125,14 @@
 			fadeInInterface();
 		}
 
+		/*
+			Display hp with no flash
+		*/
+		public function loadHpNoFlash(hp:Number, maxHp:Number):void
+		{
+			loadHpBar(hp, maxHp);
+		}
+
 
 
 
@@ -271,6 +279,11 @@
 		public function getSelectedArrow():ArrowType
 		{
 			return main.player.getStats().getEquippedArrows()[selectedArrow];
+		}
+
+		public function getSelectedArrowIndex():Number
+		{
+			return selectedArrow;
 		}
 
 	}

@@ -19,7 +19,6 @@
 		public var shopSelectID:Number = -1;
 		public var shopSelectID2:Number = -1;
 		
-		public var shootDelayTimer:uint;
 		public var gameState:String = "gameStart";
 		public var m:MovieClip;
 		public var toggleArrowLockTimeout:uint;
@@ -125,7 +124,6 @@
 			var arr:Projectile = new Projectile();
 			arr.loadProjectile(m.player.x, m.player.y, m, m.player.rotation, m.player.getStats().getBattleStats(), m._interface.getSelectedArrow());
 			m.arrows_mc.addChild(arr);
-			clearTimeout(shootDelayTimer);
 			return;
 		}
 		
@@ -136,8 +134,12 @@
 		{
 			if(!arrowLock)
 			{
-				m.player.gotoAndStop("shoot");
-				shootDelayTimer = setTimeout(playerShootArrow, Const.SHOOT_DELAY);
+				if(m.player.getStats().canShootArrow(m._interface.getSelectedArrowIndex()))
+				{
+					m.player.gotoAndStop("shoot");
+					m.player.getStats().resetArrowTimer(m._interface.getSelectedArrowIndex());
+					playerShootArrow();
+				}
 			}
 		}
 
@@ -146,6 +148,8 @@
 		*/
 		private function clickProceedToBattle():void
 		{
+			m._interface.proceed_mc.removeEventListener(MouseEvent.CLICK, clickProceedToBattle);
+			
 			closeAllIntermissionMenus();
 
 			//some delay

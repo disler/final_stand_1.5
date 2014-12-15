@@ -33,6 +33,7 @@
 
 		public function changeGameState(state:String):void
 		{
+			gameState = state;
 			con.inGameControllerFactory(state);
 			_interface.interfaceStatusFactory(state);
 		}

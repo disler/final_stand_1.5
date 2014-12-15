@@ -1,6 +1,8 @@
 ﻿package  {
 	import flash.display.MovieClip;
-
+	import flash.display.Sprite;
+	import flash.utils.*;
+	import flash.events.TimerEvent;
 
 	/*max health, damage, attackSpeed, accuracy, armor piece, projectile piece
 		handles player statistics
@@ -26,12 +28,17 @@
 		public var bowContainer:Array = [];
 		public var gold:Number = 1000;
 		public var bow:Bow;
+		public var healthRegenInterval:uint;
+
+		public var arrowTimers:Array = [null, null, null];
+		public var shootable:Array = [false, false, false];
+		public var pieMaskContainer:Array = [];
 
 		
 		/*
 			Statistic initializer for new hero
 		*/
-		public function Statistic(HEALTHBAR:HealthBar, MAIN:MovieClip, CASTLEHEALTH:Number = 10, CASTLEHEALTHREGENERATION:Number = 0, ACCURACY:Number = 0, BOWSPEED:Number = 0, DAMAGE:Number = 1, ATTACK_SPEED:Number = 30, EXP:Number = 0, MAXEXP:Number = 100, LEVEL:Number = 1) { 
+		public function Statistic(HEALTHBAR:HealthBar, MAIN:MovieClip, CASTLEHEALTH:Number = 10, CASTLEHEALTHREGENERATION:Number = 0, ACCURACY:Number = 0, BOWSPEED:Number = 0, DAMAGE:Number = 1, ATTACK_SPEED:Number = 0, EXP:Number = 0, MAXEXP:Number = 100, LEVEL:Number = 1) { 
 			castleHealth = CASTLEHEALTH;
 			maxCastleHealth = CASTLEHEALTH;
 			castleHealthRegeneration = CASTLEHEALTHREGENERATION;
@@ -46,7 +53,27 @@
 			main = MAIN;
 
 			//arrows
-			equippedArrows = [new ArrowType("wooden arrow"), new ArrowType("empty"), new ArrowType("empty")];
+			equippedArrows = [new ArrowType("wooden arrow"), new ArrowType("steel arrow"), new ArrowType("empty")];
+
+
+			//initiate pie masks
+			/*
+			for(var i:Number = 1; i < 4; i++)
+			{
+				var mask:Sprite = new Sprite();
+				mask.x = main.interface_mc.inGameInterface_mc["arrow" + i + "_mc"].x - main.interface_mc.inGameInterface_mc["arrow" + i + "_mc"].width/2;
+				mask.y = main.interface_mc.inGameInterface_mc["arrow" + i + "_mc"].y;
+			 	main.interface_mc.inGameInterface_mc.addChild(mask);
+				main.interface_mc.inGameInterface_mc["arrow" + i + "_mc"].mask = mask;
+
+				var pie:PieMask = new PieMask( 	mask.graphics, 50, 50, 
+												main.interface_mc.inGameInterface_mc["arrow" + i + "_mc"].x, 
+												main.interface_mc.inGameInterface_mc["arrow" + i + "_mc"].y,
+												3);
+				pie.drawWithFill();
+				pieMaskContainer.push(pie);
+			}
+			*/
 
 			//bow
 			bow = new Bow("oak bow");
@@ -57,6 +84,132 @@
 			artifactHandler = new ArtifactHandler();
 			loadArtifactBonus(artifactHandler);
 			main.interface_mc.inGameInterface_mc.health_mc.health_txt.text = castleHealth;
+
+			//arrow timers
+			setupArrowTimers();
+
+
+			healthRegenInterval = setInterval(healthRegeneration, Const.HEALTH_REGENERATION_INTERVAL);
+		}
+
+		/*_________________________________________ARROW TIMERS_________________________________________*/
+		
+		public function canShootArrow(slot:Number):Boolean
+		{
+			return shootable[slot];
+		}
+		/*
+			Initiates all nessacary arrow timers
+		*/
+		private function setupArrowTimers():void
+		{
+			for(var i:Number = 0; i < equippedArrows.length; i++)
+			{
+				//if this arrow is not empty set up the arrow timer
+				if(equippedArrows[i].getType() != "empty")
+				{
+					setupArrowTimer(i);
+				}
+			}
+		}
+
+		/*
+			Sets up a single arrow timer given a slot
+		*/
+		private function setupArrowTimer(slot:Number):void
+		{
+			//calculate bonus waittime
+			trace("___________________slot: " + slot);
+			var waitTime:Number = equippedArrows[slot].getWaitTime();
+			trace("base wait time: " + waitTime);
+			var bonusReduceWaitTime = getAttackSpeed();
+			trace("bonus reduced wait time: " + getAttackSpeed());
+			var reducedWaitTime = waitTime * Math.pow(1 - Const.ARROW_SPEED_REDUCER, bonusReduceWaitTime);
+			trace("reduced wait time: " + reducedWaitTime);
+			
+			//create timer object
+			arrowTimers[slot] = new Timer(100, reducedWaitTime);
+
+			
+			//when the timer has proceed a single tick
+			arrowTimers[slot].addEventListener(TimerEvent.TIMER, 
+			function(e:TimerEvent) 
+			{
+				arrowTick(e, slot);
+			});
+			
+			//when the timer is complete
+			arrowTimers[slot].addEventListener(TimerEvent.TIMER_COMPLETE, 
+			function(e:TimerEvent)
+			{
+				arrowTickComplete(e, slot);
+			});
+			arrowTimers[slot].start();
+		}
+
+
+
+		/*
+			Tick interval for arrow reloading
+		*/
+		private function arrowTick(e:TimerEvent, slot:Number):void
+		{
+			//render PieMask
+			//pieMaskContainer[slot].drawWithFill(e.currentTarget.currentCount / e.currentTarget.repeatCount);
+		}
+
+		/*
+			When arrow timer has been completed
+		*/
+		private function arrowTickComplete(e:TimerEvent, slot:Number):void
+		{
+			arrowTimers[slot].stop();
+			shootable[slot] = true;
+		}
+
+		/*
+			Resets arrow timer after it's been shot
+		*/
+		public function resetArrowTimer(slot:Number):void
+		{
+			arrowTimers[slot].reset();
+			arrowTimers[slot].start();
+			shootable[slot] = false;
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		/*
+			Called every 5 seconds to regenerate health
+		*/
+		private function healthRegeneration():void
+		{
+			if(main.gameState == "inGame")
+			{
+				if(castleHealth < maxCastleHealth)
+				{
+					castleHealth += castleHealthRegeneration;
+					main._interface.loadHpNoFlash(getHealth(), getMaxHealth());
+				}
+
+				if(castleHealth > maxCastleHealth)
+				{
+					var diff:Number = castleHealth - maxCastleHealth;
+					castleHealth -= diff;
+				}
+			}
 		}
 
 
@@ -75,6 +228,7 @@
 			resetBowBonus(bow);
 			bow = new Bow(bowName);
 			loadBowBonus(bow);
+			setupArrowTimers();
 			main.interface_mc.loadPrimaryInterfaceText();
 		}
 
@@ -123,6 +277,7 @@
 			artifactHandler.autoFillArtifacts();
 			loadArtifactBonus(artifactHandler);
 			main.interface_mc.loadPrimaryInterfaceText();
+			setupArrowTimers();
 		}
 
 		/*
@@ -158,6 +313,7 @@
 			artifactHandler.changeArtifact(slot, artifactIndex);
 			loadArtifactBonus(artifactHandler);
 			main.interface_mc.loadPrimaryInterfaceText();
+			setupArrowTimers();
 		}
 
 		/*
@@ -226,6 +382,8 @@
 				main.loot_mc.addChild(oldArrowAsLoot);
 				main.con.handleNewLoot(oldArrowAsLoot);
 			};
+
+			setupArrowTimer(slot);
 		}
 
 
@@ -329,6 +487,7 @@
 		public function gameOver()
 		{
 			trace("you have died");
+			clearInterval(healthRegenInterval);
 		}
 
 		/*	

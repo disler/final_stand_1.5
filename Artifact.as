@@ -33,7 +33,7 @@
 			switch(artifact)
 			{
 				case "glyph of haste":
-					stats.attackSpeed = 100;
+					stats.attackSpeed = 1;
 					description = "Descrease wait time to fire arrows";
 				break;
 				case "glyph of power":

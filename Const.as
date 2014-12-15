@@ -11,7 +11,7 @@
 		public static const OFF_SCREEN_OFF_SET:Number = 25;
 		
 		public static const FPS:Number = 30.00;
-		public static const SHOOT_DELAY:Number = 333; // ms
+		//public static const SHOOT_DELAY:Number = 333; // ms
 
 		public static const BANDIT:Number = 1;
 		public static const GUARD:Number = 2;
@@ -44,6 +44,9 @@
 		public static const LOOT_MESSAGE_BOW:Number = 2;
 		public static const LOOT_MESSAGE_ARTIFACT:Number = 3;
 
+		public static const HEALTH_REGENERATION_INTERVAL:Number = 5000;
+
+		public static const ARROW_SPEED_REDUCER:Number = .1;
 
 		public static const GOLD_ROLL:Number = 15;
 

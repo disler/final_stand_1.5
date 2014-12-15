@@ -10,6 +10,7 @@
 		private var damage:Number;
 		private var speed:Number;
 		private var accuracy:Number;
+		private var waitTime:Number;
 
 		public function ArrowType(TYPE:String) {
 			type = TYPE;
@@ -26,12 +27,14 @@
 					damage = 0;//is not base damage (added to hero damage)
 					speed = 7;//is base speed
 					accuracy = 5;//0 is perfect accuracy, the higher the worse
+					waitTime = 1;//1 second wait time
 				break;
 				case "steel arrow":
 					description = "A powerful yet heavier arrow";
 					damage = 1;
 					speed = 5;
 					accuracy = 10;
+					waitTime = 2;//1.2 second wait time
 				break;
 				case "empty":
 				default:
@@ -75,6 +78,15 @@
 		}
 		
 		/*GETTERS SETTERS*/
+
+		/*
+			Obtains wait time based on number of 100 milli seconds
+		*/
+		public function getWaitTime():Number
+		{
+			return waitTime * 10;
+		}
+
 		public function getType():String
 		{
 			return type;
