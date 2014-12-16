@@ -18,9 +18,23 @@
 		/*
 			Returns random loot, given tier
 		*/
-		public static function getLoot(tier:Number):Loot
+		public static function getLoot(tier:Number, ownedLoot:Array):Loot
 		{
-			var loot:Loot = lootTier[tier][Math.floor(Math.random() * lootTier[tier].length)];
+			//removed currently owned bows an arrows
+			var _reducedLootTier:Array = [[], [], [], []];
+			for(var i:Number = 0; i < lootTier.length; i++)
+			{
+				for(var j:Number = 0; j < lootTier[i].length; j++)
+				{
+					//if we do not own this loot, add it to reduced loot tier
+					if(ownedLoot.indexOf(lootTier[i][j].getTitle()) == -1)
+					{
+						_reducedLootTier[i].push(lootTier[i][j]);
+					}
+				}
+			}
+
+			var loot:Loot = _reducedLootTier[tier][Math.floor(Math.random() * _reducedLootTier[tier].length)];
 			loot.setTier(tier);
 			return loot;
 		}

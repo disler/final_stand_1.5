@@ -11,19 +11,19 @@
 			switch(_obj) {
 				case "glyph of haste":
 					o.name = "Glyph of Haste";
-					o.description = "Increases the speed at which arrows travel through the air.";
+					o.description = Const.ITEM_DESCRIPTION[_obj];
 					o.cost = 100;
 					o.type = "artifact";
 				break;
 				case "glyph of power":
 					o.name  = "Glyph of Power";
-					o.description = "Increases the damage dealt per arrow.";
+					o.description = Const.ITEM_DESCRIPTION[_obj];
 					o.cost = 160;
 					o.type = "artifact";
 				break;
 				case "glyph of health":
 					o.name  = "Glyph of Health";
-					o.description = "Increases the maximum health of your tower unit.";
+					o.description = Const.ITEM_DESCRIPTION[_obj];
 					o.cost = 300;
 					o.type = "artifact";
 				break;

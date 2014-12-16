@@ -9,8 +9,8 @@
 	public class Interface extends MovieClip {
 		
 		public var main:MovieClip;
-		private var inGameInterfaceFocused:Number = .75;
-		private var inGameInterfaceUnfocused:Number = .25;
+		private var inGameInterfaceFocused:Number = .80;
+		private var inGameInterfaceUnfocused:Number = .45;
 		private var inGameInterfaceTimeout:uint;
 		private var selectedArrow:Number = 0;
 		private var primaryInterface_ref:MovieClip;
@@ -167,6 +167,7 @@
 		*/
 		public function displayArtifactInterface():void
 		{
+			proceed_mc.visible = false;
 			artifact_mc.visible = true;
 			artifact_mc.unequippedList_list.visible = false;
 			loadArtifact();
@@ -199,11 +200,13 @@
 		*/
 		public function loadArtifact():void
 		{
+			
 			var artifacts:Array = main.player.getStats().getEquippedArtifacts();
 			for(var i:Number = 0; i < artifacts.length; i++)
 			{
 				artifact_mc.artifactSquare_mc["_" + i].gotoAndStop(artifacts[i].getArtifact());
 			}
+
 		}
 
 		/*
@@ -213,6 +216,7 @@
 		{
 			artifact_mc.hover_mc.visible = false;
 			artifact_mc.visible = false;
+			proceed_mc.visible = true;
 		}
 		
 		/*

@@ -57,23 +57,41 @@
 
 
 			//initiate pie masks
-			/*
+			
 			for(var i:Number = 1; i < 4; i++)
 			{
-				var mask:Sprite = new Sprite();
-				mask.x = main.interface_mc.inGameInterface_mc["arrow" + i + "_mc"].x - main.interface_mc.inGameInterface_mc["arrow" + i + "_mc"].width/2;
-				mask.y = main.interface_mc.inGameInterface_mc["arrow" + i + "_mc"].y;
-			 	main.interface_mc.inGameInterface_mc.addChild(mask);
-				main.interface_mc.inGameInterface_mc["arrow" + i + "_mc"].mask = mask;
+				var ref:MovieClip = main.interface_mc.inGameInterface_mc["arrow" + i + "_mc"];
+				var halfX:Number = ref.width/2;
+				var radius:Number = ref.width/2; 
+				var halfY:Number = ref.height/2;
 
-				var pie:PieMask = new PieMask( 	mask.graphics, 50, 50, 
-												main.interface_mc.inGameInterface_mc["arrow" + i + "_mc"].x, 
-												main.interface_mc.inGameInterface_mc["arrow" + i + "_mc"].y,
+
+				var circ:Sprite = new Sprite();
+				circ.graphics.beginFill(0xFFFFFF, .5);
+				circ.graphics.drawCircle(0, 0, radius);
+				circ.graphics.endFill();
+				circ.x = halfX;
+				circ.y = halfY;
+				ref.addChild(circ);
+
+
+				var pmask:Sprite = new Sprite();
+				pmask.x = halfX;
+				pmask.y = halfY;
+				ref.addChild(pmask);
+				circ.mask = pmask;
+
+
+
+				var pie:PieMask = new PieMask( 	pmask.graphics, 0, radius, 
+												0, 
+												0,
+												0,
 												3);
 				pie.drawWithFill();
 				pieMaskContainer.push(pie);
 			}
-			*/
+			/**/
 
 			//bow
 			bow = new Bow("oak bow");
@@ -119,16 +137,12 @@
 		private function setupArrowTimer(slot:Number):void
 		{
 			//calculate bonus waittime
-			trace("___________________slot: " + slot);
 			var waitTime:Number = equippedArrows[slot].getWaitTime();
-			trace("base wait time: " + waitTime);
 			var bonusReduceWaitTime = getAttackSpeed();
-			trace("bonus reduced wait time: " + getAttackSpeed());
 			var reducedWaitTime = waitTime * Math.pow(1 - Const.ARROW_SPEED_REDUCER, bonusReduceWaitTime);
-			trace("reduced wait time: " + reducedWaitTime);
 			
 			//create timer object
-			arrowTimers[slot] = new Timer(100, reducedWaitTime);
+			arrowTimers[slot] = new Timer(100/2, reducedWaitTime*2);
 
 			
 			//when the timer has proceed a single tick
@@ -155,7 +169,7 @@
 		private function arrowTick(e:TimerEvent, slot:Number):void
 		{
 			//render PieMask
-			//pieMaskContainer[slot].drawWithFill(e.currentTarget.currentCount / e.currentTarget.repeatCount);
+			pieMaskContainer[slot].drawWithFill(e.currentTarget.currentCount / e.currentTarget.repeatCount);
 		}
 
 		/*
@@ -454,7 +468,7 @@
 					if(getEquippedArtifacts()[i].getArtifact() == "locked")
 					{
 						artifactHandler.unlockArtifact(i);
-
+						Messenger.alertMessage("You have unlocked a new artifact slot!");
 						break;
 					}
 				}
@@ -524,6 +538,27 @@
 
 		/*____________________________________________GETTERS - SETTERS____________________________________________*/
 		
+		/*
+			Obtains the string value of all currently owned bows and arrows
+		*/
+		public function getUniqueLoot():Array
+		{
+			var ret:Array = [];
+
+			for(var i:Number = 0; i < equippedArrows.length; i++)
+			{
+				if(equippedArrows[i].getType() != "empty")
+				{
+					ret.push(equippedArrows[i].getType());
+				}
+			}
+
+			for(i = 0; i < bowContainer.length; i++)
+			{
+				ret.push(bowContainer[i].getName());
+			}
+			return ret;
+		}
 		
 		public function getEquippedArrows():Array
 		{

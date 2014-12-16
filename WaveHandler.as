@@ -90,7 +90,7 @@
 			//if we rolled for loot
 			if(bool)
 			{
-				loot = LootHandler.getLoot(lootRoll.tier);
+				loot = LootHandler.getLoot(lootRoll.tier, main.player.getStats().getUniqueLoot());
 			}
 			//if we receive no loot we roll for gold
 			else
@@ -224,6 +224,12 @@
 				waveDiff = 2;
 			}
 
+			//DEFAULT FOR TESTING
+			else
+			{
+				waveDiff = 2;
+			}
+
 			return enemyClassFactory(waveDiff);
 		}
 
@@ -283,7 +289,7 @@
 						type : "guard",
 						HEALTH : 5,
 						DAMAGE: 1,
-						ATTACK_SPEED : 6000,
+						ATTACK_SPEED : 5000,
 						MOVEMENT_SPEED : .5, 
 						EXP_GIVEN : 30,
 						LOOT_TIER : 0

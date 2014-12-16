@@ -11,7 +11,6 @@
 		public static const OFF_SCREEN_OFF_SET:Number = 25;
 		
 		public static const FPS:Number = 30.00;
-		//public static const SHOOT_DELAY:Number = 333; // ms
 
 		public static const BANDIT:Number = 1;
 		public static const GUARD:Number = 2;
@@ -54,6 +53,17 @@
 															10, 12, 14, 15,
 															17, 18, 20, 22,
 															24, 26, 28, 30];
+
+
+
+		public static const ITEM_DESCRIPTION:Object = {
+			"glyph of haste" : "Descrease time it takes to fire arrows",
+			"glyph of power" : "Increase damage done to enemies",
+			"glyph of health" : "Increase maximum castle health",
+			"glyph of regeneration" : "Increase health returned every five seconds",
+			"glyph of bow speed" : "Increase speed of arrows",
+			"glyph of accuracy" : "Increase accuracy of arrows"
+		};
 		
 		public function Const() {}
 	}

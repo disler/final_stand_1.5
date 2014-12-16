@@ -6,7 +6,7 @@
 	public class Artifact {
 		
 		private var stats:Object = {};
-		private var artifact:String;
+		public var artifact:String;
 		private var description:String;
 
 		public function Artifact(artifact:String) {
@@ -34,27 +34,27 @@
 			{
 				case "glyph of haste":
 					stats.attackSpeed = 1;
-					description = "Descrease wait time to fire arrows";
+					description = Const.ITEM_DESCRIPTION[artifact];
 				break;
 				case "glyph of power":
 					stats.damage = 1;
-					description = "Increase damage done to enemies";
+					description = Const.ITEM_DESCRIPTION[artifact];
 				break;
 				case "glyph of health":
 					stats.castleHealth = 1;
-					description = "Increase maximum castle health";
+					description = Const.ITEM_DESCRIPTION[artifact];
 				break;
 				case "glyph of regeneration":
 					stats.castleHealthRegeneration = 1;
-					description = "Increase health regeneration per five seconds";
+					description = Const.ITEM_DESCRIPTION[artifact];
 				break;
 				case "glyph of bow speed":
 					stats.bowSpeed = 1;
-					description = "Increase speed in which arrows travel";
+					description = Const.ITEM_DESCRIPTION[artifact];
 				break;
 				case "glyph of accuracy":
 					stats.accuracy = 1;
-					description = "Increases bow accuracy";
+					description = Const.ITEM_DESCRIPTION[artifact];
 				break;
 				case "empty":
 					description = "Equip an artifact here"

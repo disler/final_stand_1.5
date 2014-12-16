@@ -2,6 +2,7 @@
 	import flash.display.MovieClip;
 	import flash.display.DisplayObject;
 	import flash.events.*;
+	import flash.text.*;
 	import flash.utils.clearTimeout;
 	import flash.utils.setTimeout;
 	import fl.controls.List;
@@ -170,6 +171,12 @@
 			artifactList_ref = m._interface.artifact_mc.unequippedList_list;
 			artifactList_ref.dataProvider.removeAll();
 			artifactList_ref.visible = true;
+			//render font
+			var myTextFormat:TextFormat = new TextFormat();
+			myTextFormat.size = 17;
+			myTextFormat.font = "Garamond_e*";
+			artifactList_ref.setRendererStyle("textFormat", myTextFormat);
+			
 
 			//trim slot name
 			equippedArtifactSlot = Number(mc.name.split("_").join(""));
@@ -182,7 +189,7 @@
 			}
 			for(var i:Number = 0; i < unequippedArtifacts.length; i++)
 			{
-				artifactList_ref.addItem( { label : unequippedArtifacts[i].getArtifact(), ind : i } );
+				artifactList_ref.addItem( { label : m.utility.upperCaseFirst(unequippedArtifacts[i].getArtifact()), ind : i } );
 			}
 
 			//add event

@@ -135,6 +135,10 @@
 			return stats;
 		}
 
+
+
+
+		/*___________________________________________________________GETTERS SETTERS____________________________________________________________*/
 		/*
 			Compiles a list of all effects currently equiped
 		*/
@@ -161,10 +165,9 @@
 			unequippedArtifacts.push(artifact);
 		}
 
-		/*GETTERS SETTERS*/
 		public function getUnequippedArtifacts():Array
 		{
-			return unequippedArtifacts;
+			return unequippedArtifacts.sortOn("artifact");
 		}
 
 		public function getEquippedArtifacts():Array

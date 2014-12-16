@@ -1,7 +1,5 @@
 dan
-	Make health regen work
-	Make bow speed applicable - add global timer
-	Add bow select menu
+	Add bow select menu, make bows drop
 ryan
 	Create Ice, Fire, Earth arrow (shoots enemy backward)
 	Create Health bow, regen bow, damage bow, haste bow, accuracy bow, arr spd
