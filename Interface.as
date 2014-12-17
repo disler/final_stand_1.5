@@ -66,6 +66,7 @@
 			primaryInterface_mc.alpha = 0;
 			primaryInterface_mc.gotoAndPlay(2);
 			loadPrimaryInterfaceText();
+			loadCurrentBow();
 			//fade in interval
 			var fadeInInterval:uint = setInterval(function()
 			{
@@ -80,6 +81,16 @@
 			}, 100);
 
 		}
+
+		/*
+			Loads display for currently equipped bow
+		*/
+		public function loadCurrentBow():void
+		{
+			primaryInterface_mc.primaryInterfaceIn_mc.bow_mc.gotoAndStop(main.player.getStats().getBowName());
+		}
+
+
 
 
 		/*

@@ -31,6 +31,11 @@
 		{
 			switch(_name)
 			{
+				case "guardian bow":
+					stats.accuracy = 2;
+					stats.maxCastleHealth = 5;
+					stats.castleHealthRegeneration = 1;
+				break;
 				case "oak bow":
 				default:
 					description = "Sturdy bow made from oak";

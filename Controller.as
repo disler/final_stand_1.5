@@ -80,6 +80,7 @@
 			//add events
 			m._interface.primaryInterface_mc.primaryInterfaceIn_mc.artifact_mc.addEventListener(MouseEvent.CLICK, displayArtifactInterfaceEvent);
 			m._interface.primaryInterface_mc.primaryInterfaceIn_mc.shop_mc.addEventListener(MouseEvent.CLICK, displayShopEvent);
+			m._interface.primaryInterface_mc.primaryInterfaceIn_mc.bow_mc.addEventListener(MouseEvent.CLICK, toggleBowDisplayEvent);
 		}
 
 		/*
@@ -90,6 +91,7 @@
 			m._interface.proceed_mc.gotoAndPlay("out");
 			exitArtifactInterface();
 			m._interface.closePrimaryInterface();
+			closeBowDisplay();
 
 		}
 
@@ -426,9 +428,76 @@
 			}
 		}
 
+		/*
+			Toggles bow container display
+		*/
+		private function toggleBowDisplay():void
+		{
+			var ref:MovieClip = m._interface.primaryInterface_mc.primaryInterfaceIn_mc.bowContainer_mc;
+
+			//if the bow display is currently hidden, open it
+			if(ref.currentLabel == "hidden")
+			{
+				ref.gotoAndPlay("show");
+
+				for(var i:Number = 0; i < 5; i++)
+				{
+					if(m.player.getStats().getBowContainer()[i] != null)
+					{
+						ref.bowContainerIn_mc["_" + i].gotoAndStop(m.player.getStats().getBowContainer()[i].getName());
+						ref.bowContainerIn_mc["_" + i].addEventListener(MouseEvent.CLICK, equipSelectedBowEvent);
+					}
+					//all other unequipped bows will stay on 'empty'
+				}
+			}
+			//iif the bow display is currently open, close it
+			else if(ref.currentLabel == "showing")
+			{
+				closeBowDisplay();
+			}
+		}
+
+		/*
+			Close bow container display
+		*/
+		private function closeBowDisplay():void
+		{
+			if(m._interface.primaryInterface_mc.primaryInterfaceIn_mc.bowContainer_mc.currentLabel == "showing" ||
+				m._interface.primaryInterface_mc.primaryInterfaceIn_mc.bowContainer_mc.currentLabel == "show")
+			{
+				m._interface.primaryInterface_mc.primaryInterfaceIn_mc.bowContainer_mc.gotoAndPlay("hide");
+			}
+		}
 
 		/*________________________________________EVENTS_________________________________________*/
 
+
+		/*
+			Event for equipping a new bow
+		*/
+		public function equipSelectedBowEvent(e:MouseEvent):void
+		{
+			//trim name '_1' -> '1'
+			m.player.getStats().equipBow(Number(e.currentTarget.name.split("_").join("")));
+
+			//reload visuals
+			for(var i:Number = 0; i < 5; i++)
+			{
+				if(m.player.getStats().getBowContainer()[i] != null)
+				{
+					m._interface.primaryInterface_mc.primaryInterfaceIn_mc.bowContainer_mc.bowContainerIn_mc["_" + i].gotoAndStop(m.player.getStats().getBowContainer()[i].getName());
+				}
+			}
+		}
+
+
+		/*
+			Displays bows to be equipped
+		*/
+		public function toggleBowDisplayEvent(e:MouseEvent):void
+		{
+			toggleBowDisplay();
+		}
 
 		/*
 			Event for undragging and dropping loot

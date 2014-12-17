@@ -25,6 +25,11 @@
 		{
 			return stats;
 		}
+
+		public function bowVisualFromHero():void
+		{
+			this["I"]["bow_mc"].gotoAndStop(stats.getBowName());
+		}
 	}
 	
 }

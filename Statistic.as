@@ -25,7 +25,7 @@
 		public var healthBar:HealthBar;
 		public var main:MovieClip;
 		public var artifactHandler:ArtifactHandler;
-		public var bowContainer:Array = [];
+		public var bowContainer:Array = [null, null, null, null, null, null];
 		public var gold:Number = 1000;
 		public var bow:Bow;
 		public var healthRegenInterval:uint;
@@ -57,14 +57,12 @@
 
 
 			//initiate pie masks
-			
 			for(var i:Number = 1; i < 4; i++)
 			{
 				var ref:MovieClip = main.interface_mc.inGameInterface_mc["arrow" + i + "_mc"];
 				var halfX:Number = ref.width/2;
 				var radius:Number = ref.width/2; 
 				var halfY:Number = ref.height/2;
-
 
 				var circ:Sprite = new Sprite();
 				circ.graphics.beginFill(0xFFFFFF, .5);
@@ -74,29 +72,27 @@
 				circ.y = halfY;
 				ref.addChild(circ);
 
-
 				var pmask:Sprite = new Sprite();
 				pmask.x = halfX;
 				pmask.y = halfY;
 				ref.addChild(pmask);
 				circ.mask = pmask;
 
-
-
 				var pie:PieMask = new PieMask( 	pmask.graphics, 0, radius, 
 												0, 
 												0,
-												0,
+												200,
 												3);
 				pie.drawWithFill();
 				pieMaskContainer.push(pie);
 			}
-			/**/
 
 			//bow
 			bow = new Bow("oak bow");
-			bowContainer.push(bow);
 			loadBowBonus(bow);
+
+			//load players bow frame
+			bowVisual();
 
 			//ARTIFACT
 			artifactHandler = new ArtifactHandler();
@@ -106,7 +102,7 @@
 			//arrow timers
 			setupArrowTimers();
 
-
+			//health regeneration interval
 			healthRegenInterval = setInterval(healthRegeneration, Const.HEALTH_REGENERATION_INTERVAL);
 		}
 
@@ -229,22 +225,57 @@
 
 		/*____________________________________________'BOW'_________________________________________*/
 
+		/*
+			For when we have looted a new bow
+		*/
 		public function addBow(bow:Bow):void
 		{
-			bowContainer.push(bow);
+			for(var i:Number = 0 ; i < bowContainer.length; i++)
+			{
+				if(bowContainer[i] == null)
+				{
+					bowContainer[i] = bow;
+					break;
+				}
+			}
 		}
 
 		/*
 			Equip a new bow based on string, reduce old stats increase by new stats
 		*/
-		public function equipBow(bowName:String):void
+		public function equipBow(bowSlot:Number):void
 		{
+			//grab new bow
+			var bowToBeEquipped = bowContainer[bowSlot];
+
+			//swap old bow
+			bowContainer[bowSlot] = bow;
+			//remove current bonuses
 			resetBowBonus(bow);
-			bow = new Bow(bowName);
+			//equip new bow
+			bow = bowToBeEquipped;
+			//visuals
+			main._interface.loadCurrentBow();
+			//add new bonuses
 			loadBowBonus(bow);
+			//reset arrow timers
 			setupArrowTimers();
+			//reset stat display
 			main.interface_mc.loadPrimaryInterfaceText();
+			//player visuals
+			bowVisual();
 		}
+
+		/*
+			Handle displaying bow
+		*/
+		public function bowVisual():void
+		{
+			main.player.I.bow_mc.gotoAndStop(bow.getName());
+		}
+
+
+
 
 		/*
 			Loads bow statistic bonuses 
@@ -538,6 +569,11 @@
 
 		/*____________________________________________GETTERS - SETTERS____________________________________________*/
 		
+
+		public function getBowContainer():Array
+		{
+			return bowContainer;
+		}
 		/*
 			Obtains the string value of all currently owned bows and arrows
 		*/
@@ -555,7 +591,10 @@
 
 			for(i = 0; i < bowContainer.length; i++)
 			{
-				ret.push(bowContainer[i].getName());
+				if(bowContainer[i] != null)
+				{
+					ret.push(bowContainer[i].getName());
+				}
 			}
 			return ret;
 		}
