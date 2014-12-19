@@ -14,7 +14,8 @@
 											   ];
 
 		//contains all unequipped artifacts
-	   	private var unequippedArtifacts:Array = [new Artifact("glyph of haste"), new Artifact("glyph of haste"), new Artifact("glyph of power"), new Artifact("glyph of health")]; 
+	   	private var unequippedArtifacts:Array = [new Artifact("glyph of haste"), new Artifact("glyph of power"), new Artifact("glyph of health"), new Artifact("glyph of bow speed"),
+	   											new Artifact("glyph of accuracy"), new Artifact("glyph of health regeneration")]; 
 
 		public function ArtifactHandler() {}
 
@@ -125,6 +126,7 @@
 					thisArtifact = artifactContainer[i];
 
 					stats.castleHealth += thisArtifact.getStats().castleHealth;
+					stats.castleHealthRegeneration += thisArtifact.getStats().castleHealthRegeneration;
 					stats.damage += thisArtifact.getStats().damage;
 					stats.attackSpeed += thisArtifact.getStats().attackSpeed;
 					stats.accuracy += thisArtifact.getStats().accuracy;

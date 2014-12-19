@@ -127,8 +127,7 @@
 			//add break here
 			waveId += 1;
 
-			main.player.getStats().resetHealth();
-
+			//complete wave move to intermission mode
 			main.changeGameState("intermission");
 		}
 
@@ -137,6 +136,10 @@
 		*/
 		public function startWave():void
 		{
+			//reset castle health
+			main.player.getStats().resetHealth();
+
+			//create next wave
 			generateWave(waveId);
 		}
 		

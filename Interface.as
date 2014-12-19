@@ -3,6 +3,11 @@
 	import flash.utils.setTimeout;
 	import flash.utils.clearTimeout;
 	import flash.utils.*;
+	import flash.text.*;
+	import fl.managers.StyleManager;
+	import fl.controls.TextInput;
+
+
 	/*
 		Handles display ONLY for user (place no events here, refer to controller.as for all user control)
 	*/	
@@ -196,7 +201,14 @@
 				artifact_mc.hover_mc.y = main.stage.mouseY + 20;
 
 				var artifact:Artifact = main.player.getStats().getArtifactByIndex(artifactIndex);
-				artifact_mc.hover_mc.header_txt.text = 	main.utility.upperCaseFirst(artifact.getArtifact());
+				var artifactName:String = main.utility.upperCaseFirst(artifact.getArtifact())
+
+				//trim to size
+				if(artifactName == "Glyph of health regeneration")
+				{
+					artifactName = "Glyph of health regen";
+				}
+				artifact_mc.hover_mc.header_txt.text = artifactName;
 				artifact_mc.hover_mc.body_txt.text = 	main.utility.upperCaseFirst(artifact.getDescription());
 			}
 			else

@@ -32,14 +32,15 @@
 			switch(_name)
 			{
 				case "guardian bow":
-					stats.accuracy = 2;
-					stats.maxCastleHealth = 5;
-					stats.castleHealthRegeneration = 1;
+					description = Const.ITEM_DESCRIPTION[_name];
+					stats.accuracy = 9;//the close to 0 the more accurate
+					stats.maxCastleHealth = 10;
+					stats.castleHealthRegeneration = 2;
 				break;
 				case "oak bow":
 				default:
-					description = "Sturdy bow made from oak";
-					stats.accuracy = 5;
+					description = Const.ITEM_DESCRIPTION[_name];
+					stats.accuracy = 4;
 
 
 			}

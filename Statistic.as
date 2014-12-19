@@ -26,7 +26,7 @@
 		public var main:MovieClip;
 		public var artifactHandler:ArtifactHandler;
 		public var bowContainer:Array = [null, null, null, null, null, null];
-		public var gold:Number = 1000;
+		public var gold:Number = 10;
 		public var bow:Bow;
 		public var healthRegenInterval:uint;
 
@@ -53,7 +53,7 @@
 			main = MAIN;
 
 			//arrows
-			equippedArrows = [new ArrowType("wooden arrow"), new ArrowType("steel arrow"), new ArrowType("empty")];
+			equippedArrows = [new ArrowType("wooden arrow"), new ArrowType("empty"), new ArrowType("empty")];
 
 
 			//initiate pie masks
@@ -138,7 +138,8 @@
 			var reducedWaitTime = waitTime * Math.pow(1 - Const.ARROW_SPEED_REDUCER, bonusReduceWaitTime);
 			
 			//create timer object
-			arrowTimers[slot] = new Timer(100/2, reducedWaitTime*2);
+			// /2 and *2 to increase frames inwhich pie mask loads
+			arrowTimers[slot] = new Timer(Const.ARROW_TICK_INTERVAL/3, reducedWaitTime*3);
 
 			
 			//when the timer has proceed a single tick
@@ -370,6 +371,7 @@
 			artifactHandler.removeAllArtifacts();
 			loadArtifactBonus(artifactHandler);
 			main.interface_mc.loadPrimaryInterfaceText();
+			setupArrowTimers();
 		}
 
 		/*
@@ -589,11 +591,15 @@
 				}
 			}
 
-			for(i = 0; i < bowContainer.length; i++)
+			//account for currently equipped bow
+			var tempBowContainer:Array = bowContainer;
+			tempBowContainer.push(bow);
+
+			for(i = 0; i < tempBowContainer.length; i++)
 			{
-				if(bowContainer[i] != null)
+				if(tempBowContainer[i] != null)
 				{
-					ret.push(bowContainer[i].getName());
+					ret.push(tempBowContainer[i].getName());
 				}
 			}
 			return ret;

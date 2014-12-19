@@ -11,10 +11,10 @@
 	*/
 	public class Controller{
 		public var shopItems:Array = new Array(["glyph of haste", 1], ["glyph of power", 1], ["glyph of health", 1], ["glyph of accuracy", 3], ["glyph of bow speed", 3],
-										  ["glyph of regeneration", 4], ["glyph of power", 5], ["glyph of health", 5], ["glyph of accuracy", 5], ["glyph of bow speed", 4], 
-										  ["glyph of regeneration", 4], ["glyph of power", 5], ["glyph of health", 5], ["glyph of accuracy", 5], ["glyph of bow speed", 4], 
-										  ["glyph of regeneration", 4], ["glyph of power", 5], ["glyph of health", 5], ["glyph of accuracy", 5], ["glyph of bow speed", 4], 
-										  ["glyph of regeneration", 4], ["glyph of power", 5], ["glyph of health", 5], ["glyph of accuracy", 5], ["glyph of bow speed", 4]
+										  ["glyph of health regeneration", 4], ["glyph of power", 5], ["glyph of health", 5], ["glyph of accuracy", 5], ["glyph of bow speed", 4], 
+										  ["glyph of health regeneration", 4], ["glyph of power", 5], ["glyph of health", 5], ["glyph of accuracy", 5], ["glyph of bow speed", 4], 
+										  ["glyph of health regeneration", 4], ["glyph of power", 5], ["glyph of health", 5], ["glyph of accuracy", 5], ["glyph of bow speed", 4], 
+										  ["glyph of health regeneration", 4], ["glyph of power", 5], ["glyph of health", 5], ["glyph of accuracy", 5], ["glyph of bow speed", 4]
 										  );
 		public var shopToolTip:MovieClip = null;
 		public var shopSelectID:Number = -1;
@@ -316,7 +316,7 @@
 		}
 		/*
 		(["glyph of haste", 1], ["glyph of power", 1], ["glyph of health", 1], ["glyph of accuracy", 3], ["glyph of bow speed", 3],
-										  ["glyph of regeneration", 4],
+										  ["glyph of health regeneration", 4],
 		*/
 		public function setShopTip(_shopItem:String):void {
 			var STT:MovieClip = m._interface.shop_mc.shopIn_mc.toolTip_mc;
@@ -446,6 +446,8 @@
 					{
 						ref.bowContainerIn_mc["_" + i].gotoAndStop(m.player.getStats().getBowContainer()[i].getName());
 						ref.bowContainerIn_mc["_" + i].addEventListener(MouseEvent.CLICK, equipSelectedBowEvent);
+						ref.bowContainerIn_mc["_" + i].addEventListener(MouseEvent.ROLL_OVER, bowDescriptionEventOver);
+						ref.bowContainerIn_mc["_" + i].addEventListener(MouseEvent.ROLL_OUT, bowDescriptionEventOut);
 					}
 					//all other unequipped bows will stay on 'empty'
 				}
@@ -471,6 +473,31 @@
 
 		/*________________________________________EVENTS_________________________________________*/
 
+		/*
+			event for displaying bow description whne mouse hovers over
+		*/	
+		public function bowDescriptionEventOver(e:MouseEvent):void
+		{
+			var trimRef:Number = Number(e.currentTarget.name.split("_").join(""));
+			
+			var bowConRef:MovieClip = m._interface.primaryInterface_mc.primaryInterfaceIn_mc.bowContainer_mc;
+			bowConRef.hover_mc.x = bowConRef.mouseX - 225;
+			bowConRef.hover_mc.y = bowConRef.mouseY - 200;
+
+			var bow:Bow = m.player.getStats().getBowContainer()[trimRef];
+			bowConRef.hover_mc.header_txt.text = m.utility.upperCaseFirst(bow.getName());
+			bowConRef.hover_mc.body_txt.text = m.utility.upperCaseFirst(bow.getDescription());
+		}
+
+		/*
+			event for hiding bow description when mouse hovers out
+		*/	
+		public function bowDescriptionEventOut(e:MouseEvent):void
+		{
+			var bowConRef:MovieClip = m._interface.primaryInterface_mc.primaryInterfaceIn_mc.bowContainer_mc;
+			bowConRef.hover_mc.x = 256.1;
+			bowConRef.hover_mc.y = -75.7;
+		}
 
 		/*
 			Event for equipping a new bow

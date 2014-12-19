@@ -41,10 +41,10 @@
 					description = Const.ITEM_DESCRIPTION[artifact];
 				break;
 				case "glyph of health":
-					stats.castleHealth = 1;
+					stats.castleHealth = 3;
 					description = Const.ITEM_DESCRIPTION[artifact];
 				break;
-				case "glyph of regeneration":
+				case "glyph of health regeneration":
 					stats.castleHealthRegeneration = 1;
 					description = Const.ITEM_DESCRIPTION[artifact];
 				break;

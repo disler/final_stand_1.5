@@ -54,15 +54,21 @@
 															17, 18, 20, 22,
 															24, 26, 28, 30];
 
-
+		public static const ARROW_TICK_INTERVAL:Number = 100;
 
 		public static const ITEM_DESCRIPTION:Object = {
+			//glyph
 			"glyph of haste" : "Descrease time it takes to fire arrows",
 			"glyph of power" : "Increase damage done to enemies",
 			"glyph of health" : "Increase maximum castle health",
-			"glyph of regeneration" : "Increase health returned every five seconds",
+			"glyph of health regeneration" : "Increase health returned every five seconds",
 			"glyph of bow speed" : "Increase speed of arrows",
-			"glyph of accuracy" : "Increase accuracy of arrows"
+			"glyph of accuracy" : "Increase accuracy of arrows",
+
+
+			//bow
+			"oak bow" : "Study bow made from oak, offers increased accuracy",
+			"guardian bow" : "Bow forged from the essence of protectors, greatly increase maximum castle heatlh and castle regeneration"
 		};
 		
 		public function Const() {}
