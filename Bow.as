@@ -25,13 +25,37 @@
 
 
 		/*
-			Generats bow statistics based on name
+			Generates bow statistics based on name
 		*/
 		private function bowFactory(_name:String):void
 		{
 			switch(_name)
 			{
-				case "guardian bow":
+				case "guardian bow": // tank bow
+					description = Const.ITEM_DESCRIPTION[_name];
+					stats.accuracy = 9;//the close to 0 the more accurate
+					stats.maxCastleHealth = 10;
+					stats.castleHealthRegeneration = 2;
+				break;
+				case "vicious bow": // power bow
+					description = Const.ITEM_DESCRIPTION[_name];
+					stats.accuracy = 9;//the close to 0 the more accurate
+					stats.maxCastleHealth = 10;
+					stats.castleHealthRegeneration = 2;
+				break;
+				case "agile bow": // attack speed bow
+					description = Const.ITEM_DESCRIPTION[_name];
+					stats.accuracy = 9;//the close to 0 the more accurate
+					stats.maxCastleHealth = 10;
+					stats.castleHealthRegeneration = 2;
+				break;
+				case "absolute bow": // accuracy bow
+					description = Const.ITEM_DESCRIPTION[_name];
+					stats.accuracy = 9;//the close to 0 the more accurate
+					stats.maxCastleHealth = 10;
+					stats.castleHealthRegeneration = 2;
+				break;
+				case "sonic bow":// arrow speed bow
 					description = Const.ITEM_DESCRIPTION[_name];
 					stats.accuracy = 9;//the close to 0 the more accurate
 					stats.maxCastleHealth = 10;

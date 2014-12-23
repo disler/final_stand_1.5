@@ -6,6 +6,7 @@
 	import flash.utils.clearTimeout;
 	import flash.utils.setTimeout;
 	import fl.controls.List;
+	import flash.ui.*;
 	/*
 		Controls all interface, players, and clicking
 	*/
@@ -792,14 +793,27 @@
 			m.player.rotation = (Math.atan2(m.mouseY - m.player.y, m.mouseX - m.player.x) * (180 / Math.PI)) + 90;
 			return;
 		}
+		public function interfaceHandler():void {
+			Mouse.hide();
+			if(m.interface_mc != null) {
+				m.interface_mc.mouse_mc.x = m.interface_mc.mouseX;
+				m.interface_mc.mouse_mc.y = m.interface_mc.mouseY;
+			}
+			return;
+		}
 		/*
 			Controls game-wide events every frame.
 		*/
 		public function controllerEnterFrameHandler(e:Event):void {
 			playerHandler();
+			interfaceHandler();
 			return;
 		}
 		public function intermissionEnterFrameHandler(e:Event):void {
+			if(m.interface_mc != null) {
+				m.interface_mc.mouse_mc.x = m.interface_mc.mouseX;
+				m.interface_mc.mouse_mc.y = m.interface_mc.mouseY;
+			}
 			if(shopToolTip != null) {
 				shopToolTip.x = m._interface.shop_mc.shopIn_mc.mouseX + 15;
 				shopToolTip.y = m._interface.shop_mc.shopIn_mc.mouseY + 15;

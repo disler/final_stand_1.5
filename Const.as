@@ -3,6 +3,7 @@
 		public const FPS:Number = 30.00;
 		public const CENTER_X:Number = 320;
 		public const CENTER_Y:Number = 430;
+		
 		public static const CASTLE_WIDTH_BORDER:Number = 100;
 		public static const CASTLE_HEIGHT_BORDER:Number = 100;
 		

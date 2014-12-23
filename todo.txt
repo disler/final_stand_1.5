@@ -1,22 +1,32 @@
+12 / 23 / 14
+
 dan
-	Completed tasks
+	move chest below loot bags.
+		Create hyper tank 					- very slow tank with tons of hp, low damage, but hard to kill
+		Create assasian 					- cannot be seen unless until attackinng base, only 'light arrow' or 'glyph of light(s)' will detect
+		Create archer 						- fires at large distance barely on screen, extremly weak
 ryan
 	Create Ice, Fire, Earth arrow (shoots enemy backward)
 	Create damage bow, haste bow, accuracy bow, arr spd
 	Create custom mouse
+		Add Arrows to shop
+		Add Bows to shop
+		Create mage 					- stops at distance, shoots ranged attacks that can be hit and stopped with the 'glyph of 
+
+chris
+
+	create uppercase letter function  of each word. (Utilty.as)
+
+
+cosmic bow - Groups them all together for ice shot?
+
 
 
 Remaining tasks:
 	Shop:
-		Make shop scale with the game
-		Add Arrows to shop
-		Add Bows to shop
+		Make shop scale with the game ( right price right items right wave )
 	
-	Enemies: 
-		Create mage 						- stops at distance, shoots ranged attacks that can be hit and stopped with the 'glyph of collision'
-		Create hyper tank 					- very slow tank with tons of hp, low damage, but hard to kill
-		Create archer 						- fires at large distance barely on screen, extremly weak
-		Create assasian 					- cannot be seen unless until attackinng base, only 'light arrow' or 'glyph of light(s)' will detect
+	Enemies: 						collision'
 		Create 3 bosses (shadow fighters) 	- create unique bosses
 	
 	Game state:

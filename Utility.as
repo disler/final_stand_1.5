@@ -26,10 +26,7 @@
 			}
 			return count;
 		}
-
-		/*
-			Capitalizes first letter
-		*/	
+		// DO IT HERE DUDE CHRIS
 		public function upperCaseFirst(str:String):String 
 		{
 			var firstChar:String = str.substr(0, 1); 

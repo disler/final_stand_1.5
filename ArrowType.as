@@ -36,6 +36,27 @@
 					accuracy = 10;
 					waitTime = 2;//1.2 second wait time
 				break;
+				case "ice arrow": // 80% AoE SLOW
+					description = "An arrow that freezes enemies in an area.";
+					damage = 1;
+					speed = 5;
+					accuracy = 8;
+					waitTime = 5;
+				break;
+				case "fire arrow": // Creates fire spot which burns area on ground which hits someone
+					description = "An arrow which burns enemies in an area on impact.";
+					damage = 2;
+					speed = 4;
+					accuracy = 8;
+					waitTime = 6;//1.2 second wait time
+				break;
+				case "earth arrow": // WALL
+					description = "An arrow that damages enemies, then creates wall afront them.";
+					damage = 1;
+					speed = 5;
+					accuracy = 10;
+					waitTime = 12;//1.2 second wait time
+				break;
 				case "empty":
 				default:
 					description = "";
