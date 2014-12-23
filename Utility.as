@@ -3,11 +3,11 @@
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	
+
+
 	public class Utility {
 	
-		private var main:MovieClip;
-		public function Utility(mc:MovieClip) { main = mc; }
-		
+		public function Utility() {}
 		
 		/*	
 			displays number of children on a given movieclip
@@ -34,6 +34,13 @@
 			return firstChar.toUpperCase()+restOfString.toLowerCase(); 
 		}
 
+
+		/*
+			COmment
+		*/
+		public function upperCaseFirstWord():String
+		{
+			return null;
+		}
 	}
-	
 }

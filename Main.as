@@ -1,6 +1,7 @@
 ﻿package {
 	import flash.display.MovieClip;
 	import flash.events.*;
+
 	public class Main extends MovieClip {
 		public var DEBUG_MODE:Number = 1; // 0: off, 1: on, 2: end wave
 		public var DEBUG_FRAME:String = "game";
@@ -8,11 +9,14 @@
 		public var TITLE_AUTOPLAY:Boolean = false;
 		public var SKIP_ADS:Boolean = false;
 		
+		//represents 
 		public var con:Controller;
 		public var player:MovieClip;
 		public var transFrame:String = "load";
 		public var waveHandler:WaveHandler;
+
 		public var utility:Utility;
+		
 		public var _interface:Interface;
 		public var gameState:String;
 		
@@ -20,6 +24,7 @@
 			Begins loading process.
 		*/
 		public function Main() {
+
 			stop(); 
 			if(DEBUG_MODE == 0) {
 				loaderInfo.addEventListener(ProgressEvent.PROGRESS, gameLoadHandler);
@@ -69,7 +74,7 @@
 				break;
 				case "game":
 					gameState = "inGame";
-					utility = new Utility(this);
+					utility = new Utility();
 					con = new Controller(this, gameState); // gameMode var
 					waveHandler.init();
 					startPlayer();
@@ -132,3 +137,8 @@
 	}
 	
 }
+
+
+
+
+

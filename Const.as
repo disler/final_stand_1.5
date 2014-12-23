@@ -15,12 +15,18 @@
 
 		public static const BANDIT:Number = 1;
 		public static const GUARD:Number = 2;
+		public static const HYPER_GUARD:Number = 3;
 		
 		public static const ACTION_MOVEMENT:Number = 0;
 		public static const ACTION_ATTACk:Number = 1;
 		public static const BANDIT_ATTACK_TIME_DELAY:Number = 650;
 		public static const GUARD_BLOCK_TIME:Number = 1000;
 		public static const GUARD_BLOCK_CHANCE:Number = 35;
+
+
+		public static const HYPER_GUARD_BLOCK_TIME:Number = 1000;
+		public static const HYPER_GUARD_BLOCK_CHANCE:Number = 40;
+
 
 
 		public static const WARNING_MESSAGE_SPAM_TIMER:Number = 5000;

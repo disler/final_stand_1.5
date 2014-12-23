@@ -233,7 +233,9 @@
 				waveDiff = 2;
 			}
 
-			return enemyClassFactory(waveDiff);
+			waveDiff = 3;
+
+			return enemyClassFactoryTesting(waveDiff);
 		}
 
 
@@ -260,6 +262,10 @@
 				case 2:
 					enemy = new Guard();
 					enemyNumber = Const.GUARD;
+				break;
+				case 3:
+					enemy = new HyperGuard();
+					enemyNumber = Const.HYPER_GUARD;
 				break;
 			}
 
@@ -295,7 +301,19 @@
 						ATTACK_SPEED : 5000,
 						MOVEMENT_SPEED : .5, 
 						EXP_GIVEN : 30,
-						LOOT_TIER : 0
+						LOOT_TIER : 1
+					};
+				break;
+
+				case Const.HYPER_GUARD:
+					stats = { 
+						type : "hyper guard",
+						HEALTH : 10,
+						DAMAGE: 1,
+						ATTACK_SPEED : 5000,
+						MOVEMENT_SPEED : .3, 
+						EXP_GIVEN : 50,
+						LOOT_TIER : 2
 					};
 				break;
 			}
@@ -377,6 +395,10 @@
 				case 2:
 					enemy = new Guard();
 					enemyNumber = Const.GUARD;
+				break;
+				case 3:
+					enemy = new HyperGuard();
+					enemyNumber = Const.HYPER_GUARD;
 				break;
 			}
 
