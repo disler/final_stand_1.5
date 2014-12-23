@@ -29,8 +29,11 @@
 			this.bar0_mc.visible = this.bar1_mc.visible = this.bar2_mc.visible = this.bar3_mc.visible = this.bar4_mc.visible = this.bar5_mc.visible = false;
 			if(HEALTH > 0) {
 				this.bar0_mc.visible = true;
-				if(healthMax > 0 && healthMax < 6 || health < 6)
-				this.bar0_mc.scaleX = (health / healthMax);
+				if(healthMax > 0 && healthMax < 6) {
+					this.bar0_mc.scaleX = (health / healthMax);
+				} else if(health < 6) {
+					this.bar0_mc.scaleX = (health / 5);
+				}
 				else
 				this.bar0_mc.scaleX = 1;
 				if(HEALTH > 5) {
