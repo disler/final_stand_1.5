@@ -226,16 +226,17 @@
 			{
 				waveDiff = 2;
 			}
-
+			else if(_waveId >= 8 && _waveId <= 12)
+			{
+				waveDiff = 3;
+			}
 			//DEFAULT FOR TESTING
 			else
 			{
-				waveDiff = 2;
+				waveDiff = 3;
 			}
-
-			waveDiff = 3;
-
-			return enemyClassFactoryTesting(waveDiff);
+			
+			return enemyClassFactory(waveDiff);
 		}
 
 
