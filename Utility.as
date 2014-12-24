@@ -26,7 +26,10 @@
 			}
 			return count;
 		}
-		// DO IT HERE DUDE CHRIS
+
+		/*
+			Uppercases first letter.
+		*/
 		public function upperCaseFirst(str:String):String 
 		{
 			var firstChar:String = str.substr(0, 1); 
@@ -34,13 +37,17 @@
 			return firstChar.toUpperCase()+restOfString.toLowerCase(); 
 		}
 
-
 		/*
-			COmment
+			Uppercases every first letter of every word.
 		*/
-		public function upperCaseFirstWord():String
-		{
-			return null;
-		}
+		function upperCaseFirstWord(str:String):String
+		{ 
+		    var strCap:String = str.charAt(0).toUpperCase() + str.substr(1 , str.length);
+		    for(var i:Number = 0; i < strCap.length; i++)
+		    {
+		        if(strCap.charAt(i) == " ") strCap.charAt(i+1).toUpperCase();
+		    }
+		    return strCap;
+		}    
 	}
 }
