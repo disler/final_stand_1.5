@@ -3,6 +3,7 @@
 	import flash.utils.setTimeout;
 	import flash.utils.clearTimeout;
 	import flash.utils.*;
+	import flash.events.MouseEvent;
 	import flash.text.*;
 	import fl.managers.StyleManager;
 	import fl.controls.TextInput;
@@ -23,6 +24,7 @@
 		public function Interface() { 
 			artifact_mc.visible = false; 
 			proceed_mc.visible = false;
+			mouse_mc.loot_mc.visible = false;
 			primaryInterface_ref = primaryInterface_mc.primaryInterfaceIn_mc;
 		}
 		
@@ -33,8 +35,11 @@
 		{
 			main = MAIN;
 			interfaceStatusFactory(GAMESTATE);
+			treasure_mc.addEventListener(MouseEvent.CLICK, main.con.treasureClick);
+			main.interface_mc.inGameInterface_mc.arrow1_mc.addEventListener(MouseEvent.CLICK, main.con.arrowClick);
+			main.interface_mc.inGameInterface_mc.arrow2_mc.addEventListener(MouseEvent.CLICK, main.con.arrowClick);
+			main.interface_mc.inGameInterface_mc.arrow3_mc.addEventListener(MouseEvent.CLICK, main.con.arrowClick);
 		}
-		
 		/*
 			Alters the state of the interface based on the gameState
 		*/
