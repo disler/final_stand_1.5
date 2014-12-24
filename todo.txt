@@ -1,21 +1,17 @@
 12 / 23 / 14
 
 dan
-	move chest below loot bags.
-		Create hyper tank 					- very slow tank with tons of hp, low damage, but hard to kill
-		Create assasian 					- cannot be seen unless until attackinng base, only 'light arrow' or 'glyph of light(s)' will detect
-		Create archer 						- fires at large distance barely on screen, extremly weak
+	Create assasian 					- cannot be seen unless until attackinng base, only 'light arrow' or 'glyph of light(s)' will detect
+	Create archer 						- fires at large distance barely on screen, extremly weak
 ryan
 	Create Ice, Fire, Earth arrow (shoots enemy backward)
 	Create damage bow, haste bow, accuracy bow, arr spd
 	Create custom mouse
 		Add Arrows to shop
 		Add Bows to shop
-		Create mage 					- stops at distance, shoots ranged attacks that can be hit and stopped with the 'glyph of 
 
 chris
 
-	create uppercase letter function  of each word. (Utilty.as)
 
 
 cosmic bow - Groups them all together for ice shot?
@@ -30,7 +26,6 @@ Remaining tasks:
 		make it noticable that you can change bows
 
 	Bugs:
-		Fix drag and drop loot
 
 	Tool tip:
 		create intro to game tool tip

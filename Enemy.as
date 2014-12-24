@@ -83,13 +83,14 @@
 		/*
 			Called after 'attackSpeed', deal damage to hero after displaying attack animation
 		*/
-		protected function combat():void
+		public function combat():void
 		{
 			I.gotoAndStop("attack");
 			damageDelay = setTimeout(function()
 			{
 				m.player.getStats().takeDamage(getStats().getDamage());
 			}, Const.BANDIT_ATTACK_TIME_DELAY);
+			return;
 		}
 
 		/*

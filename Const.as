@@ -6,6 +6,12 @@
 		
 		public static const CASTLE_WIDTH_BORDER:Number = 100;
 		public static const CASTLE_HEIGHT_BORDER:Number = 100;
+
+		public static const MAGE_WIDTH_BORDER:Number = 225;
+		public static const MAGE_HEIGHT_BORDER:Number = 225;
+		
+		public static const MAGE_HEIGHT_OFFSET:Number = 50;
+		public static const MAGE_WIDTH_OFFSET:Number = 50;
 		
 		public static const STAGE_WIDTH:Number = 860;
 		public static const STAGE_HEIGHT:Number = 640;
@@ -15,11 +21,15 @@
 
 		public static const BANDIT:Number = 1;
 		public static const GUARD:Number = 2;
-		public static const HYPER_GUARD:Number = 3;
+		public static const MAGE:Number = 3;
+		public static const HYPER_GUARD:Number = 4;
 		
 		public static const ACTION_MOVEMENT:Number = 0;
 		public static const ACTION_ATTACk:Number = 1;
+
 		public static const BANDIT_ATTACK_TIME_DELAY:Number = 650;
+		public static const MAGE_ATTACK_TIME_DELAY:Number = 200;
+
 		public static const GUARD_BLOCK_TIME:Number = 1000;
 		public static const GUARD_BLOCK_CHANCE:Number = 35;
 
@@ -27,7 +37,8 @@
 		public static const HYPER_GUARD_BLOCK_TIME:Number = 1000;
 		public static const HYPER_GUARD_BLOCK_CHANCE:Number = 40;
 
-
+		//enemy projectiles
+		public static const MAGE_PROJECTILE:String = "mage bomb";
 
 		public static const WARNING_MESSAGE_SPAM_TIMER:Number = 5000;
 

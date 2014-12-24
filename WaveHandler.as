@@ -230,10 +230,13 @@
 			{
 				waveDiff = 3;
 			}
-			//DEFAULT FOR TESTING
-			else
+			else if(_waveId >= 12 && _waveId <= 16)
 			{
-				waveDiff = 3;
+				waveDiff = 4;
+			}
+			else//for testing
+			{
+				waveDiff = 4;
 			}
 			
 			return enemyClassFactory(waveDiff);
@@ -265,6 +268,10 @@
 					enemyNumber = Const.GUARD;
 				break;
 				case 3:
+					enemy = new Mage();
+					enemyNumber = Const.MAGE;
+				break;
+				case 4:
 					enemy = new HyperGuard();
 					enemyNumber = Const.HYPER_GUARD;
 				break;
@@ -285,7 +292,7 @@
 				case Const.BANDIT:
 					stats = {
 						type : "bandit",
-						HEALTH : 2,
+						HEALTH : 2 + (Math.floor(waveId/5)),
 						DAMAGE: 1,
 						ATTACK_SPEED : 4000,
 						MOVEMENT_SPEED : 1, 
@@ -297,7 +304,7 @@
 				case Const.GUARD:
 					stats = { 
 						type : "guard",
-						HEALTH : 5,
+						HEALTH : 5 + (Math.floor(waveId/5)),
 						DAMAGE: 1,
 						ATTACK_SPEED : 5000,
 						MOVEMENT_SPEED : .5, 
@@ -306,10 +313,22 @@
 					};
 				break;
 
+				case Const.MAGE:
+					stats = { 
+						type : "mage",
+						HEALTH : 3 + (Math.floor(waveId/5)),
+						DAMAGE: 3,
+						ATTACK_SPEED : 4000,
+						MOVEMENT_SPEED : 1.5, 
+						EXP_GIVEN : 40,
+						LOOT_TIER : 2
+					};
+				break;
+
 				case Const.HYPER_GUARD:
 					stats = { 
 						type : "hyper guard",
-						HEALTH : 10,
+						HEALTH : 10 + (Math.floor(waveId/5)),
 						DAMAGE: 1,
 						ATTACK_SPEED : 5000,
 						MOVEMENT_SPEED : .3, 
@@ -398,6 +417,10 @@
 					enemyNumber = Const.GUARD;
 				break;
 				case 3:
+					enemy = new Mage();
+					enemyNumber = Const.MAGE;
+				break;
+				case 4:
 					enemy = new HyperGuard();
 					enemyNumber = Const.HYPER_GUARD;
 				break;

@@ -472,6 +472,18 @@
 			}
 		}
 
+
+		/*
+			Handlers firing enemy projectile
+		*/
+		var enemyProjectile:Array = [];
+		public function fireEnemyProjectile(type:String, _x:Number, _y:Number, rot:Number,stats:StatisticEnemy)
+		{
+			var proj:EnemyProjectile = new EnemyProjectile(type, _x, _y, rot, stats, m);
+			enemyProjectile.push(proj);
+			m.arrows_mc.addChild(proj);
+		}
+
 		/*________________________________________EVENTS_________________________________________*/
 
 		/*
