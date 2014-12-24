@@ -23,6 +23,17 @@ cosmic bow - Groups them all together for ice shot?
 
 
 Remaining tasks:
+	suggestions:
+		move proceed to battle onto the menu
+		increase game faster
+		make item fade out more noticible
+		make it noticable that you can change bows
+
+	Bugs:
+		Fix drag and drop loot
+
+	Tool tip:
+		create intro to game tool tip
 	Shop:
 		Make shop scale with the game ( right price right items right wave )
 	

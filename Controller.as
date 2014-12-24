@@ -152,7 +152,7 @@
 		*/
 		private function clickProceedToBattle():void
 		{
-			m._interface.proceed_mc.removeEventListener(MouseEvent.CLICK, clickProceedToBattle);
+			m._interface.proceed_mc.removeEventListener(MouseEvent.CLICK, clickProceedToBattleEvent);
 			
 			closeAllIntermissionMenus();
 
@@ -629,6 +629,8 @@
 
 			//start drag
 			e.currentTarget.startDrag();
+
+			//increase depth
 
 			//obtain loot object
 			var loot:Loot = e.currentTarget as Loot;
