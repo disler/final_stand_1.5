@@ -11,6 +11,7 @@
 		Controls all interface, players, and clicking
 	*/
 	public class Controller{
+		public var myLoot:Loot = null;
 		public var shopItems:Array = new Array(["glyph of haste", 1], ["glyph of power", 1], ["glyph of health", 1], ["glyph of accuracy", 3], ["glyph of bow speed", 3],
 										  ["glyph of health regeneration", 4], ["glyph of power", 5], ["glyph of health", 5], ["glyph of accuracy", 5], ["glyph of bow speed", 4], 
 										  ["glyph of health regeneration", 4], ["glyph of power", 5], ["glyph of health", 5], ["glyph of accuracy", 5], ["glyph of bow speed", 4], 
@@ -28,6 +29,7 @@
 		public var artifactList_ref:List;
 		private var equippedArtifactSlot:Number;
 		private var arrowLock:Boolean = false;
+		private var lClicks:Number = 0;
 		/*
 			Attaches listener events
 		*/
@@ -39,6 +41,7 @@
 			Attaches listener events
 		*/
 		public function inGameControllerFactory(_gameState:String):void {
+			gameState = _gameState;
 			//remove all events to refresh for new gameState
 			m.removeEventListener(Event.ENTER_FRAME, controllerEnterFrameHandler);
 			m.removeEventListener(Event.ENTER_FRAME, intermissionEnterFrameHandler);
@@ -58,6 +61,7 @@
 			else if(_gameState == "intermission") {
 				m.addEventListener(Event.ENTER_FRAME, intermissionEnterFrameHandler);
 				m._interface.proceed_mc.addEventListener(MouseEvent.CLICK, clickProceedToBattleEvent);
+				m.stage.addEventListener(MouseEvent.CLICK, stageClickHandler);
 				displayPrimaryInterface();
 			}
 			return;
@@ -69,8 +73,9 @@
 		public function handleNewLoot(loot:Loot):void
 		{
 			loot.timeout(m);
-			loot.addEventListener(MouseEvent.MOUSE_DOWN, dragLootEvent);
-			loot.addEventListener(MouseEvent.MOUSE_UP, unDragLootEvent);
+			loot.addEventListener(MouseEvent.CLICK, mouseTheLoot);
+			//loot.addEventListener(MouseEvent.MOUSE_DOWN, dragLootEvent);
+			//loot.addEventListener(MouseEvent.MOUSE_UP, unDragLootEvent);
 		}
 
 		/*
@@ -136,13 +141,29 @@
 		*/
 		private function stageClick():void
 		{
-			if(!arrowLock)
-			{
-				if(m.player.getStats().canShootArrow(m._interface.getSelectedArrowIndex()))
+			if(gameState == "inGame") {
+				if(!arrowLock)
 				{
-					m.player.gotoAndStop("shoot");
-					m.player.getStats().resetArrowTimer(m._interface.getSelectedArrowIndex());
-					playerShootArrow();
+					if(m.player.getStats().canShootArrow(m._interface.getSelectedArrowIndex()))
+					{
+						m.player.gotoAndStop("shoot");
+						m.player.getStats().resetArrowTimer(m._interface.getSelectedArrowIndex());
+						playerShootArrow();
+					}
+				}
+			}
+			if( myLoot != null) {
+				if(++lClicks > 1) {
+					myLoot.x = m.mouseX;
+					myLoot.y = m.mouseY;
+					(myLoot as MovieClip).visible = true;
+					m.interface_mc.mouse_mc.loot_mc.visible = false;
+					m.interface_mc.treasure_mc.gotoAndStop(1);
+					m.interface_mc.arrowSelect_mc.gotoAndStop(1);
+					myLoot = null; arrowLock = false;
+					displayGeneralLooting(false);
+					lClicks = 0;
+					//myLoot.remove(m); 
 				}
 			}
 		}
@@ -429,6 +450,65 @@
 			}
 		}
 
+		public function treasureClick(e:MouseEvent):void {
+			if(e.currentTarget.currentFrame != 1) {
+				switch(myLoot.getType())
+					{
+						case Const.LOOT_ARTIFACT:
+							m.player.getStats().addArtifact(new Artifact(myLoot.getTitle()));
+							Messenger.lootMessage("Looted " + m.utility.upperCaseFirst(myLoot.getTitle()), Const.LOOT_MESSAGE_DEFAULT);
+							//dropped = false;
+						break;
+						case Const.LOOT_GOLD:
+							var gold:Gold = myLoot as Gold;
+							m.player.getStats().addGold(gold.getAmount());
+							Messenger.lootMessage("Looted " + gold.getAmount() + " " + m.utility.upperCaseFirst(myLoot.getTitle()), Const.LOOT_MESSAGE_DEFAULT);
+							//dropped = false;
+						break;
+						case Const.LOOT_BOW:
+							m.player.getStats().addBow(new Bow(myLoot.getTitle()));
+							Messenger.lootMessage("Looted " + m.utility.upperCaseFirst(myLoot.getTitle()), Const.LOOT_MESSAGE_BOW);
+							//dropped = false;
+						break;
+					}
+					m.interface_mc.mouse_mc.loot_mc.visible = false;
+				myLoot.remove(m); myLoot = null;  arrowLock = false;
+				displayGeneralLooting(false); 
+			}
+			return;
+		}
+		public function arrowClick(e:MouseEvent):void {
+			if(m.interface_mc.arrowSelect_mc.currentFrame != 1) {
+				if(e.currentTarget == m._interface.inGameInterface_mc.arrow1_mc)
+				{
+					//equip to arrow slot 1
+					m.player.getStats().equipArrow(myLoot.getTitle(), 0);
+					Messenger.lootMessage("Looted " + m.utility.upperCaseFirst(myLoot.getTitle()), Const.LOOT_MESSAGE_ARROW);
+					myLoot.remove(m);
+					//dropped = false;
+				}
+				else if(e.currentTarget == m._interface.inGameInterface_mc.arrow2_mc)
+				{
+					//2
+					m.player.getStats().equipArrow(myLoot.getTitle(), 1);
+					Messenger.lootMessage("Looted " + m.utility.upperCaseFirst(myLoot.getTitle()), Const.LOOT_MESSAGE_ARROW);
+					myLoot.remove(m);
+					//dropped = false;
+				}
+				else if(e.currentTarget == m._interface.inGameInterface_mc.arrow3_mc)
+				{
+					//3
+					m.player.getStats().equipArrow(myLoot.getTitle(), 2);
+					Messenger.lootMessage("Looted " + m.utility.upperCaseFirst(myLoot.getTitle()), Const.LOOT_MESSAGE_ARROW);
+					myLoot.remove(m);
+					//dropped = false;
+				}
+				m.interface_mc.mouse_mc.loot_mc.visible = false;
+				myLoot.remove(m); myLoot = null;  arrowLock = false;
+				displayGeneralLooting(false); 
+			}
+			return;
+		}
 		/*
 			Toggles bow container display
 		*/
@@ -660,6 +740,30 @@
 
 		}
 
+		/*
+			Adds mouse to the loot area.
+		*/
+		public function mouseTheLoot(e:MouseEvent):void
+		{
+			//lock shotting arrows
+			arrowLock = true;
+			//obtain loot object
+			var loot:Loot = e.currentTarget as Loot;
+			myLoot = loot;
+			e.currentTarget.visible = false;
+			m._interface.mouse_mc.loot_mc.visible = true;
+			lClicks = 0;
+			if(loot.getType() == Const.LOOT_ARROW)
+			{
+				displayArrowLooting(true);
+			}
+			else
+			{
+				displayGeneralLooting(true);
+			}
+			//loot.clearTimeoutTimer();
+			return;
+		}
 
 
 
