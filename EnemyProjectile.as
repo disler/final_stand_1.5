@@ -66,6 +66,9 @@
 				case Const.MAGE_PROJECTILE:
 					spd = 5;
 				break;
+				case Const.ARCHER_PROJECTILE:
+					spd = 8;
+				break;
 			}
 
 			return spd;

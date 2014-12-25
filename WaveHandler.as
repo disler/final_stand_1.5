@@ -220,27 +220,27 @@
 
 			if(_waveId < 3)
 			{
-				waveDiff = 1;
+				waveDiff = 1;//bandits
 			}
 			else if(_waveId >= 3 && _waveId < 8)
 			{
-				waveDiff = 2;
+				waveDiff = 2;//bandits, guardian
 			}
 			else if(_waveId >= 8 && _waveId < 12)
 			{
-				waveDiff = 3;
+				waveDiff = 3;//bandits, guardian, mage
 			}
 			else if(_waveId >= 12 && _waveId < 16)
 			{
-				waveDiff = 4;
+				waveDiff = 4;//bandits, guardian, mage, hyper guard
 			}
 			else if(_waveId >= 16 && _waveId < 24)
 			{
-				waveDiff = 5;
+				waveDiff = 5;//bandits, guardian, mage, hyper guard, assassian
 			}
-			else//for testing
+			else//all other waves
 			{
-				waveDiff = 5;
+				waveDiff = 6;//bandits, guardian, mage, hyper guard, assassian, archers
 			}
 
 			return enemyClassFactory(waveDiff);
@@ -271,17 +271,25 @@
 					enemy = new Guard();
 					enemyNumber = Const.GUARD;
 				break;
+				//spawn a mage
 				case 3:
 					enemy = new Mage();
 					enemyNumber = Const.MAGE;
 				break;
+				//spawn a hyper guard
 				case 4:
 					enemy = new HyperGuard();
 					enemyNumber = Const.HYPER_GUARD;
 				break;
+				//spawn a assassian
 				case 5:
 					enemy = new Assassian();
 					enemyNumber = Const.ASSASSIAN;
+				break;
+				//spawn a archer
+				case 6:
+					enemy = new Archer();
+					enemyNumber = Const.ARCHER;
 				break;
 			}
 
@@ -352,6 +360,18 @@
 						DAMAGE: 2,
 						ATTACK_SPEED : 3000,
 						MOVEMENT_SPEED : 2, 
+						EXP_GIVEN : 50,
+						LOOT_TIER : 3
+					};
+				break;
+
+				case Const.ARCHER:
+					stats = { 
+						type : "archer",
+						HEALTH : 1 + (Math.floor(waveId/5)),
+						DAMAGE: 1,
+						ATTACK_SPEED : 3000,
+						MOVEMENT_SPEED : 1, 
 						EXP_GIVEN : 50,
 						LOOT_TIER : 3
 					};
@@ -447,6 +467,11 @@
 				case 5:
 					enemy = new Assassian();
 					enemyNumber = Const.ASSASSIAN;
+				break;
+
+				case 6:
+					enemy = new Archer();
+					enemyNumber = Const.ARCHER;
 				break;
 			}
 
