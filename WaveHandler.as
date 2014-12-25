@@ -226,19 +226,23 @@
 			{
 				waveDiff = 2;
 			}
-			else if(_waveId >= 8 && _waveId <= 12)
+			else if(_waveId >= 8 && _waveId < 12)
 			{
 				waveDiff = 3;
 			}
-			else if(_waveId >= 12 && _waveId <= 16)
+			else if(_waveId >= 12 && _waveId < 16)
 			{
 				waveDiff = 4;
+			}
+			else if(_waveId >= 16 && _waveId < 24)
+			{
+				waveDiff = 5;
 			}
 			else//for testing
 			{
-				waveDiff = 4;
+				waveDiff = 5;
 			}
-			
+
 			return enemyClassFactory(waveDiff);
 		}
 
@@ -274,6 +278,10 @@
 				case 4:
 					enemy = new HyperGuard();
 					enemyNumber = Const.HYPER_GUARD;
+				break;
+				case 5:
+					enemy = new Assassian();
+					enemyNumber = Const.ASSASSIAN;
 				break;
 			}
 
@@ -334,6 +342,18 @@
 						MOVEMENT_SPEED : .3, 
 						EXP_GIVEN : 50,
 						LOOT_TIER : 2
+					};
+				break;
+
+				case Const.ASSASSIAN:
+					stats = { 
+						type : "assassian",
+						HEALTH : 3 + (Math.floor(waveId/5)),
+						DAMAGE: 2,
+						ATTACK_SPEED : 3000,
+						MOVEMENT_SPEED : 2, 
+						EXP_GIVEN : 50,
+						LOOT_TIER : 3
 					};
 				break;
 			}
@@ -423,6 +443,10 @@
 				case 4:
 					enemy = new HyperGuard();
 					enemyNumber = Const.HYPER_GUARD;
+				break;
+				case 5:
+					enemy = new Assassian();
+					enemyNumber = Const.ASSASSIAN;
 				break;
 			}
 

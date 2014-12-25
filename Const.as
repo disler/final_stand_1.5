@@ -23,12 +23,14 @@
 		public static const GUARD:Number = 2;
 		public static const MAGE:Number = 3;
 		public static const HYPER_GUARD:Number = 4;
+		public static const ASSASSIAN:Number = 5;
 		
 		public static const ACTION_MOVEMENT:Number = 0;
 		public static const ACTION_ATTACk:Number = 1;
 
 		public static const BANDIT_ATTACK_TIME_DELAY:Number = 650;
 		public static const MAGE_ATTACK_TIME_DELAY:Number = 200;
+		public static const ASSASSIAN_ATTACK_DELAY_TIMER:Number = 400;
 
 		public static const GUARD_BLOCK_TIME:Number = 1000;
 		public static const GUARD_BLOCK_CHANCE:Number = 35;
