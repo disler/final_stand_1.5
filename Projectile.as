@@ -9,6 +9,8 @@
 	public class Projectile extends MovieClip {
 		public var m:MovieClip;
 		public var speed:Number, damage:Number;
+		private var arrowType:ArrowType;
+		public static var AOECount:Number = 0;
 		
 		public var contactedEnemy:MovieClip;
 		public function Projectile() { 
@@ -20,7 +22,7 @@
 		public function loadProjectile(X:Number, Y:Number, M:MovieClip, R:Number, _heroStats:Object, _arrowSelected:ArrowType) { 
 			x = X; y = Y; m = M; 
 
-
+			arrowType = _arrowSelected;
 
 			rotation = R + _arrowSelected.getAdjustedAccuracy() + ArrowType.getAdjustedAccuracy(_heroStats.accuracy); 
 			speed = _arrowSelected.getSpeed() + _heroStats.bowSpeed; 
@@ -29,9 +31,26 @@
 			addEventListener(Event.ENTER_FRAME, projectileEFHandler);
 			this.hitbox_mc.visible = M.HITBOXES_VISIBLE;
 		}
+
+
+		/*
+			Handles hit testing enemy
+		*/
 		public function contactEnemy(_tar:MovieClip):void {
 			contactedEnemy = _tar;
 			_tar.recieveDamage(damage);
+
+			//area of effect
+			if(arrowType.doesHaveEffect(Const.SOME_AOE_EFFECT))
+			{
+				var aoe:AOE = new AOE(m, arrowType.getType(), damage);
+				aoe.x = this.x;
+				aoe.y = this.y;
+				aoe.name = "aoe" + AOECount;
+				AOECount++;
+
+				m.arrows_mc.addChild(aoe);
+			}
 			
 			// UNLOAD
 			removeEventListener(Event.ENTER_FRAME, projectileEFHandler);

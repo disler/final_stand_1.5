@@ -1,11 +1,7 @@
 12 / 23 / 14
 
 dan
-	Create assasian 					- cannot be seen unless until attackinng base, deals high damage, high priority target, only 'light arrow' or 'glyph of light(s)' will detect
-											- + will fade out and reappear dealing more damage and repeats
-										- Super mobile fighter, dodges attacks
-										- low alpha, mobile fighter, 
-	Create archer 						- fires at large distance barely on screen, extremly weak
+	
 ryan
 	Create Ice, Fire, Earth arrow (shoots enemy backward)
 	Create damage bow, haste bow, accuracy bow, arr spd

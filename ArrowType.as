@@ -11,6 +11,7 @@
 		private var speed:Number;
 		private var accuracy:Number;
 		private var waitTime:Number;
+		private var effects:Array = [];
 
 		public function ArrowType(TYPE:String) {
 			type = TYPE;
@@ -25,37 +26,58 @@
 				case "wooden arrow":
 					description = "A light-weight, wooden arrow";
 					damage = 0;//is not base damage (added to hero damage)
-					speed = 7;//is base speed
+					speed = 11;//is base speed
 					accuracy = 5;//0 is perfect accuracy, the higher the worse
 					waitTime = 1;//1 second wait time
+					effects = [];//specifies arrow constants
 				break;
 				case "steel arrow":
 					description = "A powerful yet heavier arrow";
 					damage = 1;
-					speed = 5;
+					speed = 9;
 					accuracy = 10;
-					waitTime = 2;//1.2 second wait time
+					waitTime = 2;
+					effects = [];
+				break;
+				case "mithril arrow":
+					description = "A very powerful, yet heavy and inaccurate arrow";
+					damage = 3;
+					speed = 7;
+					accuracy = 15;
+					waitTime = 3;
+					effects = [];
 				break;
 				case "ice arrow": // 80% AoE SLOW
 					description = "An arrow that freezes enemies in an area.";
 					damage = 1;
-					speed = 5;
+					speed = 8;
 					accuracy = 8;
 					waitTime = 5;
+					effects = [Const.SOME_AOE_EFFECT];
 				break;
 				case "fire arrow": // Creates fire spot which burns area on ground which hits someone
 					description = "An arrow which burns enemies in an area on impact.";
 					damage = 2;
-					speed = 4;
+					speed = 8;
 					accuracy = 8;
-					waitTime = 6;//1.2 second wait time
+					waitTime = 6;
+					effects = [];
 				break;
 				case "earth arrow": // WALL
 					description = "An arrow that damages enemies, then creates wall afront them.";
 					damage = 1;
-					speed = 5;
+					speed = 8;
 					accuracy = 10;
-					waitTime = 12;//1.2 second wait time
+					waitTime = 12;
+					effects = [];
+				break;
+				case "thunder arrow": // stunds enemies in a range for 1 second
+					description = "An arrow that damages and stuns enemies in a range.";
+					damage = 3;
+					speed = 10;
+					accuracy = 5;
+					waitTime = 15;
+					effects = [Const.SOME_AOE_EFFECT];
 				break;
 				case "empty":
 				default:
@@ -131,6 +153,11 @@
 		public function getAccuracy():Number
 		{
 			return accuracy;
+		}
+
+		public function doesHaveEffect(type:Number):Boolean
+		{
+			return effects.indexOf(type) != -1 ? true : false;
 		}
 		
 		

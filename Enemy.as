@@ -24,6 +24,11 @@
 
 		public var previousFrame:String;
 
+
+
+		public var thunderActive:Boolean = false;
+		var thunderTimeout:uint;
+
 		public function Enemy() {}
 		
 		/*
@@ -70,6 +75,40 @@
 			this.hitbox_mc.visible = m.HITBOXES_VISIBLE;
 			this.gotoAndStop(stats.getType());
 			this.I.gotoAndStop("walk");
+		}
+
+		/*
+			Adds status effect
+		*/
+		public function addStatusEffect(type:Number, damage:Number)
+		{
+			switch(type)
+			{
+
+
+				case Const.AOE_THUNDER:
+					if(!thunderActive)
+					{
+						var oldSpeed:Number = stats.getMovementSpeed();
+						stats.setMovementSpeed(0);
+						recieveDamage(damage);
+						thunderActive = true;
+
+						if(stats.isAlive())
+						{
+							thunderTimeout = setTimeout(function()
+							{
+								thunderActive = false;
+								stats.setMovementSpeed(oldSpeed);
+								clearTimeout(thunderTimeout);
+							}, 3000);
+						}
+					}
+				break;
+
+
+
+			}
 		}
 
 

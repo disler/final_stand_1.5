@@ -102,6 +102,13 @@
 			"oak bow" : "Study bow made from oak, offers increased accuracy",
 			"guardian bow" : "Bow forged from the essence of protectors, greatly increase maximum castle heatlh and castle regeneration"
 		};
+
+
+		public static const AOE_THUNDER:Number = 0;
+
+
+
+		public static const SOME_AOE_EFFECT:Number = 0;
 		
 		public function Const() {}
 	}

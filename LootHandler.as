@@ -6,12 +6,21 @@
 	public class LootHandler {
 
 		private static var lootTier:Array = 	[
-													[new Loot("glyph of haste", Const.LOOT_ARTIFACT), new Loot("glyph of health", Const.LOOT_ARTIFACT), new Loot("glyph of bow speed", Const.LOOT_ARTIFACT),
-													new Loot("steel arrow", Const.LOOT_ARROW), new Loot("wooden arrow", Const.LOOT_ARROW),
-													new Loot("guardian bow", Const.LOOT_BOW)], 
-													[new Loot("glyph of power", Const.LOOT_ARTIFACT), new Loot("glyph of health regeneration", Const.LOOT_ARTIFACT), new Loot("glyph of accuracy", Const.LOOT_ARTIFACT)],
-													[],
-													[]
+													[
+														new Loot("glyph of haste", Const.LOOT_ARTIFACT), new Loot("glyph of health", Const.LOOT_ARTIFACT), new Loot("glyph of bow speed", Const.LOOT_ARTIFACT),
+														new Loot("steel arrow", Const.LOOT_ARROW), new Loot("wooden arrow", Const.LOOT_ARROW),
+														new Loot("guardian bow", Const.LOOT_BOW)
+													], 
+													[
+														new Loot("glyph of power", Const.LOOT_ARTIFACT), new Loot("glyph of health regeneration", Const.LOOT_ARTIFACT), new Loot("glyph of accuracy", Const.LOOT_ARTIFACT),
+														new Loot("mithril arrow", Const.LOOT_ARROW)
+													],
+													[
+														new Loot("thunder arrow", Const.LOOT_ARROW)
+													],
+													[
+														
+													]
 												];
 
 		public function LootHandler() {}

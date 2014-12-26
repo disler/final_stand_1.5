@@ -14,8 +14,7 @@
 											   ];
 
 		//contains all unequipped artifacts
-	   	private var unequippedArtifacts:Array = [new Artifact("glyph of haste"), new Artifact("glyph of power"), new Artifact("glyph of health"), new Artifact("glyph of bow speed"),
-	   											new Artifact("glyph of accuracy"), new Artifact("glyph of health regeneration")]; 
+	   	private var unequippedArtifacts:Array = []; 
 
 		public function ArtifactHandler() {}
 

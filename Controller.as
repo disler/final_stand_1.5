@@ -472,7 +472,9 @@
 						break;
 					}
 					m.interface_mc.mouse_mc.loot_mc.visible = false;
-				myLoot.remove(m); myLoot = null;  arrowLock = false;
+				myLoot.remove(m); myLoot = null; 
+
+				var qTimeout = setTimeout(function() { arrowLock = false; clearTimeout(qTimeout); }, 250);
 				displayGeneralLooting(false); 
 			}
 			return;
