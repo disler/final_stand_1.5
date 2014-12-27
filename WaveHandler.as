@@ -168,8 +168,8 @@
 		private function generateWave(whichWave:Number):void
 		{
 			//generators
-			unspawnedEnemies = Math.round(Math.pow(whichWave, 1.5)) + 5;
-			enemySpawnTimer = 2000 - Math.round((Math.random() * 500)) - ((20 * whichWave));
+			unspawnedEnemies = Math.round(Math.pow(whichWave, 1.3)) + 5;
+			enemySpawnTimer = 3000 - Math.round((Math.random() * 750)) - Math.floor(Math.pow(whichWave, 1.1));
 			
 			
 			remainingWaveEnemies = unspawnedEnemies;
@@ -182,7 +182,7 @@
 		*/
 		private function generateEnemyInterval():void
 		{
-			
+			trace("ping");
 			var enemyId:Number = enemyContainer.length;
 			
 			var enemy:Enemy = enemyFactory(waveId);
@@ -222,19 +222,19 @@
 			{
 				waveDiff = 1;//bandits
 			}
-			else if(_waveId >= 3 && _waveId < 8)
+			else if(_waveId >= 3 && _waveId < 7)
 			{
 				waveDiff = 2;//bandits, guardian
 			}
-			else if(_waveId >= 8 && _waveId < 12)
+			else if(_waveId >= 7 && _waveId < 10)
 			{
 				waveDiff = 3;//bandits, guardian, mage
 			}
-			else if(_waveId >= 12 && _waveId < 16)
+			else if(_waveId >= 10 && _waveId < 15)
 			{
 				waveDiff = 4;//bandits, guardian, mage, hyper guard
 			}
-			else if(_waveId >= 16 && _waveId < 24)
+			else if(_waveId >= 15 && _waveId < 20)
 			{
 				waveDiff = 5;//bandits, guardian, mage, hyper guard, assassian
 			}
@@ -243,7 +243,6 @@
 				waveDiff = 6;//bandits, guardian, mage, hyper guard, assassian, archers
 			}
 
-			return enemyClassFactoryTesting(4);
 			return enemyClassFactory(waveDiff);
 		}
 
@@ -310,7 +309,7 @@
 					stats = {
 						type : "bandit",
 						HEALTH : 2 + (Math.floor(waveId/5)),
-						DAMAGE: 1,
+						DAMAGE: 1 + (Math.floor(waveId/10)),
 						ATTACK_SPEED : 4000,
 						MOVEMENT_SPEED : 1, 
 						EXP_GIVEN : 20,
@@ -322,7 +321,7 @@
 					stats = { 
 						type : "guard",
 						HEALTH : 5 + (Math.floor(waveId/5)),
-						DAMAGE: 1,
+						DAMAGE: 1 + (Math.floor(waveId/10)),
 						ATTACK_SPEED : 5000,
 						MOVEMENT_SPEED : .5, 
 						EXP_GIVEN : 30,
@@ -334,7 +333,7 @@
 					stats = { 
 						type : "mage",
 						HEALTH : 3 + (Math.floor(waveId/5)),
-						DAMAGE: 3,
+						DAMAGE: 3 + (Math.floor(waveId/10)),
 						ATTACK_SPEED : 4000,
 						MOVEMENT_SPEED : 1.5, 
 						EXP_GIVEN : 40,
@@ -346,7 +345,7 @@
 					stats = { 
 						type : "hyper guard",
 						HEALTH : 10 + (Math.floor(waveId/5)),
-						DAMAGE: 1,
+						DAMAGE: 1 + (Math.floor(waveId/10)),
 						ATTACK_SPEED : 5000,
 						MOVEMENT_SPEED : .3, 
 						EXP_GIVEN : 50,
@@ -358,7 +357,7 @@
 					stats = { 
 						type : "assassian",
 						HEALTH : 3 + (Math.floor(waveId/5)),
-						DAMAGE: 2,
+						DAMAGE: 2 + (Math.floor(waveId/10)),
 						ATTACK_SPEED : 3000,
 						MOVEMENT_SPEED : 2, 
 						EXP_GIVEN : 50,
@@ -370,7 +369,7 @@
 					stats = { 
 						type : "archer",
 						HEALTH : 1 + (Math.floor(waveId/5)),
-						DAMAGE: 1,
+						DAMAGE: 1 + (Math.floor(waveId/10)),
 						ATTACK_SPEED : 3000,
 						MOVEMENT_SPEED : 1, 
 						EXP_GIVEN : 50,

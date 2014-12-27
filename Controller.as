@@ -12,7 +12,7 @@
 	*/
 	public class Controller{
 		public var myLoot:Loot = null;
-		public var shopItems:Array = new Array(["glyph of haste", 1], ["glyph of power", 1], ["glyph of health", 1], ["glyph of accuracy", 3], ["glyph of bow speed", 3],
+		public var shopItems:Array = new Array(["glyph of accuracy", 1], ["glyph of haste", 1], ["glyph of power", 1], ["glyph of bow speed", 3], ["glyph of health regeneration", 4],
 										  ["glyph of health regeneration", 4], ["glyph of power", 5], ["glyph of health", 5], ["glyph of accuracy", 5], ["glyph of bow speed", 4], 
 										  ["glyph of health regeneration", 4], ["glyph of power", 5], ["glyph of health", 5], ["glyph of accuracy", 5], ["glyph of bow speed", 4], 
 										  ["glyph of health regeneration", 4], ["glyph of power", 5], ["glyph of health", 5], ["glyph of accuracy", 5], ["glyph of bow speed", 4], 

@@ -1,37 +1,40 @@
 12 / 23 / 14
 
 dan
+	Make shop scale with the game ( right price right items right wave )
+	Add Arrows to shop
+	Add Bows to shop
+	add multi arrow glyph
+	add piece glyph
+	add penetration glyph
+	add death glyph
 	
 ryan
 	Create Ice, Fire, Earth arrow (shoots enemy backward)
-	Create damage bow, haste bow, accuracy bow, arr spd
-	Create custom mouse
-		Add Arrows to shop
-		Add Bows to shop
-
 chris
-
-
-
-cosmic bow - Groups them all together for ice shot?
-
+	mix sound
+	spell checker public game content
 
 
 Remaining tasks:
+	TUNE:
+		need arrows early
+		wave speed needs to be reduced
+
+
 	suggestions:
 		move proceed to battle onto the menu
 		increase game faster
 		make item fade out more noticible
 		make it noticable that you can change bows
-
-	Bugs:
+		add 'stunned' icon when enemies are stunned
+	cosmic bow - Groups them all together for ice shot?
 
 	Tool tip:
 		create intro to game tool tip
 	Shop:
-		Make shop scale with the game ( right price right items right wave )
 	
-	Enemies: 						collision'
+	Enemies: 						
 		Create 3 bosses (shadow fighters) 	- create unique bosses
 	
 	Game state:

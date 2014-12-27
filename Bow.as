@@ -33,33 +33,34 @@
 			{
 				case "guardian bow": // tank bow
 					description = Const.ITEM_DESCRIPTION[_name];
-					stats.accuracy = 9;//the close to 0 the more accurate
+					stats.accuracy = 8;//the close to 0 the more accurate
 					stats.maxCastleHealth = 10;
 					stats.castleHealthRegeneration = 2;
 				break;
 				case "vicious bow": // power bow
 					description = Const.ITEM_DESCRIPTION[_name];
-					stats.accuracy = 9;//the close to 0 the more accurate
-					stats.maxCastleHealth = 10;
-					stats.castleHealthRegeneration = 2;
+					stats.accuracy = 15;//the close to 0 the more accurate
+					stats.damage = 3;
+					stats.maxCastleHealth = 5;
 				break;
 				case "agile bow": // attack speed bow
 					description = Const.ITEM_DESCRIPTION[_name];
-					stats.accuracy = 9;//the close to 0 the more accurate
-					stats.maxCastleHealth = 10;
-					stats.castleHealthRegeneration = 2;
+					stats.accuracy = 11;//the close to 0 the more accurate
+					stats.maxCastleHealth = 5;
+					stats.attackSpeed = 4;
 				break;
 				case "absolute bow": // accuracy bow
 					description = Const.ITEM_DESCRIPTION[_name];
-					stats.accuracy = 9;//the close to 0 the more accurate
-					stats.maxCastleHealth = 10;
-					stats.castleHealthRegeneration = 2;
+					stats.accuracy = 0;//the close to 0 the more accurate
+					stats.maxCastleHealth = 5;
+					stats.castleHealthRegeneration = 1;
 				break;
 				case "sonic bow":// arrow speed bow
 					description = Const.ITEM_DESCRIPTION[_name];
-					stats.accuracy = 9;//the close to 0 the more accurate
-					stats.maxCastleHealth = 10;
-					stats.castleHealthRegeneration = 2;
+					stats.accuracy = 7;//the close to 0 the more accurate
+					stats.maxCastleHealth = 5;
+					stats.castleHealthRegeneration = 3;
+					stats.bowSpeed = 8;
 				break;
 				case "oak bow":
 				default:

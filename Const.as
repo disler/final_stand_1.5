@@ -100,7 +100,23 @@
 
 			//bow
 			"oak bow" : "Study bow made from oak, offers increased accuracy",
-			"guardian bow" : "Bow forged from the essence of protectors, greatly increase maximum castle heatlh and castle regeneration"
+			"guardian bow" : "Bow forged from the essence of protectors, greatly increase maximum castle heatlh and castle regeneration",
+			"vicious bow" : "Created by the tyrant sulfanian archers, greatly increase damage at the cost of accuracy",
+			"agile bow" : "A bow created to quickly defend kingdoms vunerable to surprise attacks, greatly increase attack speed at the cost of accuracy",
+			"absolute bow" : "A bow created by those who saught perfection, greatly increase accuracy",
+			"sonic bow" : "Bow forged from the swift, greatly increases arrow speed and health regeneration",
+		
+			//arrows
+			"wooden arrow" : "A light-weighiit, wooden arrow",
+			"steel arrow" : "A powerful yet heavier arrow",
+			"mithril arrow" : "A very powerful, yet heavy and inaccurate arrow",
+			"ice arrow" : "An arrow that freezes and damages enemies in an area",
+			"fire arrow" : "An arrow which burns eneimies in an area on impact",
+			"earth arrow" : "An arrow that damages an enemy, then creates a wall, temporarily blocking enemies",
+			"thunder arrow" : "An arrow that damages and stuns enemies in a range"
+
+
+
 		};
 
 

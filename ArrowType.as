@@ -24,7 +24,7 @@
 			switch(type)
 			{
 				case "wooden arrow":
-					description = "A light-weight, wooden arrow";
+					description = Const.ITEM_DESCRIPTION[type];
 					damage = 0;//is not base damage (added to hero damage)
 					speed = 11;//is base speed
 					accuracy = 5;//0 is perfect accuracy, the higher the worse
@@ -32,7 +32,7 @@
 					effects = [];//specifies arrow constants
 				break;
 				case "steel arrow":
-					description = "A powerful yet heavier arrow";
+					description = Const.ITEM_DESCRIPTION[type];
 					damage = 1;
 					speed = 9;
 					accuracy = 10;
@@ -40,7 +40,7 @@
 					effects = [];
 				break;
 				case "mithril arrow":
-					description = "A very powerful, yet heavy and inaccurate arrow";
+					description = Const.ITEM_DESCRIPTION[type];
 					damage = 3;
 					speed = 7;
 					accuracy = 15;
@@ -48,7 +48,7 @@
 					effects = [];
 				break;
 				case "ice arrow": // 80% AoE SLOW
-					description = "An arrow that freezes enemies in an area.";
+					description = Const.ITEM_DESCRIPTION[type];
 					damage = 1;
 					speed = 8;
 					accuracy = 8;
@@ -56,7 +56,7 @@
 					effects = [Const.SOME_AOE_EFFECT];
 				break;
 				case "fire arrow": // Creates fire spot which burns area on ground which hits someone
-					description = "An arrow which burns enemies in an area on impact.";
+					description = Const.ITEM_DESCRIPTION[type];
 					damage = 2;
 					speed = 8;
 					accuracy = 8;
@@ -64,15 +64,15 @@
 					effects = [];
 				break;
 				case "earth arrow": // WALL
-					description = "An arrow that damages enemies, then creates wall afront them.";
+					description = Const.ITEM_DESCRIPTION[type];
 					damage = 1;
 					speed = 8;
 					accuracy = 10;
 					waitTime = 12;
 					effects = [];
 				break;
-				case "thunder arrow": // stunds enemies in a range for 1 second
-					description = "An arrow that damages and stuns enemies in a range.";
+				case "thunder arrow": // stuns enemies in a range for 3 seconds
+					description = Const.ITEM_DESCRIPTION[type];
 					damage = 3;
 					speed = 10;
 					accuracy = 5;
