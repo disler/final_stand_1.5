@@ -12,7 +12,7 @@
 	*/
 	public class Controller{
 		public var myLoot:Loot = null;
-		public var shopItems:Array = new Array(["glyph of accuracy", 1], ["glyph of haste", 1], ["glyph of power", 1], ["glyph of bow speed", 3], ["glyph of health regeneration", 4],
+		public var shopItems:Array = new Array(["glyph of accuracy", 1], ["glyph of haste", 1], ["steel arrow", 1], ["guardian bow", 3], ["glyph of health regeneration", 4],
 										  ["glyph of health regeneration", 4], ["glyph of power", 5], ["glyph of health", 5], ["glyph of accuracy", 5], ["glyph of bow speed", 4], 
 										  ["glyph of health regeneration", 4], ["glyph of power", 5], ["glyph of health", 5], ["glyph of accuracy", 5], ["glyph of bow speed", 4], 
 										  ["glyph of health regeneration", 4], ["glyph of power", 5], ["glyph of health", 5], ["glyph of accuracy", 5], ["glyph of bow speed", 4], 
@@ -398,11 +398,53 @@
 		{
 			if(shopSelectID != -1) {
 				var IO:Object = Item.getObj(shopItems[shopSelectID][0]);
+				var alreadyOwn:Boolean = false;
 				if(m.player.getStats().getGold() >= IO.cost) {
-					m.player.getStats().spendGold(IO.cost);
-					m.player.getStats().addArtifact(new Artifact(IO.nam));
-					m._interface.primaryInterface_mc.primaryInterfaceIn_mc.gold_txt.text = m.player.getStats().getGold();
-					m._interface.shop_mc.shopIn_mc.title_txt.text = "You have purchased " + IO.name + "."; // alternative send message?
+					if(IO.type == "artifact")
+					{
+						m.player.getStats().addArtifact(new Artifact(IO.nam));
+						m._interface.shop_mc.shopIn_mc.title_txt.text = "You have purchased " + IO.name + ".";
+					}
+					else if(IO.type == "bow")
+					{
+						var bow:Bow = new Bow(IO.nam);
+
+						if( m.player.getStats().containsBow(bow) )
+						{
+							alreadyOwn = true;
+						}
+						else
+						{
+							m._interface.shop_mc.shopIn_mc.title_txt.text = "You have purchased " + IO.name + ".";
+							m.player.getStats().addBow(bow);
+						}
+					}
+					else//arrow
+					{
+						var arrow:ArrowType = new ArrowType(IO.nam);
+						if(m.player.getStats().containsArrow(arrow))
+						{
+							alreadyOwn = true;
+						}
+						else
+						{
+							var loot:Loot = new Loot(IO.nam, Const.LOOT_ARROW);
+							selectLootFromBattleField(loot, true);
+							closeShop();
+						}
+					}	
+
+					//if we don't own this item, buy it
+					if(!alreadyOwn)
+					{
+						m.player.getStats().spendGold(IO.cost);
+						m._interface.primaryInterface_mc.primaryInterfaceIn_mc.gold_txt.text = m.player.getStats().getGold();
+					}
+					//if we own this item buy it
+					else{
+						m._interface.shop_mc.shopIn_mc.title_txt.text = "You already own that item!";
+					}
+
 				} else { 
 					m._interface.shop_mc.shopIn_mc.title_txt.text = "Not enough gold, friend.";
 				}
@@ -415,8 +457,16 @@
 		*/
 		public function shopExit(e:MouseEvent):void
 		{
-			m._interface.shop_mc.gotoAndPlay("out");
+			closeShop();
 			return;
+		}
+
+		/*
+			Close shop
+		*/
+		private function closeShop()
+		{
+			m._interface.shop_mc.gotoAndPlay("out");
 		}
 
 
@@ -486,28 +536,31 @@
 					//equip to arrow slot 1
 					m.player.getStats().equipArrow(myLoot.getTitle(), 0);
 					Messenger.lootMessage("Looted " + m.utility.upperCaseFirst(myLoot.getTitle()), Const.LOOT_MESSAGE_ARROW);
-					myLoot.remove(m);
-					//dropped = false;
+					try{
+						myLoot.remove(m);
+					} catch (e:Error) {}
 				}
 				else if(e.currentTarget == m._interface.inGameInterface_mc.arrow2_mc)
 				{
 					//2
 					m.player.getStats().equipArrow(myLoot.getTitle(), 1);
 					Messenger.lootMessage("Looted " + m.utility.upperCaseFirst(myLoot.getTitle()), Const.LOOT_MESSAGE_ARROW);
-					myLoot.remove(m);
-					//dropped = false;
+					try{
+						myLoot.remove(m);
+					} catch (e:Error) {}
 				}
 				else if(e.currentTarget == m._interface.inGameInterface_mc.arrow3_mc)
 				{
 					//3
 					m.player.getStats().equipArrow(myLoot.getTitle(), 2);
 					Messenger.lootMessage("Looted " + m.utility.upperCaseFirst(myLoot.getTitle()), Const.LOOT_MESSAGE_ARROW);
-					myLoot.remove(m);
-					//dropped = false;
+					try{
+						myLoot.remove(m);
+					} catch (e:Error) {}
 				}
 				m.interface_mc.mouse_mc.loot_mc.visible = false;
 				myLoot.remove(m); myLoot = null;  arrowLock = false;
-				displayGeneralLooting(false); 
+				displayArrowLooting(false); 
 			}
 			return;
 		}
@@ -747,12 +800,23 @@
 		*/
 		public function mouseTheLoot(e:MouseEvent):void
 		{
+			selectLootFromBattleField(e.currentTarget as Loot, false);
+		}
+
+		/*
+			Click dropped loot
+		*/
+		private function selectLootFromBattleField(_loot:Loot, fromShop:Boolean):void
+		{
 			//lock shotting arrows
 			arrowLock = true;
 			//obtain loot object
-			var loot:Loot = e.currentTarget as Loot;
+			var loot:Loot = _loot;
 			myLoot = loot;
-			e.currentTarget.visible = false;
+			if(!fromShop)
+			{
+				myLoot.visible = false;
+			}
 			m._interface.mouse_mc.loot_mc.visible = true;
 			lClicks = 0;
 			if(loot.getType() == Const.LOOT_ARROW)
@@ -763,7 +827,6 @@
 			{
 				displayGeneralLooting(true);
 			}
-			//loot.clearTimeoutTimer();
 			return;
 		}
 

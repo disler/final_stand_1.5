@@ -182,7 +182,6 @@
 		*/
 		private function generateEnemyInterval():void
 		{
-			trace("ping");
 			var enemyId:Number = enemyContainer.length;
 			
 			var enemy:Enemy = enemyFactory(waveId);

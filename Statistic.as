@@ -26,7 +26,7 @@
 		public var main:MovieClip;
 		public var artifactHandler:ArtifactHandler;
 		public var bowContainer:Array = [null, null, null, null, null, null];
-		public var gold:Number = 10;
+		public var gold:Number = 100;
 		public var bow:Bow;
 		public var healthRegenInterval:uint;
 
@@ -569,6 +569,39 @@
 			};
 		}
 
+		/*
+			Returns true if this bow is owned
+		*/
+		public function containsBow(bow:Bow):Boolean
+		{
+			for(var i:Number = 0; i < bowContainer.length; i++)
+			{
+				if(bowContainer[i] != null)
+				{
+					if(bowContainer[i].getName() == bow.getName() ||  bowContainer[i].getName() == this.bow.getName())
+					{
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+
+		/*
+			Returns ture if the arrow is owned
+		*/
+		public function containsArrow(arrow:ArrowType):Boolean
+		{
+			for(var i:Number = 0; i < equippedArrows.length; i++)
+			{
+				if(equippedArrows[i].getType() == arrow.getType())
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
 		/*____________________________________________GETTERS - SETTERS____________________________________________*/
 		
 
@@ -604,6 +637,8 @@
 			}
 			return ret;
 		}
+
+
 		
 		public function getEquippedArrows():Array
 		{

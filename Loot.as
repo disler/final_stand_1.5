@@ -63,9 +63,11 @@ package  {
 		*/
 		public function remove(main:MovieClip)
 		{
-			timeoutTimer.reset();
-			timeoutTimer.stop();
-			main.loot_mc.removeChild(main.loot_mc.getChildByName(name));
+			try {
+				timeoutTimer.reset();
+				timeoutTimer.stop();
+				main.loot_mc.removeChild(main.loot_mc.getChildByName(name));
+			} catch(e:Error) {}
 		}
 
 		/*
