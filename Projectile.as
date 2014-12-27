@@ -43,7 +43,7 @@
 			//area of effect
 			if(arrowType.doesHaveEffect(Const.SOME_AOE_EFFECT))
 			{
-				var aoe:AOE = new AOE(m, arrowType.getType(), damage);
+				var aoe:AOE = new AOE(m, arrowType.getType(), damage, _tar);
 				aoe.x = this.x;
 				aoe.y = this.y;
 				aoe.name = "aoe" + AOECount;

@@ -80,7 +80,7 @@
 		/*
 			Adds status effect
 		*/
-		public function addStatusEffect(type:Number, damage:Number)
+		public function addStatusEffect(type:Number, damage:Number, originalTarget:Boolean)
 		{
 			switch(type)
 			{
@@ -90,8 +90,16 @@
 					if(!thunderActive)
 					{
 						var oldSpeed:Number = stats.getMovementSpeed();
+						var prevvFrame:String = this.I.currentLabel;
 						stats.setMovementSpeed(0);
-						recieveDamage(damage);
+
+						this.I.gotoAndStop("stand");
+
+						if(!originalTarget)
+						{
+							recieveDamage(damage);
+						}
+
 						thunderActive = true;
 
 						if(stats.isAlive())
@@ -100,6 +108,7 @@
 							{
 								thunderActive = false;
 								stats.setMovementSpeed(oldSpeed);
+								I.gotoAndStop(prevvFrame);
 								clearTimeout(thunderTimeout);
 							}, 3000);
 						}

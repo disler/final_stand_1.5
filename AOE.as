@@ -13,9 +13,11 @@
 		var main:MovieClip;
 		var type:String;
 		var damage:Number;
+		var target:MovieClip;
 
-		public function AOE(main:MovieClip, type:String, damage:Number) {
+		public function AOE(main:MovieClip, type:String, damage:Number, target:MovieClip) {
 
+			this.target = target;
 			this.main = main;
 			this.type = type;
 			this.damage = damage;
@@ -31,7 +33,6 @@
 				case "thunder arrow":
 					//animation
 					addEventListener(Event.ENTER_FRAME, thunderFrames);
-
 
 					//timeout
 					killTime = setTimeout(function()
@@ -75,7 +76,7 @@
 			{
 				if(enemies[i] != null && this.hitTestObject(enemies[i]))
 				{
-					enemies[i].addStatusEffect(Const.AOE_THUNDER, damage);
+					enemies[i].addStatusEffect(Const.AOE_THUNDER, damage, enemies[i] == target ? true : false);
 				}
 			}
 		}

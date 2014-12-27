@@ -53,7 +53,7 @@
 			main = MAIN;
 
 			//arrows
-			equippedArrows = [new ArrowType("wooden arrow"), new ArrowType("thunder arrow"), new ArrowType("mithril arrow")];
+			equippedArrows = [new ArrowType("wooden arrow"), new ArrowType("thunder arrow"), new ArrowType("empty")];
 
 
 			//initiate pie masks
