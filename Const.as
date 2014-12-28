@@ -120,7 +120,7 @@
 		};
 
 
-		public static const AOE_THUNDER:Number = 0;
+		public static const AOE_THUNDER:Number = 0, AOE_ICE = 1;
 
 
 

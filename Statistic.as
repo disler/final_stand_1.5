@@ -54,6 +54,7 @@
 
 			//arrows
 			equippedArrows = [new ArrowType("wooden arrow"), new ArrowType("empty"), new ArrowType("empty")];
+			//equippedArrows = [new ArrowType("ice arrow"), new ArrowType("empty"), new ArrowType("empty")];
 
 
 			//initiate pie masks

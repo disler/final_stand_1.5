@@ -10,7 +10,7 @@ dan
 	add death glyph
 	
 ryan
-	Create Ice, Fire, Earth arrow (shoots enemy backward)
+	 Fire, Earth arrow (shoots enemy backward)
 chris
 	mix sound
 	spell checker public game content

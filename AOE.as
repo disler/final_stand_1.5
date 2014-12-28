@@ -42,6 +42,20 @@
 						main.arrows_mc.removeChild(main.arrows_mc.getChildByName(name));
 					}, 1000);
 				break;
+				case "ice arrow":
+					//animation
+					//addEventListener(Event.ENTER_FRAME, thunderFrames);
+
+					//timeout
+					killTime = setTimeout(function()
+					{
+						//removeEventListener(Event.ENTER_FRAME, thunderFrames);
+						removeEventListener(Event.ENTER_FRAME, handleHitTest);
+						main.arrows_mc.removeChild(main.arrows_mc.getChildByName(name));
+					}, 1000);
+				break;
+				default:
+				break;
 			}
 
 
@@ -71,12 +85,23 @@
 		*/
 		private function handleHitTest(e:Event)
 		{
-			var enemies:Array = main.waveHandler.getEnemies();
-			for(var i:Number = 0; i < enemies.length; i++)
-			{
-				if(enemies[i] != null && this.hitTestObject(enemies[i]))
+			if(this.type == "thunder arrow") {
+				var enemies:Array = main.waveHandler.getEnemies();
+				for(var i:Number = 0; i < enemies.length; i++)
 				{
-					enemies[i].addStatusEffect(Const.AOE_THUNDER, damage, enemies[i] == target ? true : false);
+					if(enemies[i] != null && this.hitTestObject(enemies[i]))
+					{
+						enemies[i].addStatusEffect(Const.AOE_THUNDER, damage, enemies[i] == target ? true : false);
+					}
+				}
+			} else if(this.type == "ice arrow") {
+				enemies = main.waveHandler.getEnemies();
+				for(i = 0; i < enemies.length; i++)
+				{
+					if(enemies[i] != null && this.hitTestObject(enemies[i]))
+					{
+						enemies[i].addStatusEffect(Const.AOE_ICE, damage, enemies[i] == target ? true : false);
+					}
 				}
 			}
 		}

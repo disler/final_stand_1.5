@@ -25,7 +25,8 @@
 		public var previousFrame:String;
 
 
-
+		public var slowPercent:Number = 0.00;
+		var iceTimeout:uint;
 		public var thunderActive:Boolean = false;
 		var thunderTimeout:uint;
 
@@ -80,7 +81,7 @@
 		/*
 			Adds status effect
 		*/
-		public function addStatusEffect(type:Number, damage:Number, originalTarget:Boolean)
+		public function addStatusEffect(type:Number, damage:Number, originalTarget:Boolean, ... args:Array)
 		{
 			switch(type)
 			{
@@ -110,6 +111,26 @@
 								stats.setMovementSpeed(oldSpeed);
 								I.gotoAndStop(prevvFrame);
 								clearTimeout(thunderTimeout);
+							}, 3000);
+						}
+					}
+				break;
+				case Const.AOE_ICE:
+					if(slowPercent <= 0.00)
+					{
+						oldSpeed = stats.getMovementSpeed();
+						prevvFrame = this.I.currentLabel;
+
+						slowPercent = args[0];
+						stats.setMovementSpeed(Math.round(oldSpeed * slowPercent));
+						//this.I.gotoAndStop("stand");
+						if(stats.isAlive())
+						{
+							iceTimeout = setTimeout(function()
+							{
+								stats.setMovementSpeed(oldSpeed);
+								I.gotoAndStop(prevvFrame);
+								clearTimeout(iceTimeout);
 							}, 3000);
 						}
 					}

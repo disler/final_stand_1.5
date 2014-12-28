@@ -134,6 +134,17 @@
 		public static function random(num_max:Number):Number {
 			return Math.floor(Math.random() * num_max);
 		}
+		/*
+			Returns true is x3 and y3 are within x1 to x2 and y1 to y2
+		*/
+		public static function inArea(x1:Number, y1:Number, x2:Number, y2:Number, x3:Number, y3:Number):Boolean {
+			if(x3 >= x1 && x3 < x2) {
+				if(y3 >= y1 && y3 < y2) {
+					return true;
+				}
+			}
+			return false;
+		}
 	}
 	
 }
