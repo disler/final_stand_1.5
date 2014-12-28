@@ -18,10 +18,13 @@
 
 													],
 													[
+														new Loot("glyph of multishot", Const.LOOT_ARTIFACT),
 														new Loot("thunder arrow", Const.LOOT_ARROW),
 														new Loot("agile bow", Const.LOOT_ARROW), 
 													],
 													[
+														new Loot("glyph of penetration", Const.LOOT_ARTIFACT),
+														new Loot("glyph of collision", Const.LOOT_ARTIFACT),
 														new Loot("vicious bow", Const.LOOT_BOW)
 													]
 												];

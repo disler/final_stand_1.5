@@ -12,11 +12,39 @@
 	*/
 	public class Controller{
 		public var myLoot:Loot = null;
-		public var shopItems:Array = new Array(["glyph of accuracy", 1], ["glyph of haste", 1], ["steel arrow", 1], ["guardian bow", 3], ["glyph of health regeneration", 4],
-										  ["glyph of health regeneration", 4], ["glyph of power", 5], ["glyph of health", 5], ["glyph of accuracy", 5], ["glyph of bow speed", 4], 
-										  ["glyph of health regeneration", 4], ["glyph of power", 5], ["glyph of health", 5], ["glyph of accuracy", 5], ["glyph of bow speed", 4], 
-										  ["glyph of health regeneration", 4], ["glyph of power", 5], ["glyph of health", 5], ["glyph of accuracy", 5], ["glyph of bow speed", 4], 
-										  ["glyph of health regeneration", 4], ["glyph of power", 5], ["glyph of health", 5], ["glyph of accuracy", 5], ["glyph of bow speed", 4]
+		/*
+		in shop
+		accuracy
+		health
+		steel arrow
+		guardian bow
+		regeneration
+		accuracy
+		absolte bow
+		power
+		bow speed
+		mithril arrow
+		multi arrow
+		power
+		haste
+		sonic bow
+		agile bow
+		penetration
+		vicious bow
+		-
+		glyph of collision
+		-
+		-
+		-
+		-
+		-
+		-
+		*/
+		public var shopItems:Array = new Array(["glyph of accuracy", 1], 				["glyph of health", 1], ["steel arrow", 1], ["guardian bow", 3], ["glyph of health regeneration", 4],
+										  ["glyph of accuracy", 5], 					["absolute bow", 5], 	["glyph of power", 8], ["glyph of bow speed", 8], ["mithril arrow", 10], 
+										  ["glyph of multishot", 10], 					["glyph of power", 13], ["glyph of haste", 13], ["sonic bow", 15], ["agile bow", 15], 
+										  ["glyph of penetration", 20], 			["vicious bow", 20], ["glyph of health", 23], ["glyph of collision", 25], ["glyph of bow speed", 27], 
+										  ["glyph of health regeneration", 30], 			["glyph of power", 30], ["glyph of health", 30], ["glyph of accuracy", 40], ["glyph of bow speed", 50]
 										  );
 		public var shopToolTip:MovieClip = null;
 		public var shopSelectID:Number = -1;
@@ -130,9 +158,26 @@
 			Flags Keys which are pressed
 		*/
 		public function playerShootArrow():void { 
-			var arr:Projectile = new Projectile();
-			arr.loadProjectile(m.player.x, m.player.y, m, m.player.rotation, m.player.getStats().getBattleStats(), m._interface.getSelectedArrow());
-			m.arrows_mc.addChild(arr);
+			
+			//count multi shot glyph
+			var arr:Projectile;
+			var occ:Number = m.player.getStats().occurrence("glyph of multishot"); 
+			if(occ > 0)
+			{
+				for(var i:Number = 0; i < m.player.getStats().multiShot(occ); i++)
+				{
+					arr = new Projectile();
+					arr.loadProjectile(m.player.x + (5*i), m.player.y - (5*i), m, m.player.rotation, m.player.getStats().getBattleStats(), m._interface.getSelectedArrow());
+					m.arrows_mc.addChild(arr);
+				}
+			}
+			else
+			{
+				arr = new Projectile();
+				arr.loadProjectile(m.player.x, m.player.y, m, m.player.rotation, m.player.getStats().getBattleStats(), m._interface.getSelectedArrow());
+				m.arrows_mc.addChild(arr);
+			}
+
 			return;
 		}
 		
@@ -615,6 +660,8 @@
 		public function fireEnemyProjectile(type:String, _x:Number, _y:Number, rot:Number,stats:StatisticEnemy)
 		{
 			var proj:EnemyProjectile = new EnemyProjectile(type, _x, _y, rot, stats, m);
+			proj.name = "eProj" + EnemyProjectile.projCount;
+			EnemyProjectile.projCount++;
 			enemyProjectile.push(proj);
 			m.arrows_mc.addChild(proj);
 		}

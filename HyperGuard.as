@@ -85,9 +85,12 @@
 		{
 			var _amt:Number = __amt;
 
+			var occ:Number = m.player.getStats().occurrence("glyph of penetration");
+			var pierced:Boolean = m.player.getStats().pierceEnemy(occ);
+
 			//block the attack and take reduced damage 100%
 			var block:Number = Math.random() * 100;
-			if(block < Const.HYPER_GUARD_BLOCK_CHANCE)
+			if(block < Const.HYPER_GUARD_BLOCK_CHANCE && !pierced)
 			{
 
 				//animation

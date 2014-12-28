@@ -54,7 +54,6 @@
 
 			//arrows
 			equippedArrows = [new ArrowType("wooden arrow"), new ArrowType("empty"), new ArrowType("empty")];
-			//equippedArrows = [new ArrowType("ice arrow"), new ArrowType("empty"), new ArrowType("empty")];
 
 
 			//initiate pie masks
@@ -105,6 +104,57 @@
 
 			//health regeneration interval
 			healthRegenInterval = setInterval(healthRegeneration, Const.HEALTH_REGENERATION_INTERVAL);
+		}
+
+		/*
+			Pierce enemy sheild
+		*/
+		public function pierceEnemy(occ:Number = 0):Boolean
+		{
+			var roll = occ * Const.SHEILD_BREAK_PERCENTAGE;
+			if(Math.floor(Math.random() * 100) <= roll)
+			{
+				return true;
+			}
+			return false;
+		}
+
+		public function pierceProjectile(occ:Number = 0):Boolean
+		{
+			var roll = occ * Const.COLLISION_BREAK_PERCENTAGE;
+			if(Math.floor(Math.random() * 100) <= roll)
+			{
+				return true;
+			}
+			return false;
+		}
+
+
+		/*
+			Returns the number of times an arrow can be shot based on the 'glyph of multishot'
+		*/	
+		public function multiShot(occ:Number = 0):Number
+		{
+			var successPercentage:Number = occ * Const.MULTI_SHOT_ROLL_PERCENTAGE;
+			var shots:Number = 1;
+			
+			if(successPercentage <= 100)
+			{
+				if(Math.floor(Math.random() * 100) < successPercentage)
+				{
+					shots++;
+				}
+			}
+			else if(successPercentage <= 200)
+			{
+				shots++;
+				if(Math.floor(Math.random() * 100) < successPercentage - 100)
+				{
+					shots++;
+				}
+			}
+
+			return shots;
 		}
 
 		/*_________________________________________ARROW TIMERS_________________________________________*/
@@ -310,6 +360,21 @@
 		}
 
 		/*____________________________________________'ARTIFACTS'_________________________________________*/
+
+
+
+
+
+		/*
+			Returns the occurence of a specific glyph
+		*/
+		public function occurrence(str:String):Number
+		{
+			return artifactHandler.occurrence(str);
+		}
+
+
+
 		public function getArtifactByIndex(ind:Number):Artifact
 		{
 			return artifactHandler.getEquippedArtifacts()[ind];

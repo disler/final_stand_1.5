@@ -48,6 +48,24 @@
 					o.cost = 100;
 					o.type = "artifact";
 				break;
+				case "glyph of multishot":
+					o.name  = "Glyph of Multishot";
+					o.description = Const.ITEM_DESCRIPTION[_obj];
+					o.cost = 500;
+					o.type = "artifact";
+				break;
+				case "glyph of penetration":
+					o.name  = "Glyph of Penetration";
+					o.description = Const.ITEM_DESCRIPTION[_obj];
+					o.cost = 750;
+					o.type = "artifact";
+				break;
+				case "glyph of collision":
+					o.name  = "Glyph of Collision";
+					o.description = Const.ITEM_DESCRIPTION[_obj];
+					o.cost = 750;
+					o.type = "artifact";
+				break;
 				/*__________________________ARROWS__________________________*/
 
 

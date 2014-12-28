@@ -241,7 +241,6 @@
 			{
 				waveDiff = 6;//bandits, guardian, mage, hyper guard, assassian, archers
 			}
-
 			return enemyClassFactory(waveDiff);
 		}
 

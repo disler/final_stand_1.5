@@ -56,6 +56,15 @@
 					stats.accuracy = 1;
 					description = Const.ITEM_DESCRIPTION[artifact];
 				break;
+				case "glyph of multishot":
+					description = Const.ITEM_DESCRIPTION[artifact];
+				break;
+				case "glyph of penetration":
+					description = Const.ITEM_DESCRIPTION[artifact];
+				break;
+				case "glyph of collision":
+					description = Const.ITEM_DESCRIPTION[artifact];
+				break;
 				case "empty":
 					description = "Equip an artifact here"
 				break;

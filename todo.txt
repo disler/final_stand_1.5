@@ -2,12 +2,9 @@
 
 dan
 	Make shop scale with the game ( right price right items right wave )
-	Add Arrows to shop
-	Add Bows to shop
-	add multi arrow glyph
 	add piece glyph
-	add penetration glyph
 	add death glyph
+	finish shop add in arrows
 	
 ryan
 	 Fire, Earth arrow (shoots enemy backward)

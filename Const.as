@@ -81,10 +81,10 @@
 
 		public static const GOLD_ROLL:Number = 15;
 
-		public static const ARTIFACT_SLOT_LEVELS:Array = [	2, 	4, 	6, 	8,
-															10, 12, 14, 15,
-															17, 18, 20, 22,
-															24, 26, 28, 30];
+		public static const ARTIFACT_SLOT_LEVELS:Array = [	4, 	6, 	8, 	10,
+															12, 14, 16, 18,
+															19, 20, 22, 24,
+															25, 26, 28, 30];
 
 		public static const ARROW_TICK_INTERVAL:Number = 100;
 
@@ -96,6 +96,9 @@
 			"glyph of health regeneration" : "Increase health returned every five seconds",
 			"glyph of bow speed" : "Increase speed of arrows",
 			"glyph of accuracy" : "Increase accuracy of arrows",
+			"glyph of multishot" : "10% chance to fire an additional arrow, this effect can overstack to fire 3 arrows",
+			"glyph of penetration" : "25% chance to pierce through blocked attacks",
+			"glyph of collision" : "25% chance to pierce through enemy projectiles",
 
 
 			//bow
@@ -125,6 +128,9 @@
 
 
 		public static const SOME_AOE_EFFECT:Number = 0;
+		public static const MULTI_SHOT_ROLL_PERCENTAGE:Number = 10;
+		public static const SHEILD_BREAK_PERCENTAGE:Number = 25;
+		public static const COLLISION_BREAK_PERCENTAGE:Number = 25;
 		
 		public function Const() {}
 	}

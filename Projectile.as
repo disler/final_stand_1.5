@@ -84,5 +84,10 @@
 			y = y - ychange;
 			x = x + xchange;
 		}
+
+		public function getArrowType():ArrowType
+		{
+			return arrowType;
+		}
 	}
 }

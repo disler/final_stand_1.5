@@ -7,16 +7,33 @@
 		
 		//contains all artifact equipped and having an effect 
 		private var artifactContainer:Array = [
-											   new Artifact("glyph of haste"), 			new Artifact("empty"), new Artifact("locked"), new Artifact("locked"),
-											   new Artifact("locked"), 					new Artifact("locked"), new Artifact("locked"), new Artifact("locked"),
-											   new Artifact("locked"), 					new Artifact("locked"), new Artifact("locked"), new Artifact("locked"),
-											   new Artifact("locked"), 					new Artifact("locked"), new Artifact("locked"), new Artifact("locked")
+											   new Artifact("empty"), 				new Artifact("locked"), 	new Artifact("locked"), 	new Artifact("locked"),
+											   new Artifact("locked"), 			 	new Artifact("locked"), 	 new Artifact("locked"), 	 new Artifact("locked"), 			
+											   new Artifact("locked"), 			 	new Artifact("locked"), 	 new Artifact("locked"), 	 new Artifact("locked"), 			
+											   new Artifact("locked"), 			 	new Artifact("locked"), 	 new Artifact("locked"), 	 new Artifact("locked")			
 											   ];
 
 		//contains all unequipped artifacts
 	   	private var unequippedArtifacts:Array = []; 
 
 		public function ArtifactHandler() {}
+
+
+		/*
+			Returns the occurence of a glyph
+		*/
+		public function occurrence(str:String):Number
+		{
+			var count:Number = 0;
+			for(var i:Number = 0; i < artifactContainer.length; i++)
+			{
+				if(artifactContainer[i].getArtifact() == str)
+				{
+					count++;
+				}
+			}
+			return count;
+		}
 
 
 		/*
