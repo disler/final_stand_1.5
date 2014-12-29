@@ -13,18 +13,17 @@
 													], 
 													[
 														new Loot("glyph of power", Const.LOOT_ARTIFACT), new Loot("glyph of health regeneration", Const.LOOT_ARTIFACT), new Loot("glyph of accuracy", Const.LOOT_ARTIFACT),
-														new Loot("mithril arrow", Const.LOOT_ARROW),
+														new Loot("mithril arrow", Const.LOOT_ARROW), new Loot("fire arrow", Const.LOOT_ARROW), new Loot("ice arrow", Const.LOOT_ARROW),
 														new Loot("sonic bow", Const.LOOT_BOW)
 
 													],
 													[
-														new Loot("glyph of multishot", Const.LOOT_ARTIFACT),
-														new Loot("thunder arrow", Const.LOOT_ARROW),
+														new Loot("glyph of multishot", Const.LOOT_ARTIFACT), new Loot("glyph of fortitude", Const.LOOT_ARTIFACT), new Loot("glyph of war", Const.LOOT_ARTIFACT),
+														new Loot("thunder arrow", Const.LOOT_ARROW), new Loot("earth arrow", Const.LOOT_ARROW),
 														new Loot("agile bow", Const.LOOT_ARROW), 
 													],
 													[
-														new Loot("glyph of penetration", Const.LOOT_ARTIFACT),
-														new Loot("glyph of collision", Const.LOOT_ARTIFACT),
+														new Loot("glyph of penetration", Const.LOOT_ARTIFACT), new Loot("glyph of collision", Const.LOOT_ARTIFACT), new Loot("glyph of death", Const.LOOT_ARTIFACT), new Loot("glyph of limbo", Const.LOOT_ARTIFACT),
 														new Loot("vicious bow", Const.LOOT_BOW)
 													]
 												];

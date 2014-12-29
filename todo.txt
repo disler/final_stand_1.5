@@ -1,23 +1,22 @@
 12 / 23 / 14
 
 dan
-	Make shop scale with the game ( right price right items right wave )
-	add piece glyph
-	add death glyph
-	finish shop add in arrows
+	Finish shop
+		finish shop add in arrows
+		program bosses
 	
 ryan
-	 Fire, Earth arrow (shoots enemy backward)
+	 Fire - Creates fire spot which burns area on ground which hits someone
+	 Earth arrow - Creates a wall in front of the target hit
 chris
 	mix sound
 	spell checker public game content
 
-
 Remaining tasks:
 	TUNE:
-		need arrows early
 		wave speed needs to be reduced
-
+		not enough gold - add wave gold based on accuracy and damage taken
+		pop up qwe when finished loading
 
 	suggestions:
 		move proceed to battle onto the menu
@@ -26,15 +25,13 @@ Remaining tasks:
 		make it noticable that you can change bows
 		add 'stunned' icon when enemies are stunned
 		looted dropped behind arrow interface makes it un clickable
-	cosmic bow - Groups them all together for ice shot?
 
 	Tool tip:
 		create intro to game tool tip
-	Shop:
 	
 	Enemies: 						
-		Create 3 bosses (shadow fighters) 	- create unique bosses
-	
+		Create 3 bosses (shadow fighters) - create unique bosses
+
 	Game state:
 		Create game over frames
 		Create storyline elements

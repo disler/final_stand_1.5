@@ -31,7 +31,7 @@
 					waitTime = 1;//1 second wait time
 					effects = [];//specifies arrow constants
 				break;
-				case "steel arrow":
+				case "steel arrow"://increase damage
 					description = Const.ITEM_DESCRIPTION[type];
 					damage = 1;
 					speed = 9;
@@ -39,7 +39,7 @@
 					waitTime = 2;
 					effects = [];
 				break;
-				case "mithril arrow":
+				case "mithril arrow"://increase damage
 					description = Const.ITEM_DESCRIPTION[type];
 					damage = 3;
 					speed = 7;
@@ -63,7 +63,7 @@
 					waitTime = 6;
 					effects = [];
 				break;
-				case "earth arrow": // WALL
+				case "earth arrow": // Creates a wall in front of enemy hit, stopping enemy movement at that location 
 					description = Const.ITEM_DESCRIPTION[type];
 					damage = 1;
 					speed = 8;
@@ -79,6 +79,14 @@
 					waitTime = 15;
 					effects = [Const.SOME_AOE_EFFECT];
 				break;
+				case "dark arrow": // Pierces all enemies
+					description = Const.ITEM_DESCRIPTION[type];
+					damage = 5;
+					speed = 15;
+					accuracy = 0;
+					waitTime = 5;
+					effects = [Const.PIERCE_EFFECT];
+				break;
 				case "empty":
 				default:
 					description = "";
@@ -90,7 +98,7 @@
 		*/
 		public function getAdjustedAccuracy():Number
 		{
-			if(accuracy == 0) return 0;
+			if(accuracy <= 0) return 0;
 			var randAccuracy = accuracy;
 			
 			if(Math.random() > .5)
@@ -106,7 +114,7 @@
 
 		public static function getAdjustedAccuracy(acc:Number):Number
 		{
-			if(acc == 0) return 0;
+			if(acc <= 0) return 0;
 			var randAccuracy = acc;
 			
 			if(Math.random() > .5)

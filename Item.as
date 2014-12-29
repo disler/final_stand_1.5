@@ -66,6 +66,30 @@
 					o.cost = 750;
 					o.type = "artifact";
 				break;
+				case "glyph of fortitude":
+					o.name  = "Glyph of Fortitude";
+					o.description = Const.ITEM_DESCRIPTION[_obj];
+					o.cost = 1500;
+					o.type = "artifact";
+				break;
+				case "glyph of war":
+					o.name  = "Glyph of War";
+					o.description = Const.ITEM_DESCRIPTION[_obj];
+					o.cost = 1500;
+					o.type = "artifact";
+				break;
+				case "glyph of death":
+					o.name  = "Glyph of Death";
+					o.description = Const.ITEM_DESCRIPTION[_obj];
+					o.cost = 5000;
+					o.type = "artifact";
+				break;
+				case "glyph of limbo":
+					o.name  = "Glyph of Limbo";
+					o.description = Const.ITEM_DESCRIPTION[_obj];
+					o.cost = 10000;
+					o.type = "artifact";
+				break;
 				/*__________________________ARROWS__________________________*/
 
 
@@ -78,37 +102,43 @@
 				case "steel arrow":
 					o.name  = "Steel Arrow";
 					o.description = Const.ITEM_DESCRIPTION[_obj];
-					o.cost = 100;
+					o.cost = 200;
 					o.type = "arrow";
 				break;
 				case "mithril arrow":
 					o.name  = "Mithril Arrow";
 					o.description = Const.ITEM_DESCRIPTION[_obj];
-					o.cost = 100;
+					o.cost = 300;
 					o.type = "arrow";
 				break;
 				case "ice arrow":
 					o.name  = "Ice Arrow";
 					o.description = Const.ITEM_DESCRIPTION[_obj];
-					o.cost = 100;
+					o.cost = 500;
 					o.type = "arrow";
 				break;
 				case "fire arrow":
 					o.name  = "Fire Arrow";
 					o.description = Const.ITEM_DESCRIPTION[_obj];
-					o.cost = 100;
+					o.cost = 500;
 					o.type = "arrow";
 				break;
 				case "earth arrow":
 					o.name  = "Earth Arrow";
 					o.description = Const.ITEM_DESCRIPTION[_obj];
-					o.cost = 100;
+					o.cost = 500;
 					o.type = "arrow";
 				break;
 				case "thunder arrow":
 					o.name  = "Thunder Arrow";
 					o.description = Const.ITEM_DESCRIPTION[_obj];
-					o.cost = 100;
+					o.cost = 750;
+					o.type = "arrow";
+				break;
+				case "dark arrow":
+					o.name  = "Dark Arrow";
+					o.description = Const.ITEM_DESCRIPTION[_obj];
+					o.cost = 5000;
 					o.type = "arrow";
 				break;
 
@@ -119,31 +149,31 @@
 				case "guardian bow":
 					o.name  = "Guardian bow";
 					o.description = Const.ITEM_DESCRIPTION[_obj];
-					o.cost = 100;
+					o.cost = 200;
 					o.type = "bow";
 				break;
 				case "vicious bow":
 					o.name  = "Vicious bow";
 					o.description = Const.ITEM_DESCRIPTION[_obj];
-					o.cost = 100;
+					o.cost = 500;
 					o.type = "bow";
 				break;
 				case "agile bow":
 					o.name  = "Agile bow";
 					o.description = Const.ITEM_DESCRIPTION[_obj];
-					o.cost = 100;
+					o.cost = 200;
 					o.type = "bow";
 				break;
 				case "absolute bow":
 					o.name  = "Absolute bow";
 					o.description = Const.ITEM_DESCRIPTION[_obj];
-					o.cost = 100;
+					o.cost = 300;
 					o.type = "bow";
 				break;
 				case "sonic bow":
 					o.name  = "Sonic bow";
 					o.description = Const.ITEM_DESCRIPTION[_obj];
-					o.cost = 100;
+					o.cost = 300;
 					o.type = "bow";
 				break;
 			}

@@ -53,7 +53,7 @@
 					description = Const.ITEM_DESCRIPTION[artifact];
 				break;
 				case "glyph of accuracy":
-					stats.accuracy = 1;
+					stats.accuracy = -1;
 					description = Const.ITEM_DESCRIPTION[artifact];
 				break;
 				case "glyph of multishot":
@@ -63,6 +63,28 @@
 					description = Const.ITEM_DESCRIPTION[artifact];
 				break;
 				case "glyph of collision":
+					description = Const.ITEM_DESCRIPTION[artifact];
+				break;
+				case "glyph of fortitude":
+					stats.castleHealth = 5;
+					stats.castleHealthRegeneration = 1;
+					description = Const.ITEM_DESCRIPTION[artifact];
+				break;
+				case "glyph of war":
+					stats.damage = 2;
+					stats.attackSpeed = 1;
+					description = Const.ITEM_DESCRIPTION[artifact];
+				break;
+				case "glyph of limbo":
+					stats.damage = 2;
+					stats.attackSpeed = 1;
+					stats.castleHealth = 5;
+					stats.castleHealthRegeneration = 1;
+					stats.accuracy = -2;
+					stats.bowSpeed = 3;
+					description = Const.ITEM_DESCRIPTION[artifact];
+				break;
+				case "glyph of death":
 					description = Const.ITEM_DESCRIPTION[artifact];
 				break;
 				case "empty":

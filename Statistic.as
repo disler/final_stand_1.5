@@ -107,6 +107,20 @@
 		}
 
 		/*
+			Instantly kill enemy
+		*/
+		public function instantDeath(occ:Number = 0):Boolean
+		{
+			var roll = occ * Const.INSTANT_DEATH_PERCENTAGE;
+			if(Math.floor(Math.random() * 100) <= roll)
+			{
+				return true;
+			}
+			return false;
+			
+		}
+
+		/*
 			Pierce enemy sheild
 		*/
 		public function pierceEnemy(occ:Number = 0):Boolean
@@ -270,6 +284,7 @@
 				{
 					var diff:Number = castleHealth - maxCastleHealth;
 					castleHealth -= diff;
+					main._interface.loadHpNoFlash(getHealth(), getMaxHealth());
 				}
 			}
 		}

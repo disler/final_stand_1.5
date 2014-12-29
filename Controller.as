@@ -13,38 +13,44 @@
 	public class Controller{
 		public var myLoot:Loot = null;
 		/*
-		in shop
+		in shop:
+
 		accuracy
 		health
 		steel arrow
 		guardian bow
 		regeneration
-		accuracy
+
+		ice arrow
 		absolte bow
 		power
 		bow speed
 		mithril arrow
-		multi arrow
-		power
+
+		multishot
+		fire arrow
 		haste
 		sonic bow
+		earth arrow
+
 		agile bow
 		penetration
 		vicious bow
-		-
 		glyph of collision
-		-
-		-
-		-
-		-
-		-
-		-
+		glyph of fortitude
+
+		thunder arrow
+		glyph of war
+		glyph of death
+		glyph of limbo
+		dark arrow
+		
 		*/
 		public var shopItems:Array = new Array(["glyph of accuracy", 1], 				["glyph of health", 1], ["steel arrow", 1], ["guardian bow", 3], ["glyph of health regeneration", 4],
-										  ["glyph of accuracy", 5], 					["absolute bow", 5], 	["glyph of power", 8], ["glyph of bow speed", 8], ["mithril arrow", 10], 
-										  ["glyph of multishot", 10], 					["glyph of power", 13], ["glyph of haste", 13], ["sonic bow", 15], ["agile bow", 15], 
-										  ["glyph of penetration", 20], 			["vicious bow", 20], ["glyph of health", 23], ["glyph of collision", 25], ["glyph of bow speed", 27], 
-										  ["glyph of health regeneration", 30], 			["glyph of power", 30], ["glyph of health", 30], ["glyph of accuracy", 40], ["glyph of bow speed", 50]
+										  ["ice arrow", 5], 							["absolute bow", 5], 	["glyph of power", 8], ["glyph of bow speed", 8], ["mithril arrow", 10], 
+										  ["glyph of multishot", 10], 					["fire arrow", 13], ["glyph of haste", 13], ["sonic bow", 15], ["earth arrow", 15], 
+										  ["agile bow", 20], 							["glyph of penetration", 20], ["vicious bow", 23], ["glyph of collision", 25], ["glyph of fortitude", 27], 
+										  ["thunder arrow", 30], 						["glyph of war", 30], ["glyph of death", 30], ["glyph of limbo", 40], ["dark arrow", 50]
 										  );
 		public var shopToolTip:MovieClip = null;
 		public var shopSelectID:Number = -1;
@@ -58,6 +64,7 @@
 		private var equippedArtifactSlot:Number;
 		private var arrowLock:Boolean = false;
 		private var lClicks:Number = 0;
+		private var projCount:Number = 0;
 		/*
 			Attaches listener events
 		*/
@@ -169,6 +176,8 @@
 					arr = new Projectile();
 					arr.loadProjectile(m.player.x + (5*i), m.player.y - (5*i), m, m.player.rotation, m.player.getStats().getBattleStats(), m._interface.getSelectedArrow());
 					m.arrows_mc.addChild(arr);
+					arr.name = "proj" + projCount;
+					projCount++;
 				}
 			}
 			else
@@ -176,6 +185,8 @@
 				arr = new Projectile();
 				arr.loadProjectile(m.player.x, m.player.y, m, m.player.rotation, m.player.getStats().getBattleStats(), m._interface.getSelectedArrow());
 				m.arrows_mc.addChild(arr);
+				arr.name = "proj" + projCount;
+				projCount++;
 			}
 
 			return;

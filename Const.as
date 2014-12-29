@@ -79,7 +79,7 @@
 
 		public static const ARROW_SPEED_REDUCER:Number = .1;
 
-		public static const GOLD_ROLL:Number = 15;
+		public static const GOLD_ROLL:Number = 18;
 
 		public static const ARTIFACT_SLOT_LEVELS:Array = [	4, 	6, 	8, 	10,
 															12, 14, 16, 18,
@@ -99,7 +99,10 @@
 			"glyph of multishot" : "10% chance to fire an additional arrow, this effect can overstack to fire 3 arrows",
 			"glyph of penetration" : "25% chance to pierce through blocked attacks",
 			"glyph of collision" : "25% chance to pierce through enemy projectiles",
-
+			"glyph of fortitude" : "Greatly increases health and health regeneration",
+			"glyph of war" : "Greatly increases damage and attack speed",
+			"glyph of death" : "1% chance destroy the life force from your enemies",
+			"glyph of limbo" : "The ultimate artifact foreign to life and death, massively increases all statistics",
 
 			//bow
 			"oak bow" : "Study bow made from oak, offers increased accuracy",
@@ -116,7 +119,8 @@
 			"ice arrow" : "An arrow that freezes and damages enemies in an area",
 			"fire arrow" : "An arrow which burns eneimies in an area on impact",
 			"earth arrow" : "An arrow that damages an enemy, then creates a wall, temporarily blocking enemies",
-			"thunder arrow" : "An arrow that damages and stuns enemies in a range"
+			"thunder arrow" : "An arrow that damages and stuns enemies in a range",
+			"dark arrow" : "An arrow that pierces through all targets dealing massive damage to each enemy"
 
 
 
@@ -128,9 +132,15 @@
 
 
 		public static const SOME_AOE_EFFECT:Number = 0;
+		public static const PIERCE_EFFECT:Number = 1;
 		public static const MULTI_SHOT_ROLL_PERCENTAGE:Number = 10;
 		public static const SHEILD_BREAK_PERCENTAGE:Number = 25;
 		public static const COLLISION_BREAK_PERCENTAGE:Number = 25;
+		public static const INSTANT_DEATH_PERCENTAGE:Number = 1;
+
+
+
+		public static const ARROW_DISTANCE_TIMEOUT:Number = 5000;
 		
 		public function Const() {}
 	}

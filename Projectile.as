@@ -1,6 +1,7 @@
 ﻿package {
 	import flash.display.MovieClip;
 	import flash.events.*;
+	import flash.utils.*;
 	
 	
 	/*
@@ -11,6 +12,7 @@
 		public var speed:Number, damage:Number;
 		private var arrowType:ArrowType;
 		public static var AOECount:Number = 0;
+		private var distanceTimeout:uint;
 		
 		public var contactedEnemy:MovieClip;
 		public function Projectile() { 
@@ -30,6 +32,8 @@
 			gotoAndStop(_arrowSelected.getType());
 			addEventListener(Event.ENTER_FRAME, projectileEFHandler);
 			this.hitbox_mc.visible = M.HITBOXES_VISIBLE;
+
+			distanceTimeout = setTimeout(kill, Const.ARROW_DISTANCE_TIMEOUT);
 		}
 
 
@@ -38,7 +42,18 @@
 		*/
 		public function contactEnemy(_tar:MovieClip):void {
 			contactedEnemy = _tar;
-			_tar.recieveDamage(damage);
+			var dealDamage:Number = damage;
+
+			var occ:Number = m.player.getStats().occurrence("glyph of death");
+			if(occ > 0)
+			{
+				if(m.player.getStats().instantDeath(occ))
+				{
+					dealDamage = (_tar as Enemy).getStats().getHealthMax();
+				}
+			}
+
+			_tar.recieveDamage(dealDamage);
 
 			//area of effect
 			if(arrowType.doesHaveEffect(Const.SOME_AOE_EFFECT))
@@ -51,10 +66,21 @@
 
 				m.arrows_mc.addChild(aoe);
 			}
-			
-			// UNLOAD
-			removeEventListener(Event.ENTER_FRAME, projectileEFHandler);
-			m.arrows_mc.removeChild(this);
+
+			//if this arrow does not pierces through enemies, remove it, otherwise it will damage all enemies
+			if(!arrowType.doesHaveEffect(Const.PIERCE_EFFECT))
+			{
+				// UNLOAD
+				removeEventListener(Event.ENTER_FRAME, projectileEFHandler);
+				m.arrows_mc.removeChild(this);
+				clearTimeout(distanceTimeout);
+			}
+			else
+			{
+				//reset contacted enemy so more can be hit
+				contactedEnemy = null;
+			}
+
 			return;
 		}
 		/*
@@ -74,9 +100,6 @@
 				}
 			}
 
-			//TODO: Add radius to arrows and add drop
-
-
 			// Rotation Handling
 			var ychange:Number, xchange:Number;
 			ychange = ( Math.cos ( (Math.PI/180) * rotation ) ) * speed; // learn: This is cool!
@@ -89,5 +112,17 @@
 		{
 			return arrowType;
 		}
+
+
+		/*
+			Length timeout
+		*/
+		public function kill():void
+		{
+			removeEventListener(Event.ENTER_FRAME, projectileEFHandler);
+			m.arrows_mc.removeChild(m.arrows_mc.getChildByName(name));
+			clearTimeout(distanceTimeout);
+		}
+
 	}
 }
