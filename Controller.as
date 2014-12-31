@@ -15,35 +15,35 @@
 		/*
 		in shop:
 
-		accuracy
-		health
-		steel arrow
-		guardian bow
-		regeneration
+			accuracy
+			health
+			steel arrow
+			guardian bow
+			regeneration
 
-		ice arrow
-		absolte bow
-		power
-		bow speed
-		mithril arrow
+			ice arrow
+			absolte bow
+			power
+			bow speed
+			mithril arrow
 
-		multishot
-		fire arrow
-		haste
-		sonic bow
-		earth arrow
+			multishot
+			fire arrow
+			haste
+			sonic bow
+			earth arrow
 
-		agile bow
-		penetration
-		vicious bow
-		glyph of collision
-		glyph of fortitude
+			agile bow
+			penetration
+			vicious bow
+			glyph of collision
+			glyph of fortitude
 
-		thunder arrow
-		glyph of war
-		glyph of death
-		glyph of limbo
-		dark arrow
+			thunder arrow
+			glyph of war
+			glyph of death
+			glyph of limbo
+			dark arrow
 		
 		*/
 		public var shopItems:Array = new Array(["glyph of accuracy", 1], 				["glyph of health", 1], ["steel arrow", 1], ["guardian bow", 3], ["glyph of health regeneration", 4],
@@ -1068,7 +1068,6 @@
 		*/
 		public function clickProceedToBattleEvent(e:MouseEvent):void
 		{
-			trace("CLICK");
 			clickProceedToBattle();
 		}
 

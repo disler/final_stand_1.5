@@ -2,10 +2,14 @@
 
 dan
 	program bosses
-	add items to shop	
+	add sound
+	create music
 ryan
-	 Fire - Creates fire spot which burns area on ground which hits someone
-	 Earth arrow - Creates a wall in front of the target hit
+	create cut scene functionality
+	create tool tip
+	save and load?
+	add sound
+	add music
 chris
 	mix sound
 	spell checker public game content
@@ -33,10 +37,6 @@ Remaining tasks:
 	Game state:
 		Create storyline elements
 		Create save load
-	
-	Sound:
-		Create music
-		Create sound
 	
 	Finalize:
 		Fine tuning

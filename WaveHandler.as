@@ -89,6 +89,7 @@
 		public function removeEnemy(enemy:Enemy):void
 		{
 			main.enemies_mc.removeChild(enemy);
+			enemyContainer[enemy.getId()] = null;
 		}
 		
 		
@@ -429,6 +430,8 @@
 		*/
 		public function endWaves():void
 		{
+			unspawnedEnemies = 0;
+			remainingWaveEnemies = 0;
 			clearInterval(enemySpawnInterval);
 		}
 		

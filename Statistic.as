@@ -53,9 +53,33 @@
 			main = MAIN;
 
 			//arrows
-			//equippedArrows = [new ArrowType("wooden arrow"), new ArrowType("empty"), new ArrowType("empty")];
-			equippedArrows = [new ArrowType("fire arrow"), new ArrowType("earth arrow"), new ArrowType("earth arrow")];
+			equippedArrows = [new ArrowType("wooden arrow"), new ArrowType("earth arrow"), new ArrowType("fire arrow")];
 
+			createPieMasks();
+
+			//bow
+			bow = new Bow("oak bow");
+			loadBowBonus(bow);
+
+			//load players bow frame
+			bowVisual();
+
+			//ARTIFACT
+			artifactHandler = new ArtifactHandler();
+			loadArtifactBonus(artifactHandler);
+			main.interface_mc.inGameInterface_mc.health_mc.health_txt.text = castleHealth;
+
+			//arrow timers
+			setupArrowTimers();
+
+			//health regeneration interval
+			healthRegenInterval = setInterval(healthRegeneration, Const.HEALTH_REGENERATION_INTERVAL);
+		}
+
+
+		public function createPieMasks()
+		{
+			pieMaskContainer = [];
 			//initiate pie masks
 			for(var i:Number = 1; i < 4; i++)
 			{
@@ -86,24 +110,6 @@
 				pie.drawWithFill();
 				pieMaskContainer.push(pie);
 			}
-
-			//bow
-			bow = new Bow("oak bow");
-			loadBowBonus(bow);
-
-			//load players bow frame
-			bowVisual();
-
-			//ARTIFACT
-			artifactHandler = new ArtifactHandler();
-			loadArtifactBonus(artifactHandler);
-			main.interface_mc.inGameInterface_mc.health_mc.health_txt.text = castleHealth;
-
-			//arrow timers
-			setupArrowTimers();
-
-			//health regeneration interval
-			healthRegenInterval = setInterval(healthRegeneration, Const.HEALTH_REGENERATION_INTERVAL);
 		}
 
 		/*
@@ -113,6 +119,9 @@
 		{
 			castleHealth = maxCastleHealth;
 			main._interface.loadHpNoFlash(getHealth(), getMaxHealth());
+			createPieMasks();
+			setupArrowTimers();
+			alive = true;
 		}
 
 		/*
@@ -189,7 +198,7 @@
 		/*
 			Initiates all nessacary arrow timers
 		*/
-		private function setupArrowTimers():void
+		public function setupArrowTimers():void
 		{
 			for(var i:Number = 0; i < equippedArrows.length; i++)
 			{
