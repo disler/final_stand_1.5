@@ -63,7 +63,10 @@
 				proceed_mc.visible = true;
 				proceed_mc.gotoAndPlay(2);
 				displayPrimaryInterface();
-
+			}
+			else if(gameState == "gameOver")
+			{
+				
 			}
 		}
 

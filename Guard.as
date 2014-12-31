@@ -30,14 +30,14 @@
 
 		/*____________________________________________ EVENTS ____________________________________________*/
 
-		private function enterFrameEvent(e:Event):void
+		override public function enterFrameEvent(e:Event):void
 		{
 			handleDeath();
 			setHpBarPositioning();
 			handleRotation();
 		}
 
-		private function handleMovementEvent(e:Event):void
+		override public function handleMovementEvent(e:Event):void
 		{
 			this.handleMovement();
 		}

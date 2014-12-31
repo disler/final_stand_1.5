@@ -3,6 +3,8 @@
 	import flash.events.*;
 	import flash.utils.setInterval;
 	import flash.utils.setTimeout;
+	import flash.utils.clearInterval;
+	import flash.utils.clearTimeout;
 	
 	/*
 		Assassian class
@@ -68,14 +70,14 @@
 
 		/*____________________________________________ EVENTS ____________________________________________*/
 
-		private function enterFrameEvent(e:Event):void
+		override public function enterFrameEvent(e:Event):void
 		{
 			handleDeath();
 			setHpBarPositioning();
 			handleRotation();
 		}
 
-		private function handleMovementEvent(e:Event):void
+		override public function handleMovementEvent(e:Event):void
 		{
 			this.handleMovement();
 		}
@@ -133,6 +135,7 @@
 			}, Const.ASSASSIAN_ATTACK_DELAY_TIMER);
 			return;
 		}
+
 
 		
 

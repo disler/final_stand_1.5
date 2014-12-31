@@ -9,9 +9,7 @@
 		/*
 			Loads in the hero.
 		*/
-		public function loadHero(X:Number, Y:Number, M:MovieClip, STATS:Statistic):void {
-			x = X;
-			y = Y;
+		public function loadHero(M:MovieClip, STATS:Statistic):void {
 			m = M;
 			stats = STATS;
 			return;

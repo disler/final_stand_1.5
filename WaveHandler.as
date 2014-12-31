@@ -44,11 +44,19 @@
 			waveId = setWave;
 			main = m;
 			
+			resetEnemyContainer();
+			
+		}
+
+		/*
+			Resets enemy container
+		*/
+		public function resetEnemyContainer():void
+		{
 			for(var i:Number = 0; i < 100; i++)
 			{
 				enemyContainer[i] = null;
 			}
-			
 		}
 		
 		/*
@@ -73,6 +81,14 @@
 			{
 				waveComplete();
 			}
+		}
+
+		/*
+			Removes enemy when game is over
+		*/
+		public function removeEnemy(enemy:Enemy):void
+		{
+			main.enemies_mc.removeChild(enemy);
 		}
 		
 		
@@ -130,6 +146,7 @@
 			//complete wave move to intermission mode
 			main.changeGameState("intermission");
 		}
+
 
 		/*
 			Starts the next wave
@@ -309,7 +326,7 @@
 						HEALTH : 2 + (Math.floor(waveId/5)),
 						DAMAGE: 1 + (Math.floor(waveId/10)),
 						ATTACK_SPEED : 4000,
-						MOVEMENT_SPEED : 1, 
+						MOVEMENT_SPEED : 1.2, 
 						EXP_GIVEN : 20,
 						LOOT_TIER : 0
 					};
@@ -404,6 +421,15 @@
 				break;
 			}
 			return coords;
+		}
+
+
+		/*
+			You have ended the waves (Death)
+		*/
+		public function endWaves():void
+		{
+			clearInterval(enemySpawnInterval);
 		}
 		
 		/*____________________________________________	EVENT METHODS____________________________________________*/
