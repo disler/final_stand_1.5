@@ -65,6 +65,7 @@
 				AOECount++;
 
 				m.arrows_mc.addChild(aoe);
+				if(arrowType.getType() == "earth arrow") aoe.rotation = this.rotation;
 			}
 
 			//if this arrow does not pierces through enemies, remove it, otherwise it will damage all enemies

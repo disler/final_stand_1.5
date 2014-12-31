@@ -53,8 +53,8 @@
 			main = MAIN;
 
 			//arrows
-			equippedArrows = [new ArrowType("wooden arrow"), new ArrowType("empty"), new ArrowType("empty")];
-
+			//equippedArrows = [new ArrowType("wooden arrow"), new ArrowType("empty"), new ArrowType("empty")];
+			equippedArrows = [new ArrowType("fire arrow"), new ArrowType("earth arrow"), new ArrowType("earth arrow")];
 
 			//initiate pie masks
 			for(var i:Number = 1; i < 4; i++)

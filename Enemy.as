@@ -10,7 +10,8 @@
 		
 		public var id:Number;
 		public var stats:StatisticEnemy, m:MovieClip, healthBar:MovieClip;
-		
+		public var earthRealm:uint;
+
 		public var deathAnimatoinDuration:Number = 40
 		public var deathAnimationDurationTimer:Number = 0;
 		

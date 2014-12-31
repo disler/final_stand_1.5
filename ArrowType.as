@@ -61,7 +61,7 @@
 					speed = 8;
 					accuracy = 8;
 					waitTime = 6;
-					effects = [];
+					effects = [Const.SOME_AOE_EFFECT];
 				break;
 				case "earth arrow": // Creates a wall in front of enemy hit, stopping enemy movement at that location 
 					description = Const.ITEM_DESCRIPTION[type];
@@ -69,7 +69,7 @@
 					speed = 8;
 					accuracy = 10;
 					waitTime = 12;
-					effects = [];
+					effects = [Const.SOME_AOE_EFFECT];
 				break;
 				case "thunder arrow": // stuns enemies in a range for 3 seconds
 					description = Const.ITEM_DESCRIPTION[type];

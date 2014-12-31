@@ -9,6 +9,7 @@
 	*/
 	public class AOE extends MovieClip{
 
+		var fireTimer:Number = 0, earthTimer:Number = 0;
 		var killTime:uint;
 		var main:MovieClip;
 		var type:String;
@@ -54,6 +55,30 @@
 						main.arrows_mc.removeChild(main.arrows_mc.getChildByName(name));
 					}, 1000);
 				break;
+				case "fire arrow":
+					//animation
+					addEventListener(Event.ENTER_FRAME, fireFrames);
+
+					//timeout
+					killTime = setTimeout(function()
+					{
+						//removeEventListener(Event.ENTER_FRAME, thunderFrames);
+						removeEventListener(Event.ENTER_FRAME, handleHitTest);
+						main.arrows_mc.removeChild(main.arrows_mc.getChildByName(name));
+					}, 5200);
+				break;
+				case "earth arrow":
+					//animation
+					//addEventListener(Event.ENTER_FRAME, earthFrames); // do: FIX THIS
+
+					//timeout
+					killTime = setTimeout(function()
+					{
+						//removeEventListener(Event.ENTER_FRAME, thunderFrames);
+						removeEventListener(Event.ENTER_FRAME, handleHitTest);
+						main.arrows_mc.removeChild(main.arrows_mc.getChildByName(name));
+					}, 5200);
+				break;
 				default:
 				break;
 			}
@@ -73,6 +98,50 @@
 		private function thunderFrames(e:Event)
 		{
 			this.rotation += 30;
+		}
+		public function fireFrames(e:Event)
+		{
+			if(fireTimer-- < 0) {
+				var enemies:Array = main.waveHandler.getEnemies();
+			for(var i = 0; i < enemies.length; i++)
+				{
+					if(enemies[i] != null && this.hitTestObject(enemies[i]))
+					{
+						//enemies[i].addStatusEffect(Const.AOE_ICE, damage, enemies[i] == target ? true : false);
+						enemies[i].recieveDamage(Math.ceil(damage * 0.5));
+					}
+				}
+				fireTimer = 30;
+			}
+		}
+		public function earthFrames(e:Event)
+		{
+			earthTimer++;
+				var enemies:Array = main.waveHandler.getEnemies();
+		for(var i = 0; i < enemies.length; i++)
+			{
+				if(enemies[i] != null && enemies[i].stats.health > 0 && enemies[i].hitTestObject(this))
+				{
+					//enemies[i].addStatusEffect(Const.AOE_ICE, damage, enemies[i] == target ? true : false);
+					//enemies[i].recieveDamage(Math.ceil(damage * 0.5));
+						var ee = enemies[i];
+						var oldSpeed = ee.stats.getMovementSpeed();
+						var prevvFrame = ee.I.currentLabel;
+
+						//slowPercent = args[0];
+						ee.stats.setMovementSpeed(0);
+						ee.I.gotoAndStop("stand");
+						if(ee.stats.isAlive())
+						{
+							ee.earthRealm = setTimeout(function()
+							{
+								ee.stats.setMovementSpeed(oldSpeed);
+								ee.I.gotoAndStop(prevvFrame);
+								clearTimeout(ee.earthRealm);
+							}, Math.round(5200 - (earthTimer * (1000 / 30))));
+						}
+				}
+			}
 		}
 
 
