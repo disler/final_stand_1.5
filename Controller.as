@@ -86,6 +86,7 @@
 
 			//in combat events
 			if(_gameState == "inGame") {
+				Mouse.hide();
 				m.addEventListener(Event.ENTER_FRAME, controllerEnterFrameHandler);
 				m.stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandlerInGame);
 				m.stage.addEventListener(MouseEvent.CLICK, stageClickHandler);
@@ -94,13 +95,30 @@
 
 			//between wave events
 			else if(_gameState == "intermission") {
+				Mouse.hide();
 				m.addEventListener(Event.ENTER_FRAME, intermissionEnterFrameHandler);
 				m._interface.proceed_mc.addEventListener(MouseEvent.CLICK, clickProceedToBattleEvent);
 				m.stage.addEventListener(MouseEvent.CLICK, stageClickHandler);
 				displayPrimaryInterface();
 			}
+
+			//go to gameover
+			else if(_gameState == "gameOver")
+			{
+				Mouse.show();
+				m.setWasDead(true);
+				m.waveHandler.endWaves();
+				removeAllMC();
+				m.gotoAndStop("gameOver");
+				m.tryAgain_mc.addEventListener(MouseEvent.CLICK, restartGameEvent);
+				m.quit_mc.addEventListener(MouseEvent.CLICK, quitGameEvent);
+			}
+
 			return;
 		}
+
+
+
 
 		/*
 			Sets up functionality for new loot
@@ -677,7 +695,81 @@
 			m.arrows_mc.addChild(proj);
 		}
 
+
+		/*
+			Restart game
+		*/
+		private function restartGame():void
+		{
+			m.gotoAndStop("game");
+		}
+
+		/*
+			Quit game
+		*/
+		private function quitGame():void
+		{
+			m.gotoAndStop("title");
+			m.player = null;
+		}
+
+		/*
+			Remove all movie clips
+		*/
+		public function removeAllMC():void
+		{
+			//remove all enemies
+			var numEnemies:Number = m.enemies_mc.numChildren;
+			var numArrows:Number = m.arrows_mc.numChildren;
+			var numLoot:Number = m.loot_mc.numChildren;
+			
+			//enemies
+			for(var i:Number = 0; i < numEnemies; i++)
+			{
+				(m.enemies_mc.getChildAt(0) as Enemy).unloadByDeath();
+			}
+
+			//projectiles
+			for(i = 0; i < numArrows; i++)
+			{
+				try{
+					(m.arrows_mc.getChildAt(0) as Projectile).kill();
+					(m.arrows_mc.getChildAt(0) as EnemyProjectile).kill();
+				} catch(e:Error) {}
+			}
+
+			//loot
+			for(i = 0; i < numLoot; i++)
+			{
+
+				m.loot_mc.removeChild(m.arrows_mc.getChildAt(0));
+			}
+
+		}
+
+
+
 		/*________________________________________EVENTS_________________________________________*/
+
+
+
+		/*
+			Event that handles restarting the game after death
+		*/
+		public function restartGameEvent(e:Event):void
+		{
+			restartGame();
+		}
+
+		/*
+			Event that handles restarting the game after death
+		*/
+		public function quitGameEvent(e:Event):void
+		{
+			quitGame();
+		}
+
+
 
 		/*
 			event for displaying bow description whne mouse hovers over
@@ -976,6 +1068,7 @@
 		*/
 		public function clickProceedToBattleEvent(e:MouseEvent):void
 		{
+			trace("CLICK");
 			clickProceedToBattle();
 		}
 

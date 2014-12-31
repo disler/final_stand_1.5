@@ -1,10 +1,8 @@
 12 / 23 / 14
 
 dan
-	Finish shop
-		finish shop add in arrows
-		program bosses
-	
+	program bosses
+	add items to shop	
 ryan
 	 Fire - Creates fire spot which burns area on ground which hits someone
 	 Earth arrow - Creates a wall in front of the target hit
@@ -33,7 +31,6 @@ Remaining tasks:
 		Create 3 bosses (shadow fighters) - create unique bosses
 
 	Game state:
-		Create game over frames
 		Create storyline elements
 		Create save load
 	

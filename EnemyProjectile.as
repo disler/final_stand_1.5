@@ -63,7 +63,7 @@
 		/*
 			Remove this object
 		*/
-		private function kill():void
+		public function kill():void
 		{
 			removeEventListener(Event.ENTER_FRAME, enterFrameEvent);
 			removeEventListener(Event.ENTER_FRAME, contactProjectileEvent);

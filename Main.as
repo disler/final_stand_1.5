@@ -19,6 +19,8 @@
 		
 		public var _interface:Interface;
 		public var gameState:String;
+
+		public var wasDead:Boolean = false;
 		
 		/*
 			Begins loading process.
@@ -35,6 +37,14 @@
 			Messenger.m = this;
 		}
 
+		/*
+			change the wasdead bool
+		*/
+		public function setWasDead(b:Boolean):void
+		{
+			wasDead = b;
+		}
+
 
 		public function changeGameState(state:String):void
 		{
@@ -44,22 +54,6 @@
 		}
 
 
-		/*
-			Initiates (player) statistics and sets him on the stage properly with 
-			NEW stats.
-		*/
-		public function startPlayer():void {
-
-			//player
-			player = new Hero();
-			player.loadHero(430, 320, this, new Statistic(null, this));
-			characters_mc.addChild(player);
-
-			//interface
-			_interface = interface_mc;
-			_interface.LOAD(this, gameState, null);
-			return;
-		}
 		/*
 			Loads game frames			
 		*/
@@ -74,10 +68,38 @@
 				break;
 				case "game":
 					gameState = "inGame";
-					utility = new Utility();
-					con = new Controller(this, gameState); // gameMode var
-					waveHandler.init();
-					startPlayer();
+					_interface = interface_mc;
+
+					//if we were just dead
+					if(wasDead)
+					{
+						player.getStats().restart();
+					}
+					//if this is a new game
+					else
+					{
+						utility = new Utility();
+						con = new Controller(this, gameState); // gameMode var
+						waveHandler.init();
+
+						//player
+						player = new Hero();
+						player.loadHero(this, new Statistic(null, this));
+					}
+					
+					_interface.LOAD(this, gameState, null);
+					player.x = 430;
+					player.y = 320;
+					characters_mc.addChild(player);
+
+
+					if(wasDead)
+					{
+						changeGameState("intermission");
+						setWasDead(false);
+					}
+
+
 					if(DEBUG_MODE == 2) { waveHandler.enemySpawnTimer = 902900; waveHandler.waveComplete(); con.inGameControllerFactory("intermission"); }
 				break;
 				default:

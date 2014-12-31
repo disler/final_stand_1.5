@@ -107,6 +107,15 @@
 		}
 
 		/*
+			Handles reseting hero life and statistics after gameover
+		*/
+		public function restart():void
+		{
+			castleHealth = maxCastleHealth;
+			main._interface.loadHpNoFlash(getHealth(), getMaxHealth());
+		}
+
+		/*
 			Instantly kill enemy
 		*/
 		public function instantDeath(occ:Number = 0):Boolean
@@ -604,7 +613,8 @@
 		{
 			castleHealth -= amount;
 			main._interface.loadHpFlash(getHealth(), getMaxHealth());
-			if (castleHealth <= 0) {
+			if (castleHealth <= 0 && alive) {
+				alive = false;
 				gameOver();
 			}
 		}	
@@ -614,8 +624,8 @@
 		*/
 		public function gameOver()
 		{
-			trace("you have died");
 			clearInterval(healthRegenInterval);
+			main.changeGameState("gameOver");
 		}
 
 		/*	

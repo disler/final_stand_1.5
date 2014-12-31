@@ -26,8 +26,8 @@
 
 
 		public var slowPercent:Number = 0.00;
-		var iceTimeout:uint;
 		public var thunderActive:Boolean = false;
+		var iceTimeout:uint;
 		var thunderTimeout:uint;
 
 		public function Enemy() {}
@@ -49,6 +49,8 @@
 			this.blood_mc.gotoAndPlay("blood" + Main.random(4));
 			return;
 		}
+
+
 		/*
 			UNLOADS
 		*/
@@ -59,6 +61,30 @@
 			m.waveHandler.killEnemy(this);
 			clearEvents();
 			return;
+		}
+
+		/*
+			unload enemy when dead
+		*/
+		public function unloadByDeath():void
+		{
+			m.healths_mc.removeChild(healthBar);
+			removeEventListener(Event.ENTER_FRAME, enterFrameEvent);
+			removeEventListener(Event.ENTER_FRAME, handleMovementEvent);
+			clearEvents();
+			clearClocks();
+			m.waveHandler.removeEnemy(this);
+		}
+
+
+		/*
+			Clears all timers
+		*/
+		public function clearClocks():void
+		{
+			clearTimeout(damageDelay);
+			clearTimeout(animationDelay);
+			clearInterval(combatInterval);
 		}
 
 
@@ -149,6 +175,10 @@
 		
 		/*____________________________________________ TO OVERRIDE ____________________________________________*/
 		
+
+		public function enterFrameEvent(e:Event):void{}
+		public function handleMovementEvent(e:Event):void{}
+
 		/*
 			Called after 'attackSpeed', deal damage to hero after displaying attack animation
 		*/
@@ -275,7 +305,7 @@
 			arrListeners.push({type:type, listener:listener});
 		}
 
-		private function clearEvents():void
+		protected function clearEvents():void
 		{
 		   for(var i:Number = 0; i<arrListeners.length; i++){
 		      if(this.hasEventListener(arrListeners[i].type)){
