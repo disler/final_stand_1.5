@@ -742,7 +742,7 @@
 			for(i = 0; i < numLoot; i++)
 			{
 
-				m.loot_mc.removeChild(m.arrows_mc.getChildAt(0));
+				m.loot_mc.removeChild(m.loot_mc.getChildAt(0));
 			}
 
 		}
