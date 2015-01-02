@@ -223,6 +223,7 @@
 						m.player.gotoAndStop("shoot");
 						m.player.getStats().resetArrowTimer(m._interface.getSelectedArrowIndex());
 						playerShootArrow();
+						SoundHandler.playSound("bowFire");
 					}
 				}
 			}
@@ -258,6 +259,7 @@
 				m.changeGameState("inGame");	
 			}, 1000);
 			m.waveHandler.startWave();
+			SoundHandler.playSound("startWave");
 		}
 
 		/*
@@ -308,6 +310,7 @@
 
 			closeUnequippedArtifacts();
 			m._interface.loadArtifact();
+			SoundHandler.playSound("click");
 		}
 
 		/*
@@ -478,6 +481,7 @@
 					{
 						m.player.getStats().addArtifact(new Artifact(IO.nam));
 						m._interface.shop_mc.shopIn_mc.title_txt.text = "You have purchased " + IO.name + ".";
+						SoundHandler.playSound("buy");
 					}
 					else if(IO.type == "bow")
 					{
@@ -490,6 +494,7 @@
 						else
 						{
 							m._interface.shop_mc.shopIn_mc.title_txt.text = "You have purchased " + IO.name + ".";
+						SoundHandler.playSound("buy");
 							m.player.getStats().addBow(bow);
 						}
 					}
@@ -504,6 +509,7 @@
 						{
 							var loot:Loot = new Loot(IO.nam, Const.LOOT_ARROW);
 							selectLootFromBattleField(loot, true);
+						SoundHandler.playSound("buy");
 							closeShop();
 						}
 					}	

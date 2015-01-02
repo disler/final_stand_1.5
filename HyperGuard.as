@@ -107,6 +107,7 @@
 
 				//damage reduce
 				_amt = Math.ceil(_amt * 0);
+				SoundHandler.playSound("armor" + (1 + Main.random(2)));
 			}
 			else//if not blocked
 			{
@@ -120,6 +121,7 @@
 				}
 
 				this.blood_mc.gotoAndPlay("blood" + Main.random(4));
+				SoundHandler.playSound("hit" + (1 + Main.random(6)));
 			}
 			return;
 		}

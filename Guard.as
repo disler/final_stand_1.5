@@ -98,6 +98,7 @@
 					//animation
 					setPreviousFrame(this.I.currentLabel);
 					this.I.gotoAndStop("block");
+					SoundHandler.playSound("armor" + (1 + Main.random(2)));
 					defaultFrameTimeout = setTimeout(function()
 					{
 						if(stats.isAlive())
@@ -120,7 +121,8 @@
 				this.I.gotoAndStop("die");
 				deathAnimationDurationTimer = 0;
 			}
-
+			if(block >= Const.GUARD_BLOCK_CHANCE)
+			SoundHandler.playSound("hit" + (1 + Main.random(6)));
 			this.blood_mc.gotoAndPlay("blood" + Main.random(4));
 			return;
 		}

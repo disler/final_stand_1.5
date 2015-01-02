@@ -42,6 +42,7 @@
 						removeEventListener(Event.ENTER_FRAME, handleHitTest);
 						main.arrows_mc.removeChild(main.arrows_mc.getChildByName(name));
 					}, 1000);
+				SoundHandler.playSound("thunderClap");
 				break;
 				case "ice arrow":
 					//animation
@@ -54,6 +55,7 @@
 						removeEventListener(Event.ENTER_FRAME, handleHitTest);
 						main.arrows_mc.removeChild(main.arrows_mc.getChildByName(name));
 					}, 1000);
+				SoundHandler.playSound("ice" + (1 + Main.random(2)));
 				break;
 				case "fire arrow":
 					//animation
@@ -78,6 +80,7 @@
 						removeEventListener(Event.ENTER_FRAME, handleHitTest);
 						main.arrows_mc.removeChild(main.arrows_mc.getChildByName(name));
 					}, 5200);
+				SoundHandler.playSound("wallCrumble1");
 				break;
 				default:
 				break;

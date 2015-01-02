@@ -65,6 +65,8 @@
 				case "title":
 					new_btn.addEventListener(MouseEvent.CLICK, newTitleB);
 					load_btn.addEventListener(MouseEvent.CLICK, loadTitleB);
+					if(!SoundHandler.SOUNDS_LOADED) SoundHandler.loadSounds();
+					SoundHandler.playMusic("title");
 				break;
 				case "game":
 					gameState = "inGame";
@@ -97,6 +99,7 @@
 					{
 						changeGameState("intermission");
 						setWasDead(false);
+						//SoundHandler.playSound("levelUp");
 					}
 
 
