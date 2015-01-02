@@ -53,7 +53,7 @@
 			main = MAIN;
 
 			//arrows
-			equippedArrows = [new ArrowType("wooden arrow"), new ArrowType("earth arrow"), new ArrowType("fire arrow")];
+			equippedArrows = [new ArrowType("wooden arrow"), new ArrowType("empty"), new ArrowType("empty")];
 
 			createPieMasks();
 
@@ -576,6 +576,9 @@
 			hasLeveledUp += 1;
 			//obtain next 'maxExp' amount
 			maxExp = getNextMaxExp(maxExp);
+			//gain maxhp
+
+			maxCastleHealth += 1;
 			//reset health to be max
 			resetHealth();
 

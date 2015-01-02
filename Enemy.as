@@ -22,14 +22,19 @@
 		protected var combatInterval:uint;
 		protected var damageDelay:uint;
 		protected var animationDelay:uint
+		protected var teleportInterval:uint;
+		protected var strifeTimeout:uint;
+
+		protected var fadeTimer:Timer;
 
 		public var previousFrame:String;
-
 
 		public var slowPercent:Number = 0.00;
 		public var thunderActive:Boolean = false;
 		var iceTimeout:uint;
 		var thunderTimeout:uint;
+
+		protected var isBoss:Boolean = false;
 
 		public function Enemy() {}
 		
@@ -60,6 +65,7 @@
 			m.player.getStats().gainExp(getStats().getExpGiven());
 			m.healths_mc.removeChild(healthBar);
 			m.waveHandler.killEnemy(this);
+			clearClocks();
 			clearEvents();
 			return;
 		}
@@ -84,8 +90,14 @@
 		public function clearClocks():void
 		{
 			clearTimeout(damageDelay);
+			clearTimeout(strifeTimeout);
 			clearTimeout(animationDelay);
 			clearInterval(combatInterval);
+			clearInterval(teleportInterval);
+			if(fadeTimer)
+			{
+				fadeTimer.stop();
+			}
 		}
 
 
@@ -112,8 +124,6 @@
 		{
 			switch(type)
 			{
-
-
 				case Const.AOE_THUNDER:
 					if(!thunderActive)
 					{
@@ -258,7 +268,10 @@
 
 
 
-
+		public function getIsBoss():Boolean
+		{
+			return isBoss;
+		}
 
 
 
@@ -306,7 +319,7 @@
 			arrListeners.push({type:type, listener:listener});
 		}
 
-		protected function clearEvents():void
+		public function clearEvents():void
 		{
 		   for(var i:Number = 0; i<arrListeners.length; i++){
 		      if(this.hasEventListener(arrListeners[i].type)){

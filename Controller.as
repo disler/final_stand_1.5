@@ -726,7 +726,7 @@
 			//enemies
 			for(var i:Number = 0; i < numEnemies; i++)
 			{
-				(m.enemies_mc.getChildAt(0) as Enemy).unloadByDeath();
+				(m.enemies_mc.getChildAt(0)).unloadByDeath();
 			}
 
 			//projectiles

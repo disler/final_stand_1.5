@@ -1,0 +1,56 @@
+Scene 1 (game intro, skipable):
+	Hero: "What's going on?"
+	Hero: "Where am I?"
+
+		short pause
+	
+	Voice: "You are stuck between life and death"
+	Voice: "You cannot die yet, but you also cannot return to life"
+	Voice: "You must continue to fight... Stand once more"
+
+Scene 2 (after 1st boss):
+	Hero: "I am ready to die"
+	Hero: "My fellow archers have fallen, I shall too"
+	Hero: "I do not want to fight any more"
+
+	Voice: "You legendary blood line will not let you die that easily"
+
+	Hero: "I don't care anymore..."
+
+	Voice: "Your journey is not over"
+
+Scene 3 (After 2nd boss):
+	Hero: "Why must I keep on fighting?"
+
+	Voice: "The world needs you"
+
+	Hero: "Why?"
+
+	Voice: "You must save them, you are one of few with the power to"
+
+	Hero: "I have fought for castles and their kings long enough"
+
+	Voice: "You must think beyond the kingdoms and yourself, you must unite the world"
+
+Scene 4 (After final boss):
+	Hero: "I have slain all of my fallen archers, what else do you want from me"
+
+	Voice: "I do not want anything from you, it is you who isn't ready to die" 
+
+	Voice: "I am you..."
+
+	Hero: "What? I am you?"
+
+	Voice: "Yes, now... Enough foolish bickering, what will we choose"
+
+	Voice: "Life or death?"
+
+	Voice: "Fight? or Give up?"
+
+	Voice: "Shall we make our final stand?"
+
+	Hero: "..."
+
+	Both: "Let's make our final stand"
+
+	Credits

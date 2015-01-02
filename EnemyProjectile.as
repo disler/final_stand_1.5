@@ -110,6 +110,15 @@
 				case Const.ARCHER_PROJECTILE:
 					spd = 8;
 				break;
+				case Const.ARCHER_PROJECTILE_DARK:
+					spd = 10;
+				break;
+				case Const.ARCHER_PROJECTILE_DARK_DOUBLE:
+					spd = 12;
+				break;
+				case Const.DARK_BOMB_PROJECTILE:
+					spd = 9;
+				break;
 			}
 
 			return spd;

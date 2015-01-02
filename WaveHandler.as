@@ -18,6 +18,8 @@
 		private var unspawnedEnemies:Number; 
 		public var enemySpawnTimer:Number;
 		private var enemySpawnInterval:uint;
+
+		private var structureContainer:Array = [];
 		
 		//contains all currently spawned enemies
 		private var enemyContainer:Array = [];
@@ -30,7 +32,7 @@
 		private var kills:Number = 0;
 		
 		//contains all objects that can be hittable
-	 	private var hittables:Array;
+	 	private var hittables:Array;			
 		
 		
 		
@@ -63,7 +65,7 @@
 			Begins waves
 		*/
 		public function init():void {
-			generateWave(waveId);
+			determineWave(waveId);
 		}
 		
 		/*
@@ -79,8 +81,29 @@
 			
 			if(noRemainingEnemies())
 			{
+				if(structureContainer.length > 0)
+				{
+					removeAllStructures();
+				}
 				waveComplete();
 			}
+		}
+
+		private function removeAllStructures():void
+		{
+			var num = structureContainer.length;
+			for(var i:Number = 0; i < num; i++)
+			{
+				structureContainer[0].unloadByDeath();
+			}
+		}
+
+		/*
+			Remove a structure
+		*/
+		public function removeStructure(struct:Structure)
+		{
+			structureContainer.splice(structureContainer.indexOf(struct), 1); 
 		}
 
 		/*
@@ -130,6 +153,7 @@
 				
 				main.con.handleNewLoot(loot);
 				main.loot_mc.addChild(loot);
+				loot.scene();
 			}
 
 		}
@@ -157,9 +181,146 @@
 			//reset castle health
 			main.player.getStats().resetHealth();
 
-			//create next wave
-			generateWave(waveId);
+			determineWave(waveId);
 		}
+
+		/*
+			Determines boss or waves
+		*/
+		private function determineWave(waveId:Number):void
+		{
+
+			switch(waveId)
+			{
+				case 10:
+					generateBoss(Const.BOSS_A);
+				break;
+				case 20:
+					generateBoss(Const.BOSS_B);
+				break;
+				case 30:
+					generateBoss(Const.BOSS_C);
+				break;
+				default:
+					generateWave(waveId);
+			}
+		}
+
+		/*
+			Generate boss
+		*/
+		private function generateBoss(bossId:Number):void
+		{
+			var enemyId:Number;
+			var enemy:Enemy;
+			var coords;
+
+			switch(bossId)
+			{
+				case Const.BOSS_A:
+					enemyId = enemyContainer.length;
+					enemy = bossFactory(bossId);
+					coords = getValidXYSpawn();
+					enemy.x = coords.x;
+					enemy.y = coords.y;
+					enemyContainer[0] = enemy;
+					enemy.setId(0);
+					main.enemies_mc.addChild(enemy);
+					Messenger.alertMessage("BOSS FIGHT!");
+					remainingWaveEnemies = 1;
+				break;
+				case Const.BOSS_B:
+					enemyId = enemyContainer.length;
+					enemy = bossFactory(bossId);
+					coords = {x : 130, y : -175};
+					enemy.x = coords.x;
+					enemy.y = coords.y;
+					enemyContainer[0] = enemy;
+					enemy.setId(0);
+					main.enemies_mc.addChild(enemy);
+					Messenger.alertMessage("BOSS FIGHT!");
+					remainingWaveEnemies = 1;
+				break;
+				case Const.BOSS_C:
+					enemyId = enemyContainer.length;
+					enemy = bossFactory(bossId);
+					coords = {x : 120, y : -175};
+					enemy.x = coords.x;
+					enemy.y = coords.y;
+					enemyContainer[0] = enemy;
+					enemy.setId(0);
+					main.enemies_mc.addChild(enemy);
+					Messenger.alertMessage("BOSS FIGHT!");
+					remainingWaveEnemies = 1;
+				break;
+			}
+		}
+
+		private function bossFactory(id:Number):Enemy
+		{
+			var boss:Enemy;
+			var stats:Object = {};
+			switch(id)
+			{
+				case Const.BOSS_A:
+					stats = {
+						type : "bossA",
+						HEALTH : 15,
+						DAMAGE: 2,
+						ATTACK_SPEED : 5000,
+						MOVEMENT_SPEED : 1.2, 
+						EXP_GIVEN : 100,
+						LOOT_TIER : 0
+					}
+					boss = new BossA();
+				break;
+				case Const.BOSS_B:
+					stats = {
+						type : "bossB",
+						HEALTH : 20,
+						DAMAGE: 3,
+						ATTACK_SPEED : 8000,
+						MOVEMENT_SPEED : 1.2, 
+						EXP_GIVEN : 100,
+						LOOT_TIER : 0
+					}
+					boss = new BossB();
+				break;
+				case Const.BOSS_C:
+					stats = {
+						type : "bossC",
+						HEALTH : 30,
+						DAMAGE: 3,
+						ATTACK_SPEED : 5000,
+						MOVEMENT_SPEED : 2, 
+						EXP_GIVEN : 300,
+						LOOT_TIER : 0
+					}
+					boss = new BossC();
+				break;
+			
+			}
+			boss.LOAD(main, new StatisticEnemy(stats));
+			
+			return boss;
+		}
+
+
+		/*
+			Determines how many enemies to create and when, based on the wave
+		*/
+		private function generateWave(whichWave:Number):void
+		{
+			//generators
+			unspawnedEnemies = Math.round(Math.pow(whichWave, 1.3)) + 5;
+			enemySpawnTimer = 3000 - Math.round((Math.random() * 750)) - Math.floor(Math.pow(whichWave, 1.1));
+			
+			
+			remainingWaveEnemies = unspawnedEnemies;
+			enemySpawnInterval = setInterval(generateEnemyInterval, enemySpawnTimer);
+			Messenger.alertMessage("Begin Wave: " + waveId);
+		}
+
 		
 		/*
 			Checks 'enemyContainer' to see if there are any remaining enemies
@@ -180,19 +341,10 @@
 			return false;
 		}
 		
-		/*
-			Determines how many enemies to create and when, based on the wave
-		*/
-		private function generateWave(whichWave:Number):void
+
+		public function addStructure(struct:Structure):void
 		{
-			//generators
-			unspawnedEnemies = Math.round(Math.pow(whichWave, 1.3)) + 5;
-			enemySpawnTimer = 3000 - Math.round((Math.random() * 750)) - Math.floor(Math.pow(whichWave, 1.1));
-			
-			
-			remainingWaveEnemies = unspawnedEnemies;
-			enemySpawnInterval = setInterval(generateEnemyInterval, enemySpawnTimer);
-			Messenger.alertMessage("Begin Wave: " + waveId);
+			structureContainer.push(struct);
 		}
 		
 		/*
@@ -457,6 +609,11 @@
 		public function getKills():Number
 		{
 			return kills;
+		}
+
+		public function getStructures():Array
+		{
+			return structureContainer;
 		}
 
 

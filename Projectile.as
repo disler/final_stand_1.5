@@ -41,9 +41,12 @@
 			Handles hit testing enemy
 		*/
 		public function contactEnemy(_tar:MovieClip):void {
+
+			
 			contactedEnemy = _tar;
 			var dealDamage:Number = damage;
 
+			//glyph of death
 			var occ:Number = m.player.getStats().occurrence("glyph of death");
 			if(occ > 0)
 			{
@@ -84,6 +87,19 @@
 
 			return;
 		}
+
+		/*
+			Hit test structure with arrow
+		*/
+		private function contactStructure(struct:Structure)
+		{
+			contactedEnemy = struct;
+			struct.recieveDamage(damage);
+			removeEventListener(Event.ENTER_FRAME, projectileEFHandler);
+			m.arrows_mc.removeChild(this);
+			clearTimeout(distanceTimeout);
+		}
+
 		/*
 			Handles hittesting and movement.
 		*/
@@ -99,6 +115,22 @@
 						}
 					}
 				}
+			}
+
+			// Structure hittest handling
+			for(i = 0; i < m.waveHandler.getStructures().length; i++)
+			{
+				if((m.waveHandler.getStructures()[i]).hitbox_mc.hitTestObject(this)) 
+				{
+					if(contactedEnemy == null) 
+					{
+						if(m.waveHandler.getStructures()[i].isAlive())
+						{
+							contactStructure(m.waveHandler.getStructures()[i]);
+						}
+					}
+				}
+				
 			}
 
 			// Rotation Handling

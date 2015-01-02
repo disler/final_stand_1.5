@@ -21,6 +21,17 @@
 		public static const ARCHER_WIDTH_OFFSET:Number = 30;
 
 
+		public static const BOSS_WIDTH_BORDER:Number = 200;
+		public static const BOSS_HEIGHT_BORDER:Number = 200;
+
+
+		public static const BOSS_WIDTH_BORDER_SMALL:Number = 200;
+		public static const BOSS_HEIGHT_BORDER_SMALL:Number = 200;
+
+		
+		public static const TOGGLE_STRIFE_BOSS:Number = 6000;
+
+
 		
 		public static const STAGE_WIDTH:Number = 860;
 		public static const STAGE_HEIGHT:Number = 640;
@@ -50,9 +61,14 @@
 		public static const HYPER_GUARD_BLOCK_TIME:Number = 1000;
 		public static const HYPER_GUARD_BLOCK_CHANCE:Number = 40;
 
+		public static const BOSS_A_TELEPORT_INTERVAL:Number = 3000;
+
 		//enemy projectiles
 		public static const MAGE_PROJECTILE:String = "mage bomb";
 		public static const ARCHER_PROJECTILE:String = "steel arrow";
+		public static const ARCHER_PROJECTILE_DARK:String = "dark arrow";
+		public static const ARCHER_PROJECTILE_DARK_DOUBLE:String = "dark arrow double";
+		public static const DARK_BOMB_PROJECTILE:String = "dark bomb";
 
 		public static const WARNING_MESSAGE_SPAM_TIMER:Number = 5000;
 
@@ -141,6 +157,21 @@
 
 
 		public static const ARROW_DISTANCE_TIMEOUT:Number = 5000;
+
+		public static const BOSS_A:Number = 0;
+		public static const BOSS_B:Number = 1;
+		public static const BOSS_C:Number = 2;
+
+
+		public static const STRUCTURE_DARK_WELL:Number = 0;
+
+		public static const STRUCTURE_REVIVE_TIME:Object = {
+			0 : 20000
+		};
+
+		public static const STRUCTURE_PROJECTILE_INTERVAL:Object = {
+			0 : 15000
+		}
 		
 		public function Const() {}
 	}

@@ -116,6 +116,14 @@ package  {
 			dropDuration = countDownFactory(tier);
 		}
 
+		/*
+			go to and play scene
+		*/
+		public function scene():void
+		{
+			trace("gotoAndStop");
+			this.gotoAndStop(tier);
+		}
 
 		
 	}
