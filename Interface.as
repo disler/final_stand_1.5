@@ -168,7 +168,7 @@
 			//game stats
 			primaryInterface_ref = primaryInterface_mc.primaryInterfaceIn_mc;
 
-			primaryInterface_ref.wave_txt.text = main.waveHandler.getWave();
+			primaryInterface_ref.wave_txt.text = main.player.getStats().getLevel();
 			primaryInterface_ref.gold_txt.text = main.player.getStats().getGold();
 			primaryInterface_ref.kills_txt.text = main.waveHandler.getKills();
 
@@ -177,7 +177,7 @@
 			primaryInterface_ref.castleHealthRegeneration_txt.text 	= main.player.getStats().getHealthRegeneration();
 			primaryInterface_ref.damage_txt.text 					= main.player.getStats().getDamage();
 			primaryInterface_ref.attackSpeed_txt.text 				= main.player.getStats().getAttackSpeed();
-			primaryInterface_ref.accuracy_txt.text 					= main.player.getStats().getAccuracy();
+			primaryInterface_ref.accuracy_txt.text 					= main.player.getStats().getCalculatedAccuracy() + "%";
 			primaryInterface_ref.arrowSpeed_txt.text 				= main.player.getStats().getBowSpeed();
 
 			//bow

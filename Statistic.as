@@ -53,8 +53,8 @@
 			main = MAIN;
 
 			//arrows
-			equippedArrows = [new ArrowType("wooden arrow"), new ArrowType("empty"), new ArrowType("empty")];
-
+			//equippedArrows = [new ArrowType("wooden arrow"), new ArrowType("empty"), new ArrowType("empty")];
+			equippedArrows = [new ArrowType("ice arrow"), new ArrowType("earth arrow"), new ArrowType("mithril arrow")];
 			createPieMasks();
 
 			//bow
@@ -68,6 +68,7 @@
 			artifactHandler = new ArtifactHandler();
 			loadArtifactBonus(artifactHandler);
 			main.interface_mc.inGameInterface_mc.health_mc.health_txt.text = castleHealth;
+			main.interface_mc.inGameInterface_mc.health_mc.wave_txt.text = main.waveHandler.getWave();
 
 			//arrow timers
 			setupArrowTimers();
@@ -760,6 +761,11 @@
 		{
 			return castleHealth;
 		}
+
+		public function getLevel():Number
+		{
+			return level;
+		}
 		
 		public function getMaxHealth():Number
 		{
@@ -784,6 +790,11 @@
 		}
 
 
+		public function getCalculatedAccuracy():Number
+		{
+			var _a:Number = Math.round(((50 - accuracy) / 50) * 100);
+			return _a;
+		}
 		public function getAccuracy():Number
 		{
 			return accuracy;

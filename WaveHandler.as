@@ -189,6 +189,7 @@
 			//reset castle health
 			main.player.getStats().resetHealth();
 			determineWave(waveId);
+			main.interface_mc.inGameInterface_mc.health_mc.wave_txt.text = main.waveHandler.waveId;
 		}
 
 		/*
