@@ -45,7 +45,7 @@
 			SoundHandler[_sound + "SND"].play();
 			return;
 		}
-		public static function playMusic(_sound:String) { trace(playingMusic);
+		public static function playMusic(_sound:String) { 
 			if(playingMusic != _sound) {
 				if(playingMusic != "none") musicChannel.stop();
 				musicChannel = SoundHandler[_sound + "MUS"].play(0, 0x99);

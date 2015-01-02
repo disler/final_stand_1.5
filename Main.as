@@ -99,7 +99,6 @@
 					{
 						changeGameState("intermission");
 						setWasDead(false);
-						//SoundHandler.playSound("levelUp");
 					}
 
 

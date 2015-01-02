@@ -65,12 +65,8 @@
 			Begins waves
 		*/
 		public function init():void {
-<<<<<<< HEAD
 			determineWave(waveId);
-=======
-			generateWave(waveId);
 			SoundHandler.playMusic("game1");
->>>>>>> d35df3e5cb5bee4281d33e92c89ac7cad2fdc069
 		}
 		
 		/*
@@ -153,6 +149,12 @@
 			{
 				loot.x = enemy.x;
 				loot.y = enemy.y;
+				
+				if(loot.y < 150 && loot.x < 330) 
+				{
+					loot.y = 200;
+				}
+
 				loot.name = "lo" + lootCount;
 				lootCount++;
 				
@@ -186,8 +188,6 @@
 		{
 			//reset castle health
 			main.player.getStats().resetHealth();
-
-<<<<<<< HEAD
 			determineWave(waveId);
 		}
 
@@ -211,17 +211,13 @@
 				default:
 					generateWave(waveId);
 			}
-=======
-			//create next wave
-			generateWave(waveId);
 			
 			if(waveId < 10)
-			SoundHandler.playMusic("game1");
+				SoundHandler.playMusic("game1");
 			if(waveId > 9 && waveId < 20)
-			SoundHandler.playMusic("game2");
+				SoundHandler.playMusic("game2");
 			if(waveId > 19 && waveId < 31)
-			SoundHandler.playMusic("game3");
->>>>>>> d35df3e5cb5bee4281d33e92c89ac7cad2fdc069
+				SoundHandler.playMusic("game3");
 		}
 
 		/*

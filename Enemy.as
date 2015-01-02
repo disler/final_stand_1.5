@@ -159,10 +159,12 @@
 					{
 						oldSpeed = stats.getMovementSpeed();
 						prevvFrame = this.I.currentLabel;
-
-						slowPercent = args[0];
+						slowPercent = 0.5;
+						if(args[0] != null)
+						{
+							slowPercent = args[0];
+						}
 						stats.setMovementSpeed(Math.round(oldSpeed * slowPercent));
-						//this.I.gotoAndStop("stand");
 						if(stats.isAlive())
 						{
 							iceTimeout = setTimeout(function()

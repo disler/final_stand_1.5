@@ -121,7 +121,6 @@ package  {
 		*/
 		public function scene():void
 		{
-			trace("gotoAndStop");
 			this.gotoAndStop(tier);
 		}
 

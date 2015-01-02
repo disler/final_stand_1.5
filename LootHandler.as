@@ -20,7 +20,7 @@
 													[
 														new Loot("glyph of multishot", Const.LOOT_ARTIFACT), new Loot("glyph of fortitude", Const.LOOT_ARTIFACT), new Loot("glyph of war", Const.LOOT_ARTIFACT),
 														new Loot("thunder arrow", Const.LOOT_ARROW), new Loot("earth arrow", Const.LOOT_ARROW),
-														new Loot("agile bow", Const.LOOT_ARROW), 
+														new Loot("agile bow", Const.LOOT_BOW), 
 													],
 													[
 														new Loot("glyph of penetration", Const.LOOT_ARTIFACT), new Loot("glyph of collision", Const.LOOT_ARTIFACT), new Loot("glyph of death", Const.LOOT_ARTIFACT), new Loot("glyph of limbo", Const.LOOT_ARTIFACT),
