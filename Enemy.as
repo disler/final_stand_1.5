@@ -46,8 +46,10 @@
 				getStats().setMovementSpeed(0);
 				this.I.gotoAndStop("die");
 				deathAnimationDurationTimer = 0;
+				SoundHandler.playSound("hit" + (1 + Main.random(6)));
 			}
 			this.blood_mc.gotoAndPlay("blood" + Main.random(4));
+			SoundHandler.playSound("flesh" + (1 + Main.random(3)));
 			return;
 		}
 

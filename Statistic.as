@@ -53,7 +53,7 @@
 			main = MAIN;
 
 			//arrows
-			equippedArrows = [new ArrowType("wooden arrow"), new ArrowType("earth arrow"), new ArrowType("fire arrow")];
+			equippedArrows = [new ArrowType("wooden arrow"), new ArrowType("empty"), new ArrowType("empty")];
 
 			createPieMasks();
 
@@ -560,6 +560,7 @@
 			if(exp > maxExp && level < Const.MAX_LEVEL)
 			{
 				levelUp();
+				SoundHandler.playSound("levelUp");
 			}
 		}
 
@@ -625,7 +626,11 @@
 			if (castleHealth <= 0 && alive) {
 				alive = false;
 				gameOver();
+				SoundHandler.playSound("wallCrumble1");
+				SoundHandler.playSound("death");
+				SoundHandler.stopMusic();
 			}
+			SoundHandler.playSound("armor" + (1 + Main.random(1)));
 		}	
 
 		/*

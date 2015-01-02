@@ -64,6 +64,7 @@
 		*/
 		public function init():void {
 			generateWave(waveId);
+			SoundHandler.playMusic("game1");
 		}
 		
 		/*
@@ -146,6 +147,7 @@
 
 			//complete wave move to intermission mode
 			main.changeGameState("intermission");
+			SoundHandler.playSound("waveDone");
 		}
 
 
@@ -159,6 +161,13 @@
 
 			//create next wave
 			generateWave(waveId);
+			
+			if(waveId < 10)
+			SoundHandler.playMusic("game1");
+			if(waveId > 9 && waveId < 20)
+			SoundHandler.playMusic("game2");
+			if(waveId > 19 && waveId < 31)
+			SoundHandler.playMusic("game3");
 		}
 		
 		/*
