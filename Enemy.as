@@ -31,6 +31,7 @@
 
 		public var slowPercent:Number = 0.00;
 		public var thunderActive:Boolean = false;
+		public var earthActive:Boolean = false;
 		var iceTimeout:uint;
 		var thunderTimeout:uint;
 
@@ -94,6 +95,7 @@
 			clearTimeout(damageDelay);
 			clearTimeout(strifeTimeout);
 			clearTimeout(animationDelay);
+			clearTimeout(earthRealm);
 			clearInterval(combatInterval);
 			clearInterval(teleportInterval);
 			if(fadeTimer)
@@ -122,6 +124,8 @@
 		/*
 			Adds status effect
 		*/
+		var oldSpeed:Number;
+		var prevvFrame:String;
 		public function addStatusEffect(type:Number, damage:Number, originalTarget:Boolean, ... args:Array)
 		{
 			switch(type)
@@ -129,8 +133,8 @@
 				case Const.AOE_THUNDER:
 					if(!thunderActive)
 					{
-						var oldSpeed:Number = stats.getMovementSpeed();
-						var prevvFrame:String = this.I.currentLabel;
+						oldSpeed = stats.getMovementSpeed();
+						prevvFrame = this.I.currentLabel;
 						stats.setMovementSpeed(0);
 
 						this.I.gotoAndStop("stand");
@@ -173,6 +177,34 @@
 								I.gotoAndStop(prevvFrame);
 								clearTimeout(iceTimeout);
 							}, 3000);
+						}
+					}
+				break;
+				case Const.AOE_EARTH:
+					if(!earthActive)
+					{
+						oldSpeed = stats.getMovementSpeed();
+						prevvFrame = this.I.currentLabel;
+						stats.setMovementSpeed(0);
+						
+						this.I.gotoAndStop("stand");
+
+						if(!originalTarget)
+						{
+							recieveDamage(damage);
+						}
+
+						earthActive = true;
+
+						if(stats.isAlive())
+						{
+							thunderTimeout = setTimeout(function()
+							{
+								earthActive = false;
+								stats.setMovementSpeed(oldSpeed);
+								I.gotoAndStop(prevvFrame);
+								clearTimeout(thunderTimeout);
+							}, args[0]);
 						}
 					}
 				break;
@@ -313,6 +345,11 @@
 			id = n;
 		}
 
+
+		public function setIsBoss(b:Boolean):void
+		{
+			isBoss = b;
+		}
 
 		
 		/*____________________________________________ EVENT HANDLER HANDLER ____________________________________________ */

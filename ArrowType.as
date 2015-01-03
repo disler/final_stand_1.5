@@ -52,7 +52,7 @@
 					damage = 1;
 					speed = 8;
 					accuracy = 8;
-					waitTime = 5;
+					waitTime = 6;
 					effects = [Const.SOME_AOE_EFFECT];
 				break;
 				case "fire arrow": // Creates fire spot which burns area on ground which hits someone
@@ -60,7 +60,7 @@
 					damage = 2;
 					speed = 8;
 					accuracy = 8;
-					waitTime = 6;
+					waitTime = 10;
 					effects = [Const.SOME_AOE_EFFECT];
 				break;
 				case "earth arrow": // Creates a wall in front of enemy hit, stopping enemy movement at that location 
@@ -68,7 +68,7 @@
 					damage = 1;
 					speed = 8;
 					accuracy = 10;
-					waitTime = 12;
+					waitTime = 6;
 					effects = [Const.SOME_AOE_EFFECT];
 				break;
 				case "thunder arrow": // stuns enemies in a range for 3 seconds

@@ -53,6 +53,19 @@
 			_interface.interfaceStatusFactory(state);
 		}
 
+		public function initFromScene(sceneLabel:String):void
+		{
+			if(sceneLabel == "scene1")
+			{
+				changeGameState("inGame");
+				waveHandler.startWave();
+			}
+			else
+			{
+				trace("FROM SCENE TO INTERMISSIon")
+				changeGameState("intermission");
+			}
+		}
 
 		/*
 			Loads game frames			
@@ -66,9 +79,10 @@
 					new_btn.addEventListener(MouseEvent.CLICK, newTitleB);
 					load_btn.addEventListener(MouseEvent.CLICK, loadTitleB);
 					if(!SoundHandler.SOUNDS_LOADED) SoundHandler.loadSounds();
-					SoundHandler.playMusic("title");
+						SoundHandler.playMusic("title");
 				break;
 				case "game":
+					scene_mc.m = this;
 					gameState = "inGame";
 					_interface = interface_mc;
 
@@ -82,7 +96,7 @@
 					{
 						utility = new Utility();
 						con = new Controller(this, gameState); // gameMode var
-						waveHandler.init();
+						waveHandler.init(false);
 
 						//player
 						player = new Hero();

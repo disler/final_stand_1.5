@@ -71,17 +71,17 @@
 					description = Const.ITEM_DESCRIPTION[artifact];
 				break;
 				case "glyph of war":
-					stats.damage = 2;
+					stats.damage = 1;
 					stats.attackSpeed = 1;
 					description = Const.ITEM_DESCRIPTION[artifact];
 				break;
 				case "glyph of limbo":
-					stats.damage = 2;
+					stats.damage = 1;
 					stats.attackSpeed = 1;
-					stats.castleHealth = 5;
+					stats.castleHealth = 3;
 					stats.castleHealthRegeneration = 1;
-					stats.accuracy = -2;
-					stats.bowSpeed = 3;
+					stats.accuracy = -1;
+					stats.bowSpeed = 2;
 					description = Const.ITEM_DESCRIPTION[artifact];
 				break;
 				case "glyph of death":

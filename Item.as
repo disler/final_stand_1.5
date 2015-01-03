@@ -21,7 +21,7 @@
 				case "glyph of power":
 					o.name  = "Glyph of Power";
 					o.description = Const.ITEM_DESCRIPTION[_obj];
-					o.cost = 300;
+					o.cost = 500;
 					o.type = "artifact";
 				break;
 				case "glyph of health regeneration":
@@ -51,7 +51,7 @@
 				case "glyph of multishot":
 					o.name  = "Glyph of Multishot";
 					o.description = Const.ITEM_DESCRIPTION[_obj];
-					o.cost = 500;
+					o.cost = 750;
 					o.type = "artifact";
 				break;
 				case "glyph of penetration":

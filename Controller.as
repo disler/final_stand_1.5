@@ -12,46 +12,15 @@
 	*/
 	public class Controller{
 		public var myLoot:Loot = null;
-		/*
-		in shop:
+																																																
+		public var shopItems:Array = new Array(["glyph of accuracy", Const.SHOP_UNLOCK_WAVES[0]], 				["glyph of health", Const.SHOP_UNLOCK_WAVES[1]], ["steel arrow", Const.SHOP_UNLOCK_WAVES[2]], ["guardian bow", Const.SHOP_UNLOCK_WAVES[3]], ["glyph of health regeneration", Const.SHOP_UNLOCK_WAVES[4]],
+										  ["ice arrow", Const.SHOP_UNLOCK_WAVES[5]], 							["absolute bow", Const.SHOP_UNLOCK_WAVES[6]], 	["glyph of haste", Const.SHOP_UNLOCK_WAVES[7]], ["glyph of power", Const.SHOP_UNLOCK_WAVES[8]], ["mithril arrow", Const.SHOP_UNLOCK_WAVES[9]], 
+										  ["glyph of multishot", Const.SHOP_UNLOCK_WAVES[10]], 					["glyph of bow speed", Const.SHOP_UNLOCK_WAVES[11]], ["fire arrow", Const.SHOP_UNLOCK_WAVES[12]], ["sonic bow", Const.SHOP_UNLOCK_WAVES[13]], ["earth arrow", Const.SHOP_UNLOCK_WAVES[14]], 
+										  ["agile bow", Const.SHOP_UNLOCK_WAVES[15]], 							["glyph of penetration", Const.SHOP_UNLOCK_WAVES[16]], ["vicious bow", Const.SHOP_UNLOCK_WAVES[17]], ["glyph of collision", Const.SHOP_UNLOCK_WAVES[18]], ["glyph of fortitude", Const.SHOP_UNLOCK_WAVES[19]], 
+										  ["thunder arrow", Const.SHOP_UNLOCK_WAVES[20]], 						["glyph of war", Const.SHOP_UNLOCK_WAVES[21]], ["glyph of death", Const.SHOP_UNLOCK_WAVES[22]], ["glyph of limbo", Const.SHOP_UNLOCK_WAVES[23]], ["dark arrow", Const.SHOP_UNLOCK_WAVES[24]]);
 
-			accuracy
-			health
-			steel arrow
-			guardian bow
-			regeneration
 
-			ice arrow
-			absolte bow
-			power
-			bow speed
-			mithril arrow
 
-			multishot
-			fire arrow
-			haste
-			sonic bow
-			earth arrow
-
-			agile bow
-			penetration
-			vicious bow
-			glyph of collision
-			glyph of fortitude
-
-			thunder arrow
-			glyph of war
-			glyph of death
-			glyph of limbo
-			dark arrow
-		
-		*/
-		public var shopItems:Array = new Array(["glyph of accuracy", 1], 				["glyph of health", 1], ["steel arrow", 1], ["guardian bow", 3], ["glyph of health regeneration", 4],
-										  ["ice arrow", 5], 							["absolute bow", 5], 	["glyph of power", 8], ["glyph of bow speed", 8], ["mithril arrow", 10], 
-										  ["glyph of multishot", 10], 					["fire arrow", 13], ["glyph of haste", 13], ["sonic bow", 15], ["earth arrow", 15], 
-										  ["agile bow", 20], 							["glyph of penetration", 20], ["vicious bow", 23], ["glyph of collision", 25], ["glyph of fortitude", 27], 
-										  ["thunder arrow", 30], 						["glyph of war", 30], ["glyph of death", 30], ["glyph of limbo", 40], ["dark arrow", 50]
-										  );
 		public var shopToolTip:MovieClip = null;
 		public var shopSelectID:Number = -1;
 		public var shopSelectID2:Number = -1;
@@ -70,7 +39,7 @@
 		*/
 		public function Controller(M:MovieClip, _gameState:String) {
 			m = M;
-			inGameControllerFactory(_gameState);
+			//inGameControllerFactory(_gameState);
 		}
 		/*
 			Attaches listener events
@@ -82,6 +51,11 @@
 			m.removeEventListener(Event.ENTER_FRAME, intermissionEnterFrameHandler);
 			m.stage.removeEventListener(KeyboardEvent.KEY_DOWN, keyDownHandlerInGame);
 			m.stage.removeEventListener(MouseEvent.CLICK, stageClickHandler);
+			
+			if(m.scene_mc.skip_mc != null)
+			{
+				m.scene_mc.skip_mc.removeEventListener(MouseEvent.CLICK, skipScene);
+			}
 
 
 			//in combat events
@@ -114,11 +88,23 @@
 				m.quit_mc.addEventListener(MouseEvent.CLICK, quitGameEvent);
 			}
 
+			else if(_gameState == "cutscene")
+			{
+				m.scene_mc.skip_mc.addEventListener(MouseEvent.CLICK, skipScene);
+			}
+
 			return;
 		}
 
-
-
+		/*
+			Skip button
+		*/
+		private function skipScene(e:MouseEvent)
+		{
+			var scene:String = m.scene_mc.currentLabel;
+			m.scene_mc.gotoAndStop("none");
+			m.initFromScene(scene);
+		}
 
 		/*
 			Sets up functionality for new loot
@@ -127,8 +113,6 @@
 		{
 			loot.timeout(m);
 			loot.addEventListener(MouseEvent.CLICK, mouseTheLoot);
-			//loot.addEventListener(MouseEvent.MOUSE_DOWN, dragLootEvent);
-			//loot.addEventListener(MouseEvent.MOUSE_UP, unDragLootEvent);
 		}
 
 		/*
@@ -229,8 +213,8 @@
 			}
 			if( myLoot != null) {
 				if(++lClicks > 1) {
-					myLoot.x = m.mouseX;
-					myLoot.y = m.mouseY;
+					myLoot.x = m.mouseX - 30;
+					myLoot.y = m.mouseY - 30;
 					(myLoot as MovieClip).visible = true;
 					m.interface_mc.mouse_mc.loot_mc.visible = false;
 					m.interface_mc.treasure_mc.gotoAndStop(1);

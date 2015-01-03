@@ -26,7 +26,7 @@
 		public var main:MovieClip;
 		public var artifactHandler:ArtifactHandler;
 		public var bowContainer:Array = [null, null, null, null, null, null];
-		public var gold:Number = 100;
+		public var gold:Number = 200;
 		public var bow:Bow;
 		public var healthRegenInterval:uint;
 
@@ -53,8 +53,7 @@
 			main = MAIN;
 
 			//arrows
-			//equippedArrows = [new ArrowType("wooden arrow"), new ArrowType("empty"), new ArrowType("empty")];
-			equippedArrows = [new ArrowType("ice arrow"), new ArrowType("earth arrow"), new ArrowType("mithril arrow")];
+			equippedArrows = [new ArrowType("wooden arrow"), new ArrowType("empty"), new ArrowType("empty")];
 			createPieMasks();
 
 			//bow
@@ -85,12 +84,12 @@
 			for(var i:Number = 1; i < 4; i++)
 			{
 				var ref:MovieClip = main.interface_mc.inGameInterface_mc["arrow" + i + "_mc"];
-				var halfX:Number = ref.width/2;
+				var halfX:Number = ref.width/2 -2;
 				var radius:Number = ref.width/2; 
-				var halfY:Number = ref.height/2;
+				var halfY:Number = ref.height/2 -2;
 
 				var circ:Sprite = new Sprite();
-				circ.graphics.beginFill(0xFFFFFF, .5);
+				circ.graphics.beginFill(0xFFFFFF, .7);
 				circ.graphics.drawCircle(0, 0, radius);
 				circ.graphics.endFill();
 				circ.x = halfX;
@@ -260,7 +259,7 @@
 		{
 			arrowTimers[slot].stop();
 			shootable[slot] = true;
-			main.interface_mc.inGameInterface_mc["arrow" + slot + "_mc"].glow_mc.gotoAndPlay("show");
+			main.interface_mc.inGameInterface_mc["arrow" + (slot+1) + "_mc"]["glow_mc"].gotoAndPlay("show");
 
 
 		}
@@ -527,8 +526,10 @@
 			if(oldArrow.getType() != "empty")
 			{
 				oldArrowAsLoot = new Loot(oldArrow.getType(), Const.LOOT_ARROW);
+				oldArrowAsLoot.setTier(LootHandler.getTier(oldArrow.getType()));
 				oldArrowAsLoot.x = 100 + (slot * 97);
 				oldArrowAsLoot.y = 220;
+				oldArrowAsLoot.resetTimeout(main);
 				main.loot_mc.addChild(oldArrowAsLoot);
 				main.con.handleNewLoot(oldArrowAsLoot);
 			};
@@ -789,6 +790,11 @@
 			return attackSpeed;
 		}
 
+
+		public function getCalculatedAttackSpeed():Number
+		{
+			return Math.round((1 - Math.pow(1 - Const.ARROW_SPEED_REDUCER, getAttackSpeed())) * 100);
+		}
 
 		public function getCalculatedAccuracy():Number
 		{

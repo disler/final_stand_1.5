@@ -100,6 +100,14 @@
 			clearTimeout(distanceTimeout);
 		}
 
+		private function contactBoss(boss:Enemy)
+		{
+			var damageToBoss:Number = Math.ceil(damage / 5); 
+			boss.recieveDamage(damageToBoss);
+			removeEventListener(Event.ENTER_FRAME, projectileEFHandler);
+			m.arrows_mc.removeChild(this);
+			clearTimeout(distanceTimeout);
+		}
 		/*
 			Handles hittesting and movement.
 		*/
@@ -107,11 +115,20 @@
 
 
 			// Enemy HitTest Handling
+			var enemy:Enemy;
 			for(var i:Number = 0; i < m.waveHandler.getEnemies().length; i++) {
-				if(m.waveHandler.getEnemies()[i] != null && (m.waveHandler.getEnemies()[i]).getStats().isAlive()) {
+				enemy = m.waveHandler.getEnemies()[i];
+				if(enemy != null && (enemy).getStats().isAlive()) {
 					if(contactedEnemy == null) {
-						if((m.waveHandler.getEnemies()[i]).hitbox_mc.hitTestObject(this)) {
-							contactEnemy(m.waveHandler.getEnemies()[i]);
+						if((enemy).hitbox_mc.hitTestObject(this)) {
+							if(enemy.getIsBoss())
+							{
+								contactBoss(enemy);
+							}
+							else
+							{
+								contactEnemy(enemy);
+							}
 						}
 					}
 				}

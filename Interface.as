@@ -68,6 +68,8 @@
 			{
 				
 			}
+			else if(gameState =="cutscene")
+			{}
 		}
 
 		/*
@@ -124,6 +126,7 @@
 				}
 				else
 				{
+					trace("ALPHA OUTO PRIMARY");
 					primaryInterface_mc.alpha -= .1;
 				}
 			}, 100);
@@ -176,7 +179,7 @@
 			primaryInterface_ref.castleHealth_txt.text 				= main.player.getStats().getMaxHealth();
 			primaryInterface_ref.castleHealthRegeneration_txt.text 	= main.player.getStats().getHealthRegeneration();
 			primaryInterface_ref.damage_txt.text 					= main.player.getStats().getDamage();
-			primaryInterface_ref.attackSpeed_txt.text 				= main.player.getStats().getAttackSpeed();
+			primaryInterface_ref.attackSpeed_txt.text 				= main.player.getStats().getCalculatedAttackSpeed() + "%";
 			primaryInterface_ref.accuracy_txt.text 					= main.player.getStats().getCalculatedAccuracy() + "%";
 			primaryInterface_ref.arrowSpeed_txt.text 				= main.player.getStats().getBowSpeed();
 

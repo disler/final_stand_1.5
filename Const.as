@@ -102,6 +102,13 @@
 															19, 20, 22, 24,
 															25, 26, 28, 30];
 
+
+		public static const SHOP_UNLOCK_WAVES:Array = [		1, 	1, 	1, 	3, 4,
+															5, 	5, 	8, 	8, 10,
+															10, 13, 13, 15,15,
+															20, 20, 23, 25,27,
+															30, 30, 30, 40, 50];
+
 		public static const ARROW_TICK_INTERVAL:Number = 100;
 
 		public static const ITEM_DESCRIPTION:Object = {
@@ -143,7 +150,9 @@
 		};
 
 
-		public static const AOE_THUNDER:Number = 0, AOE_ICE = 1;
+		public static const AOE_THUNDER:Number = 0;
+		public static const AOE_ICE = 1;
+		public static const AOE_EARTH = 2;
 
 
 

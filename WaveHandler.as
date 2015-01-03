@@ -62,11 +62,17 @@
 		}
 		
 		/*
-			Begins waves
+			Begins waves, the first time and just after death
 		*/
-		public function init():void {
-			determineWave(waveId);
-			SoundHandler.playMusic("game1");
+		public function init(pass:Boolean):void {
+			if(cutScene() && !pass)
+			{
+				main.changeGameState("cutscene");
+			}
+			else
+			{
+				determineWave(waveId);
+			}
 		}
 		
 		/*
@@ -160,7 +166,6 @@
 				
 				main.con.handleNewLoot(loot);
 				main.loot_mc.addChild(loot);
-				loot.scene();
 			}
 
 		}
@@ -175,9 +180,47 @@
 			//add break here
 			waveId += 1;
 
-			//complete wave move to intermission mode
-			main.changeGameState("intermission");
-			SoundHandler.playSound("waveDone");
+			//if cut scene
+			if(cutScene())
+			{
+				main.changeGameState("cutscene");
+			}
+			else
+			{
+				//complete wave move to intermission mode
+				main.changeGameState("intermission");
+				SoundHandler.playSound("waveDone");
+			}
+		}
+
+		/*
+			If there is a cut scene here
+		*/
+		private function cutScene():Boolean
+		{
+			var bool:Boolean = false;
+			switch(waveId)
+			{
+				case 1:
+					main.scene_mc.gotoAndStop("scene1");
+					bool = true;
+					SoundHandler.playMusic("game1");
+				break;	
+				case 11:
+					main.scene_mc.gotoAndStop("scene2");
+					bool = true;
+				break;	
+				case 21:
+					main.scene_mc.gotoAndStop("scene3");
+					bool = true;
+				break;	
+				case 31:
+					main.scene_mc.gotoAndStop("scene4");
+					bool = true;
+				break;
+			}
+
+			return bool;
 		}
 
 
@@ -193,7 +236,7 @@
 		}
 
 		/*
-			Determines boss or waves
+			Determines boss or waves, or cut scene
 		*/
 		private function determineWave(waveId:Number):void
 		{
@@ -240,6 +283,7 @@
 					enemy.y = coords.y;
 					enemyContainer[0] = enemy;
 					enemy.setId(0);
+					enemy.setIsBoss(true);
 					main.enemies_mc.addChild(enemy);
 					Messenger.alertMessage("BOSS FIGHT!");
 					remainingWaveEnemies = 1;
@@ -252,6 +296,7 @@
 					enemy.y = coords.y;
 					enemyContainer[0] = enemy;
 					enemy.setId(0);
+					enemy.setIsBoss(true);
 					main.enemies_mc.addChild(enemy);
 					Messenger.alertMessage("BOSS FIGHT!");
 					remainingWaveEnemies = 1;
@@ -264,6 +309,7 @@
 					enemy.y = coords.y;
 					enemyContainer[0] = enemy;
 					enemy.setId(0);
+					enemy.setIsBoss(true);
 					main.enemies_mc.addChild(enemy);
 					Messenger.alertMessage("BOSS FIGHT!");
 					remainingWaveEnemies = 1;
@@ -494,7 +540,7 @@
 						HEALTH : 2 + (Math.floor(waveId/5)),
 						DAMAGE: 1 + (Math.floor(waveId/10)),
 						ATTACK_SPEED : 4000,
-						MOVEMENT_SPEED : 1.2, 
+						MOVEMENT_SPEED : 1.2 + (Math.floor(waveId/10) * .5), 
 						EXP_GIVEN : 20,
 						LOOT_TIER : 0
 					};
@@ -539,9 +585,9 @@
 				case Const.ASSASSIAN:
 					stats = { 
 						type : "assassian",
-						HEALTH : 3 + (Math.floor(waveId/5)),
-						DAMAGE: 2 + (Math.floor(waveId/10)),
-						ATTACK_SPEED : 3000,
+						HEALTH : 5 + (Math.floor(waveId/10)),
+						DAMAGE: 4 + (Math.floor(waveId/5)),
+						ATTACK_SPEED : 5000,
 						MOVEMENT_SPEED : 2, 
 						EXP_GIVEN : 50,
 						LOOT_TIER : 3

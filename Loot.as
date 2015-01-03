@@ -16,6 +16,7 @@ package  {
 
 		public var timeoutTimer:Timer;
 		public var dropDuration:Number = 0;
+		private var main:MovieClip;
 
 		public function Loot(title:String, type:Number) 
 		{
@@ -23,12 +24,18 @@ package  {
 			this.type = type;
 		}
 
+		public function resetTimeout(main:MovieClip)
+		{
+			dropDuration = 5;
+			timeout(main);
+		}
+
 		/*
 			Time until the loot removes it self
 		*/
 		public function timeout(main:MovieClip):void
 		{
-
+			this.main = main;
 			timeoutTimer = new Timer(1000, dropDuration);
 			timeoutTimer.start();
 			this.time_txt.text = String(dropDuration);
@@ -36,7 +43,9 @@ package  {
 			timeoutTimer.addEventListener(TimerEvent.TIMER_COMPLETE, 
 		  	function()
 		  	{
-				main.loot_mc.removeChild(main.loot_mc.getChildByName(name));
+		  		try {
+					main.loot_mc.removeChild(main.loot_mc.getChildByName(name));
+				} catch (e:Error) {}
 				timeoutTimer.stop();
 			});
 		}
@@ -114,15 +123,9 @@ package  {
 		{
 			this.tier = tier;
 			dropDuration = countDownFactory(tier);
+			this.gotoAndStop("_" + tier);
 		}
 
-		/*
-			go to and play scene
-		*/
-		public function scene():void
-		{
-			this.gotoAndStop(tier);
-		}
 
 		
 	}

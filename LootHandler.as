@@ -94,7 +94,7 @@
 		*/
 		public static function getGold(waveId:Number):Gold
 		{
-			var gold:Gold = new Gold( Math.floor(Math.random() * (waveId * 25)) + 25); 
+			var gold:Gold = new Gold( Math.floor(Math.random() * (waveId * 15)) + 25); 
 			gold.setTier(0);
 			return gold;
 		}
@@ -107,6 +107,24 @@
 			var bool:Boolean = Math.floor(Math.random() * 100) <= Const.GOLD_ROLL ? true : false;
 
 			return bool;
+		}
+
+		/*
+			Get tier based on name (getType())
+		*/
+		public static function getTier(title:String)
+		{
+			var tier:Number;
+			for(var i:Number = 0; i < lootTier.length; i++)
+			{
+				for(var j:Number = 0; j < lootTier[i].length; j++)
+				{
+					if(lootTier[i][j].getTitle() == title)
+					{
+						return i;
+					}
+				}
+			}
 		}
 	}
 	
