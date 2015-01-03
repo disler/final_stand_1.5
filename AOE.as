@@ -105,7 +105,7 @@
 		public function fireFrames(e:Event)
 		{
 			if(fireTimer-- < 0) {
-				var enemies:Array = main.waveHandler.getEnemies();
+			var enemies:Array = main.waveHandler.getEnemies();
 			for(var i = 0; i < enemies.length; i++)
 				{
 					if(enemies[i] != null && this.hitTestObject(enemies[i]))
@@ -120,21 +120,28 @@
 		public function earthFrames(e:Event)
 		{
 			earthTimer++;
-				var enemies:Array = main.waveHandler.getEnemies(); 
-		for(var i = 0; i < enemies.length; i++)
+			var enemies:Array = main.waveHandler.getNonNullEnemies(); 
+			for(var i = 0; i < enemies.length; i++)
 			{
-				if(enemies[i] != null && enemies[i].stats.health > 0 && enemies[i].hitTestObject(this))
+				var ee:MovieClip = enemies[i];
+				var dirX:String;
+				var dirY:String;
+				if(ee != null && ee.stats.health > 0 && ee.hitTestObject(this) && !ee.isEarthActive())
 				{
-					var ee:MovieClip = enemies[i];
 					if(ee.x > main.player.x) {
-						ee.x += 170;
-					} else if(ee.x < main.player.x) {
-						ee.x -= 170;
-					}if(ee.y > main.player.y) {
-						ee.y += 170;
-					} else if(ee.y < main.player.y) {
-						ee.y -= 170;
+						dirX = "right";
+					} else {
+						dirX = "left";
 					}
+
+					if(ee.y > main.player.y) {
+						dirY = "up";
+					} 
+					else {
+						dirY = "down";
+					}
+
+					ee.slideBack(dirX, dirY);
 				}
 			}
 		}
@@ -150,10 +157,10 @@
 		private function handleHitTest(e:Event)
 		{
 			if(this.type == "thunder arrow") {
-				var enemies:Array = main.waveHandler.getEnemies();
+				var enemies:Array = main.waveHandler.getNonNullEnemies();
 				for(var i:Number = 0; i < enemies.length; i++)
 				{
-					if(enemies[i] != null && this.hitTestObject(enemies[i]))
+					if(this.hitTestObject(enemies[i]))
 					{
 						enemies[i].addStatusEffect(Const.AOE_THUNDER, damage, enemies[i] == target ? true : false);
 					}
@@ -162,7 +169,7 @@
 				enemies = main.waveHandler.getEnemies();
 				for(i = 0; i < enemies.length; i++)
 				{
-					if(enemies[i] != null && this.hitTestObject(enemies[i]))
+					if(this.hitTestObject(enemies[i]))
 					{
 						enemies[i].addStatusEffect(Const.AOE_ICE, damage, enemies[i] == target ? true : false);
 					}

@@ -260,8 +260,9 @@
 		{
 			arrowTimers[slot].stop();
 			shootable[slot] = true;
-			main.interface_mc.inGameInterface_mc["arrow" + (slot+1) + "_mc"]["glow_mc"].gotoAndPlay("show");
-
+			try{
+				main.interface_mc.inGameInterface_mc["arrow" + (slot+1) + "_mc"]["glow_mc"].gotoAndPlay("show");
+			} catch(e:Error) {}
 
 		}
 

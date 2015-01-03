@@ -1,4 +1,4 @@
-﻿package  {
+package  {
 	import flash.display.MovieClip;
 	import flash.events.*;
 	import flash.utils.*;
@@ -104,6 +104,10 @@
 			{
 				fadeTimer.stop();
 			}
+			if(slideBackTimer)
+			{
+				slideBackTimer.stop();
+			}
 		}
 
 
@@ -183,32 +187,7 @@
 					}
 				break;
 				case Const.AOE_EARTH:
-					if(!earthActive)
-					{
-						oldSpeed = stats.getMovementSpeed();
-						prevvFrame = this.I.currentLabel;
-						stats.setMovementSpeed(0);
-						
-						this.I.gotoAndStop("stand");
-
-						if(!originalTarget)
-						{
-							recieveDamage(damage);
-						}
-
-						earthActive = true;
-
-						if(stats.isAlive())
-						{
-							thunderTimeout = setTimeout(function()
-							{
-								earthActive = false;
-								stats.setMovementSpeed(oldSpeed);
-								I.gotoAndStop(prevvFrame);
-								clearTimeout(thunderTimeout);
-							}, args[0]);
-						}
-					}
+					
 				break;
 
 
@@ -216,6 +195,67 @@
 			}
 		}
 
+		/*
+			slide back enemy in small intervals (earth arrow)
+		*/
+		protected var slideBackTimer:Timer;
+		public function slideBack(xDir:String, yDir:String):void
+		{
+
+			earthActive = true;
+			var xPush:Number = 0;
+			var yPush:Number = 0;
+
+			if(xDir == "left")
+			{
+				xPush = -5;
+			} else
+			{
+				xPush = 5;
+			}
+
+			if(yDir == "up")
+			{
+				yPush = 5;
+			} else
+			{
+				yPush = -5;
+			}
+
+			slideBackTimer = new Timer(50, 34);
+			
+			var prevMovementSpeed:Number = stats.getMovementSpeed();
+			stats.setMovementSpeed(0);
+			
+			slideBackTimer.addEventListener(TimerEvent.TIMER, function()
+			{
+				x += xPush;
+				y += yPush;
+			});
+
+			slideBackTimer.addEventListener(TimerEvent.TIMER_COMPLETE, function()
+			{
+				stats.setMovementSpeed(prevMovementSpeed);
+				
+				if(!endMovementX || !endMovementY)
+				{
+					addEventListener(Event.ENTER_FRAME, handleMovementEvent);
+				}
+
+				earthActive = false;
+				slideBackTimer.stop();
+			});
+
+			slideBackTimer.start();
+
+		}
+
+
+		public function isEarthActive():Boolean
+		{
+			return earthActive
+		}
+		
 
 		/*____________________________________________ EVENTS ____________________________________________*/
 

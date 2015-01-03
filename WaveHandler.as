@@ -71,6 +71,11 @@
 			}
 			else
 			{
+				var winTimeout = setTimeout(function()
+				{
+					clearTimeout(winTimeout);
+					main.changeGameState("inGame");
+				}, 1000);
 				determineWave(waveId);
 			}
 		}
@@ -659,6 +664,19 @@
 		public function getEnemies():Array
 		{
 			return enemyContainer;
+		}
+
+		public function getNonNullEnemies():Array
+		{
+			var con:Array = [];
+			for(var i:Number = 0; i < enemyContainer.length; i++)
+			{
+				if(enemyContainer[i] != null)
+				{
+					con.push(enemyContainer[i]);
+				}
+			}
+			return con;
 		}
 
 		public function getWave():Number
