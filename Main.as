@@ -1,6 +1,7 @@
 ﻿package {
 	import flash.display.MovieClip;
 	import flash.events.*;
+	import flash.net.SharedObject;
 
 	public class Main extends MovieClip {
 		public var DEBUG_MODE:Number = 1; // 0: off, 1: on, 2: end wave

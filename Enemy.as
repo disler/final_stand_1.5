@@ -8,6 +8,8 @@
 	*/
 	public class Enemy extends MovieClip {
 		
+		public var eTimer:Number = 0;
+
 		public var id:Number;
 		public var stats:StatisticEnemy, m:MovieClip, healthBar:MovieClip;
 		public var earthRealm:uint;

@@ -11,7 +11,6 @@
 
 		var fireTimer:Number = 0, earthTimer:Number = 0;
 		var killTime:uint;
-		var killTimer:Timer;
 		var main:MovieClip;
 		var type:String;
 		var damage:Number;
@@ -39,7 +38,6 @@
 					//timeout
 					killTime = setTimeout(function()
 					{
-						clearTimeout(killTime);
 						removeEventListener(Event.ENTER_FRAME, thunderFrames);
 						removeEventListener(Event.ENTER_FRAME, handleHitTest);
 						main.arrows_mc.removeChild(main.arrows_mc.getChildByName(name));
@@ -47,10 +45,13 @@
 				SoundHandler.playSound("thunderClap");
 				break;
 				case "ice arrow":
+					//animation
+					//addEventListener(Event.ENTER_FRAME, thunderFrames);
+
 					//timeout
 					killTime = setTimeout(function()
 					{
-						clearTimeout(killTime);
+						//removeEventListener(Event.ENTER_FRAME, thunderFrames);
 						removeEventListener(Event.ENTER_FRAME, handleHitTest);
 						main.arrows_mc.removeChild(main.arrows_mc.getChildByName(name));
 					}, 1000);
@@ -63,22 +64,22 @@
 					//timeout
 					killTime = setTimeout(function()
 					{
-						clearTimeout(killTime);
+						//removeEventListener(Event.ENTER_FRAME, thunderFrames);
 						removeEventListener(Event.ENTER_FRAME, handleHitTest);
 						main.arrows_mc.removeChild(main.arrows_mc.getChildByName(name));
 					}, 5200);
 				break;
 				case "earth arrow":
+					//animation
+					addEventListener(Event.ENTER_FRAME, earthFrames);
 
-					//timer
-					killTimer = new Timer(1000, 10);
-					killTimer.addEventListener(TimerEvent.TIMER_COMPLETE, function()
+					//timeout
+					killTime = setTimeout(function()
 					{
+						//removeEventListener(Event.ENTER_FRAME, thunderFrames);
 						removeEventListener(Event.ENTER_FRAME, handleHitTest);
 						main.arrows_mc.removeChild(main.arrows_mc.getChildByName(name));
-						killTimer.stop();
-					});
-					killTimer.start();
+					}, 5200);
 				SoundHandler.playSound("wallCrumble1");
 				break;
 				default:
@@ -104,21 +105,38 @@
 		public function fireFrames(e:Event)
 		{
 			if(fireTimer-- < 0) {
-				enemies= main.waveHandler.getEnemies();
-				for(var i = 0; i < enemies.length; i++)
+				var enemies:Array = main.waveHandler.getEnemies();
+			for(var i = 0; i < enemies.length; i++)
+				{
+					if(enemies[i] != null && this.hitTestObject(enemies[i]))
 					{
-						if(enemies[i] != null && this.hitTestObject(enemies[i]))
-						{
-							//enemies[i].addStatusEffect(Const.AOE_ICE, damage, enemies[i] == target ? true : false);
-							enemies[i].recieveDamage(Math.ceil(damage * 0.5));
-						}
+						//enemies[i].addStatusEffect(Const.AOE_ICE, damage, enemies[i] == target ? true : false);
+						enemies[i].recieveDamage(Math.ceil(damage * 0.5));
 					}
-					fireTimer = 30;
 				}
+				fireTimer = 30;
+			}
 		}
 		public function earthFrames(e:Event)
 		{
-			
+			earthTimer++;
+				var enemies:Array = main.waveHandler.getEnemies(); 
+		for(var i = 0; i < enemies.length; i++)
+			{
+				if(enemies[i] != null && enemies[i].stats.health > 0 && enemies[i].hitTestObject(this))
+				{
+					var ee:MovieClip = enemies[i];
+					if(ee.x > main.player.x) {
+						ee.x += 170;
+					} else if(ee.x < main.player.x) {
+						ee.x -= 170;
+					}if(ee.y > main.player.y) {
+						ee.y += 170;
+					} else if(ee.y < main.player.y) {
+						ee.y -= 170;
+					}
+				}
+			}
 		}
 
 
@@ -129,16 +147,14 @@
 		/*
 			Handle hit test
 		*/
-		var enemies:Array;
 		private function handleHitTest(e:Event)
 		{
 			if(this.type == "thunder arrow") {
-				enemies = main.waveHandler.getEnemies();
+				var enemies:Array = main.waveHandler.getEnemies();
 				for(var i:Number = 0; i < enemies.length; i++)
 				{
-					if(enemies[i] != null && this.hitTestObject(enemies[i].hitbox_mc))
+					if(enemies[i] != null && this.hitTestObject(enemies[i]))
 					{
-						trace("hit test T");
 						enemies[i].addStatusEffect(Const.AOE_THUNDER, damage, enemies[i] == target ? true : false);
 					}
 				}
@@ -146,22 +162,9 @@
 				enemies = main.waveHandler.getEnemies();
 				for(i = 0; i < enemies.length; i++)
 				{
-					if(enemies[i] != null && this.hitTestObject(enemies[i].hitbox_mc))
+					if(enemies[i] != null && this.hitTestObject(enemies[i]))
 					{
-						trace("hit test");
 						enemies[i].addStatusEffect(Const.AOE_ICE, damage, enemies[i] == target ? true : false);
-					}
-				}
-			}
-			else if(this.type == "earth arrow")
-			{
-				enemies = main.waveHandler.getEnemies();
-				for(i = 0; i < enemies.length; i++)
-				{
-					//MAKE HIT TEST WORk
-					if(enemies[i] != null && this.hitTestPoint(enemies[i].hitbox_mc.x, enemies[i].hitbox_mc.y, true))
-					{
-						enemies[i].addStatusEffect(Const.AOE_EARTH, damage, enemies[i] == target ? true : false, killTimer.currentCount * killTimer.delay);
 					}
 				}
 			}

@@ -53,7 +53,8 @@
 			main = MAIN;
 
 			//arrows
-			equippedArrows = [new ArrowType("wooden arrow"), new ArrowType("empty"), new ArrowType("empty")];
+			//equippedArrows = [new ArrowType("wooden arrow"), new ArrowType("empty"), new ArrowType("empty")];
+			equippedArrows = [new ArrowType("earth arrow"), new ArrowType("earth arrow"), new ArrowType("earth arrow")];
 			createPieMasks();
 
 			//bow
