@@ -4,7 +4,7 @@
 	import flash.net.SharedObject;
 
 	public class Main extends MovieClip {
-		public var DEBUG_MODE:Number = 1; // 0: off, 1: on, 2: end wave
+		public var DEBUG_MODE:Number = 0; // 0: off, 1: on, 2: end wave
 		public var DEBUG_FRAME:String = "game";
 		public var HITBOXES_VISIBLE:Boolean = false;
 		public var TITLE_AUTOPLAY:Boolean = false;
