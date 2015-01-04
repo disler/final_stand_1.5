@@ -688,11 +688,16 @@
 		*/
 		public function containsBow(bow:Bow):Boolean
 		{
+			if(this.bow.getName() == bow.getName())
+			{
+				return true;
+			}
+			
 			for(var i:Number = 0; i < bowContainer.length; i++)
 			{
 				if(bowContainer[i] != null)
 				{
-					if(bowContainer[i].getName() == bow.getName() ||  bowContainer[i].getName() == this.bow.getName())
+					if(bowContainer[i].getName() == bow.getName())
 					{
 						return true;
 					}

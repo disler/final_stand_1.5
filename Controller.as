@@ -478,7 +478,7 @@
 						else
 						{
 							m._interface.shop_mc.shopIn_mc.title_txt.text = "You have purchased " + IO.name + ".";
-						SoundHandler.playSound("buy");
+							SoundHandler.playSound("buy");
 							m.player.getStats().addBow(bow);
 						}
 					}
@@ -493,7 +493,7 @@
 						{
 							var loot:Loot = new Loot(IO.nam, Const.LOOT_ARROW);
 							selectLootFromBattleField(loot, true);
-						SoundHandler.playSound("buy");
+							SoundHandler.playSound("buy");
 							closeShop();
 						}
 					}	
