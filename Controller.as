@@ -363,6 +363,11 @@
 		*/
 		public function displayShop():void
 		{
+			//close handle bow interface
+			closeBowDisplay();
+			
+
+
 			if(m._interface.shop_mc.currentFrame == 1) {
 				m._interface.shop_mc.gotoAndPlay(2);
 				m._interface.shop_mc.shopIn_mc.purchase_btn.addEventListener(MouseEvent.CLICK, shopPurchase);
