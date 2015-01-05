@@ -590,8 +590,8 @@
 				case Const.ASSASSIAN:
 					stats = { 
 						type : "assassian",
-						HEALTH : 5 + (Math.floor(waveId/10)),
-						DAMAGE: 4 + (Math.floor(waveId/5)),
+						HEALTH : 3 + (Math.floor(waveId/10)),
+						DAMAGE: 2 + (Math.floor(waveId/5)),
 						ATTACK_SPEED : 5000,
 						MOVEMENT_SPEED : 2, 
 						EXP_GIVEN : 50,
