@@ -66,7 +66,7 @@
 					description = Const.ITEM_DESCRIPTION[_name];
 					stats.accuracy = 1;//the close to 0 the more accurate
 					stats.maxCastleHealth = 7;
-					stats.castleHealthRegeneration = ;
+					stats.castleHealthRegeneration = 1;
 					stats.bowSpeed = 5;
 					stats.damage = 3;
 				break;
