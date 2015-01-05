@@ -43,7 +43,7 @@
 					description = Const.ITEM_DESCRIPTION[type];
 					damage = 3;
 					speed = 7;
-					accuracy = 15;
+					accuracy = 12;
 					waitTime = 3;
 					effects = [];
 				break;

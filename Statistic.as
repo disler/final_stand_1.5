@@ -595,7 +595,7 @@
 			unlockArtifactSlot();
 
 			
-			Messenger.alertMessage("You have leved up! Level: " + level);
+			Messenger.alertMessage("You have leved up! Health +1! Level: " + level);
 		}
 
 		/*
@@ -692,7 +692,7 @@
 			{
 				return true;
 			}
-			
+
 			for(var i:Number = 0; i < bowContainer.length; i++)
 			{
 				if(bowContainer[i] != null)
