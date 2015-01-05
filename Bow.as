@@ -62,6 +62,13 @@
 					stats.castleHealthRegeneration = 3;
 					stats.bowSpeed = 8;
 				break;
+				case "limbow":// awesome
+					description = Const.ITEM_DESCRIPTION[_name];
+					stats.accuracy = 7;//the close to 0 the more accurate
+					stats.maxCastleHealth = 5;
+					stats.castleHealthRegeneration = 3;
+					stats.bowSpeed = 8;
+				break;
 				case "oak bow":
 				default:
 					description = Const.ITEM_DESCRIPTION[_name];
