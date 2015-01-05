@@ -242,6 +242,7 @@ package  {
 					endMovementY = false;
 					endMovementX = false;
 					addEventListener(Event.ENTER_FRAME, handleMovementEvent);
+					clearInterval(combat);
 				}
 
 				earthActive = false;

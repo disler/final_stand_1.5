@@ -331,7 +331,7 @@
 				case Const.BOSS_A:
 					stats = {
 						type : "bossA",
-						HEALTH : 15,
+						HEALTH : 20,
 						DAMAGE: 2,
 						ATTACK_SPEED : 3000,
 						MOVEMENT_SPEED : 1.2, 
@@ -343,7 +343,7 @@
 				case Const.BOSS_B:
 					stats = {
 						type : "bossB",
-						HEALTH : 20,
+						HEALTH : 22,
 						DAMAGE: 3,
 						ATTACK_SPEED : 8000,
 						MOVEMENT_SPEED : 1.2, 
@@ -594,8 +594,8 @@
 				case Const.ASSASSIAN:
 					stats = { 
 						type : "assassian",
-						HEALTH : 5 + (Math.floor(waveId/10)),
-						DAMAGE: 4 + (Math.floor(waveId/5)),
+						HEALTH : 3 + (Math.floor(waveId/10)),
+						DAMAGE: 2 + (Math.floor(waveId/5)),
 						ATTACK_SPEED : 5000,
 						MOVEMENT_SPEED : 2, 
 						EXP_GIVEN : 50,

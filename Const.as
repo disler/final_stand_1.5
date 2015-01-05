@@ -161,7 +161,7 @@
 		public static const PIERCE_EFFECT:Number = 1;
 		public static const MULTI_SHOT_ROLL_PERCENTAGE:Number = 10;
 		public static const SHEILD_BREAK_PERCENTAGE:Number = 25;
-		public static const COLLISION_BREAK_PERCENTAGE:Number = 25;
+		public static const COLLISION_BREAK_PERCENTAGE:Number = 50;
 		public static const INSTANT_DEATH_PERCENTAGE:Number = 1;
 
 

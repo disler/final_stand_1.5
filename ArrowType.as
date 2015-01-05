@@ -43,7 +43,7 @@
 					description = Const.ITEM_DESCRIPTION[type];
 					damage = 3;
 					speed = 7;
-					accuracy = 15;
+					accuracy = 12;
 					waitTime = 3;
 					effects = [];
 				break;
@@ -60,7 +60,7 @@
 					damage = 2;
 					speed = 8;
 					accuracy = 8;
-					waitTime = 10;
+					waitTime = 12;
 					effects = [Const.SOME_AOE_EFFECT];
 				break;
 				case "earth arrow": // Creates a wall in front of enemy hit, stopping enemy movement at that location 
@@ -76,13 +76,13 @@
 					damage = 3;
 					speed = 10;
 					accuracy = 5;
-					waitTime = 15;
+					waitTime = 13;
 					effects = [Const.SOME_AOE_EFFECT];
 				break;
 				case "dark arrow": // Pierces all enemies
 					description = Const.ITEM_DESCRIPTION[type];
 					damage = 5;
-					speed = 15;
+					speed = 13;
 					accuracy = 0;
 					waitTime = 5;
 					effects = [Const.PIERCE_EFFECT];
