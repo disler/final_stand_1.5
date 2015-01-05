@@ -121,7 +121,7 @@
 			"glyph of accuracy" : "Increase accuracy of arrows",
 			"glyph of multishot" : "10% chance to fire an additional arrow, this effect can overstack to fire 3 arrows",
 			"glyph of penetration" : "25% chance to pierce through blocked attacks",
-			"glyph of collision" : "25% chance to pierce through enemy projectiles",
+			"glyph of collision" : "50% chance to pierce through enemy projectiles",
 			"glyph of fortitude" : "Greatly increases health and health regeneration",
 			"glyph of war" : "Greatly increases damage and attack speed",
 			"glyph of death" : "1% chance destroy the life force from your enemies",

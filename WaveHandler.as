@@ -545,7 +545,7 @@
 						HEALTH : 2 + (Math.floor(waveId/5)),
 						DAMAGE: 1 + (Math.floor(waveId/10)),
 						ATTACK_SPEED : 4000,
-						MOVEMENT_SPEED : 1.2 + (Math.floor(waveId/10) * .5), 
+						MOVEMENT_SPEED : 1.2 + Math.floor( (waveId/10) * .5 ), 
 						EXP_GIVEN : 20,
 						LOOT_TIER : 0
 					};
@@ -557,7 +557,7 @@
 						HEALTH : 5 + (Math.floor(waveId/5)),
 						DAMAGE: 1 + (Math.floor(waveId/10)),
 						ATTACK_SPEED : 5000,
-						MOVEMENT_SPEED : .5, 
+						MOVEMENT_SPEED : .5 + (Math.floor( (waveId/5) * .1) ), 
 						EXP_GIVEN : 30,
 						LOOT_TIER : 1
 					};
@@ -578,10 +578,10 @@
 				case Const.HYPER_GUARD:
 					stats = { 
 						type : "hyper guard",
-						HEALTH : 10 + (Math.floor(waveId/5)),
+						HEALTH : 10 + (Math.floor(waveId/10) * 2),
 						DAMAGE: 1 + (Math.floor(waveId/10)),
 						ATTACK_SPEED : 5000,
-						MOVEMENT_SPEED : .3, 
+						MOVEMENT_SPEED : .3 + (Math.floor( (waveId/20)  * .4) ), 
 						EXP_GIVEN : 50,
 						LOOT_TIER : 2
 					};

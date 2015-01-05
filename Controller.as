@@ -213,8 +213,8 @@
 			}
 			if( myLoot != null) {
 				if(++lClicks > 1) {
-					myLoot.x = m.mouseX - 30;
-					myLoot.y = m.mouseY - 30;
+					myLoot.x = m.mouseX;
+					myLoot.y = m.mouseY + 30;
 					(myLoot as MovieClip).visible = true;
 					m.interface_mc.mouse_mc.loot_mc.visible = false;
 					m.interface_mc.treasure_mc.gotoAndStop(1);
