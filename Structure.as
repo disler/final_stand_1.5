@@ -44,8 +44,8 @@
 											this.y,
 											this.rotation,
 											new StatisticEnemy({
-													HEALTH : 1,
-													DAMAGE: 10,
+													HEALTH : 10,
+													DAMAGE: 3,
 													ATTACK_SPEED : 1,
 													MOVEMENT_SPEED : 1, 
 													EXP_GIVEN : 1,
