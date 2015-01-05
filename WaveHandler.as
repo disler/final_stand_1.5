@@ -377,6 +377,10 @@
 		*/
 		private function generateWave(whichWave:Number):void
 		{
+			// post-game cutscene
+			if(whichWave == 31) {
+				main.scene_mc.gotoAndStop("scene5");
+			}
 			//generators
 			unspawnedEnemies = Math.round(Math.pow(whichWave, 1.3)) + 5;
 			enemySpawnTimer = 3000 - Math.round((Math.random() * 750)) - Math.floor(Math.pow(whichWave, 1.1));
@@ -688,6 +692,11 @@
 		public function getKills():Number
 		{
 			return kills;
+		}
+
+		public function getTotalEnemiesKilled():Number
+		{
+			return totalEnemiesKilled;
 		}
 
 		public function getStructures():Array

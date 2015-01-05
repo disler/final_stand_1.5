@@ -24,7 +24,7 @@
 													],
 													[
 														new Loot("glyph of penetration", Const.LOOT_ARTIFACT), new Loot("glyph of collision", Const.LOOT_ARTIFACT), new Loot("glyph of death", Const.LOOT_ARTIFACT), new Loot("glyph of limbo", Const.LOOT_ARTIFACT),
-														new Loot("vicious bow", Const.LOOT_BOW)
+														new Loot("vicious bow", Const.LOOT_BOW), new Loot("limbow", Const.LOOT_BOW)
 													]
 												];
 

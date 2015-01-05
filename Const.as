@@ -134,6 +134,7 @@
 			"agile bow" : "A bow created to quickly defend kingdoms vunerable to surprise attacks, greatly increase attack speed at the cost of accuracy",
 			"absolute bow" : "A bow created by those who saught perfection, greatly increase accuracy",
 			"sonic bow" : "Bow forged from the swift, greatly increases arrow speed and health regeneration",
+			"limbow" : "This bow, found in the deepest layer of limbo increases accuracy, damage, health and health regeneration. This is the limbow.",
 		
 			//arrows
 			"wooden arrow" : "A light-weighiit, wooden arrow",
