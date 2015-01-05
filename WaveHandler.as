@@ -331,7 +331,7 @@
 				case Const.BOSS_A:
 					stats = {
 						type : "bossA",
-						HEALTH : 15,
+						HEALTH : 20,
 						DAMAGE: 2,
 						ATTACK_SPEED : 3000,
 						MOVEMENT_SPEED : 1.2, 
@@ -343,7 +343,7 @@
 				case Const.BOSS_B:
 					stats = {
 						type : "bossB",
-						HEALTH : 20,
+						HEALTH : 22,
 						DAMAGE: 3,
 						ATTACK_SPEED : 8000,
 						MOVEMENT_SPEED : 1.2, 
