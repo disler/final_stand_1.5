@@ -15,13 +15,13 @@
 				case "glyph of haste":
 					o.name = "Glyph of Haste";
 					o.description = Const.ITEM_DESCRIPTION[_obj];
-					o.cost = 150;
+					o.cost = 400;
 					o.type = "artifact";
 				break;
 				case "glyph of power":
 					o.name  = "Glyph of Power";
 					o.description = Const.ITEM_DESCRIPTION[_obj];
-					o.cost = 500;
+					o.cost = 650;
 					o.type = "artifact";
 				break;
 				case "glyph of health regeneration":

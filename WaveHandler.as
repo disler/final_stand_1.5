@@ -333,10 +333,10 @@
 						type : "bossA",
 						HEALTH : 15,
 						DAMAGE: 2,
-						ATTACK_SPEED : 5000,
+						ATTACK_SPEED : 3000,
 						MOVEMENT_SPEED : 1.2, 
 						EXP_GIVEN : 100,
-						LOOT_TIER : 0
+						LOOT_TIER : 3
 					}
 					boss = new BossA();
 				break;
@@ -348,7 +348,7 @@
 						ATTACK_SPEED : 8000,
 						MOVEMENT_SPEED : 1.2, 
 						EXP_GIVEN : 100,
-						LOOT_TIER : 0
+						LOOT_TIER : 3
 					}
 					boss = new BossB();
 				break;
@@ -360,7 +360,7 @@
 						ATTACK_SPEED : 5000,
 						MOVEMENT_SPEED : 2, 
 						EXP_GIVEN : 300,
-						LOOT_TIER : 0
+						LOOT_TIER : 3
 					}
 					boss = new BossC();
 				break;

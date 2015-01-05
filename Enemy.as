@@ -237,8 +237,10 @@ package  {
 			{
 				stats.setMovementSpeed(prevMovementSpeed);
 				
-				if(!endMovementX || !endMovementY)
+				if(endMovementX || endMovementY)
 				{
+					endMovementY = false;
+					endMovementX = false;
 					addEventListener(Event.ENTER_FRAME, handleMovementEvent);
 				}
 
