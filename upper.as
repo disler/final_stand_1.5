@@ -93,7 +93,6 @@ function upperCaseFirstWord(str:String):String
     {
         var prefix:String = stringArray[i].charAt(0).toUpperCase(); // returns "S"
         var suffix:String = stringArray[i].substr(1, stringArray[i].length); // returns "teel"
-        //trace(prefix, suffix);
         stringArray[i] = prefix + suffix;
     }
     finalString = stringArray.join(" ");

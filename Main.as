@@ -63,7 +63,6 @@
 			}
 			else
 			{
-				trace("FROM SCENE TO INTERMISSIon")
 				changeGameState("intermission");
 			}
 		}

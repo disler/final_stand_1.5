@@ -126,7 +126,6 @@
 				}
 				else
 				{
-					//trace("ALPHA OUTO PRIMARY");
 					primaryInterface_mc.alpha -= .1;
 				}
 			}, 100);
